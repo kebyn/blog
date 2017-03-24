@@ -1,0 +1,1024 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="command,find," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="待回首" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="find命令用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。 
+语法 find(选项)(参数)选项12345678910111213141516171819202122232425262728293031323334353637383940414243">
+<meta property="og:type" content="article">
+<meta property="og:title" content="find">
+<meta property="og:url" content="https://code.kebyn.cc/2015/06/19/find/index.html">
+<meta property="og:site_name" content="待回首">
+<meta property="og:description" content="find命令用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。 
+语法 find(选项)(参数)选项12345678910111213141516171819202122232425262728293031323334353637383940414243">
+<meta property="og:updated_time" content="2017-03-10T07:05:34.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="find">
+<meta name="twitter:description" content="find命令用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。 
+语法 find(选项)(参数)选项12345678910111213141516171819202122232425262728293031323334353637383940414243">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6396258217105556000',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://code.kebyn.cc/2015/06/19/find/"/>
+
+
+
+
+
+  <title> find | 待回首 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">待回首</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://code.kebyn.cc/2015/06/19/find/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="By Kebyn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/avatar.webp">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="待回首">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                find
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-19T22:17:43-04:00">
+                2015-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/19/find/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/19/find/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="find命令用来在指定目录下查找文件。"><a href="#find命令用来在指定目录下查找文件。" class="headerlink" title="find命令用来在指定目录下查找文件。"></a>find命令用来在指定目录下查找文件。</h3><p>任何位于参数之前的字符串都将被视为欲查找的目录名。<br>如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。<br>并且将查找到的子目录和文件全部进行显示。 </p>
+<h4 id="语法-find-选项-参数"><a href="#语法-find-选项-参数" class="headerlink" title="语法 find(选项)(参数)"></a>语法 find(选项)(参数)</h4><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">-amin&lt;分钟&gt;：查找在指定时间曾被存取过的文件或目录，单位以分钟计算； </div><div class="line">-anewer&lt;参考文件或目录&gt;：查找其存取时间较指定文件或目录的存取时间更接近现在的文件或目录； </div><div class="line">-atime&lt;24小时数&gt;：查找在指定时间曾被存取过的文件或目录，单位以24小时计算； </div><div class="line">-cmin&lt;分钟&gt;：查找在指定时间之时被更改过的文件或目录； </div><div class="line">-cnewer&lt;参考文件或目录&gt;查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录； </div><div class="line">-ctime&lt;24小时数&gt;：查找在指定时间之时被更改的文件或目录，单位以24小时计算； </div><div class="line">-daystart：从本日开始计算时间； </div><div class="line">-depth：从指定目录下最深层的子目录开始查找； </div><div class="line">-expty：寻找文件大小为0 Byte的文件，或目录下没有任何子目录或文件的空目录； </div><div class="line">-exec&lt;执行指令&gt;：假设find指令的回传值为True，就执行该指令； </div><div class="line">-false：将find指令的回传值皆设为False； </div><div class="line">-fls&lt;列表文件&gt;：此参数的效果和指定“-ls”参数类似，但会把结果保存为指定的列表文件； </div><div class="line">-follow：排除符号连接； </div><div class="line">-fprint&lt;列表文件&gt;：此参数的效果和指定“-print”参数类似，但会把结果保存成指定的列表文件； </div><div class="line">-fprint0&lt;列表文件&gt;：此参数的效果和指定“-print0”参数类似，但会把结果保存成指定的列表文件； </div><div class="line">-fprintf&lt;列表文件&gt;&lt;输出格式&gt;：此参数的效果和指定“-printf”参数类似，但会把结果保存成指定的列表文件； </div><div class="line">-fstype&lt;文件系统类型&gt;：只寻找该文件系统类型下的文件或目录； </div><div class="line">-gid&lt;群组识别码&gt;：查找符合指定之群组识别码的文件或目录； </div><div class="line">-group&lt;群组名称&gt;：查找符合指定之群组名称的文件或目录； </div><div class="line">-help或——help：在线帮助； </div><div class="line">-ilname&lt;范本样式&gt;：此参数的效果和指定“-lname”参数类似，但忽略字符大小写的差别； </div><div class="line">-iname&lt;范本样式&gt;：此参数的效果和指定“-name”参数类似，但忽略字符大小写的差别； </div><div class="line">-inum：查找符合指定的inode编号的文件或目录； </div><div class="line">-ipath&lt;范本样式&gt;：此参数的效果和指定“-path”参数类似，但忽略字符大小写的差别； </div><div class="line">-iregex&lt;范本样式&gt;：此参数的效果和指定“-regexe”参数类似，但忽略字符大小写的差别； </div><div class="line">-links&lt;连接数目&gt;：查找符合指定的硬连接数目的文件或目录； </div><div class="line">-iname&lt;范本样式&gt;：指定字符串作为寻找符号连接的范本样式； </div><div class="line">-ls：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出； </div><div class="line">-maxdepth&lt;目录层级&gt;：设置最大目录层级； </div><div class="line">-mindepth&lt;目录层级&gt;：设置最小目录层级； </div><div class="line">-mmin&lt;分钟&gt;：查找在指定时间曾被更改过的文件或目录，单位以分钟计算； </div><div class="line">-mount：此参数的效果和指定“-xdev”相同； </div><div class="line">-mtime&lt;24小时数&gt;：查找在指定时间曾被更改过的文件或目录，单位以24小时计算； </div><div class="line">-name&lt;范本样式&gt;：指定字符串作为寻找文件或目录的范本样式； </div><div class="line">-newer&lt;参考文件或目录&gt;：查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录； </div><div class="line">-nogroup：找出不属于本地主机群组识别码的文件或目录； </div><div class="line">-noleaf：不去考虑目录至少需拥有两个硬连接存在； </div><div class="line">-nouser：找出不属于本地主机用户识别码的文件或目录； </div><div class="line">-ok&lt;执行指令&gt;：此参数的效果和指定“-exec”类似，但在执行指令之前会先询问用户，若回答“y”或“Y”，则放弃执行命令； </div><div class="line">-path&lt;范本样式&gt;：指定字符串作为寻找目录的范本样式； </div><div class="line">-perm&lt;权限数值&gt;：查找符合指定的权限数值的文件或目录； </div><div class="line">-print：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式为每列一个名称，每个名称前皆有“./”字符串； </div><div class="line">-print0：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式为全部的名称皆在同一行； </div><div class="line">-printf&lt;输出格式&gt;：假设find指令的回传值为Ture，就将文件或目录名称列出到标准输出。格式可以自行指定； </div><div class="line">-prune：不寻找字符串作为寻找文件或目录的范本样式; </div><div class="line">-regex&lt;范本样式&gt;：指定字符串作为寻找文件或目录的范本样式； </div><div class="line">-size&lt;文件大小&gt;：查找符合指定的文件大小的文件； </div><div class="line">-true：将find指令的回传值皆设为True； </div><div class="line">-typ&lt;文件类型&gt;：只寻找符合指定的文件类型的文件； </div><div class="line">-uid&lt;用户识别码&gt;：查找符合指定的用户识别码的文件或目录； </div><div class="line">-used&lt;日数&gt;：查找文件或目录被更改之后在指定时间曾被存取过的文件或目录，单位以日计算； </div><div class="line">-user&lt;拥有者名称&gt;：查找符和指定的拥有者名称的文件或目录； </div><div class="line">-version或——version：显示版本信息； </div><div class="line">-xdev：将范围局限在先行的文件系统中； </div><div class="line">-xtype&lt;文件类型&gt;：此参数的效果和指定“-type”参数类似，差别在于它针对符号连接检查。</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<hr>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><h4 id="列出当前目录及子目录下所有文件和文件夹"><a href="#列出当前目录及子目录下所有文件和文件夹" class="headerlink" title="列出当前目录及子目录下所有文件和文件夹"></a>列出当前目录及子目录下所有文件和文件夹</h4><pre><code>find . 
+</code></pre><h4 id="在-home目录下查找以-txt结尾的文件名"><a href="#在-home目录下查找以-txt结尾的文件名" class="headerlink" title="在/home目录下查找以.txt结尾的文件名"></a>在/home目录下查找以.txt结尾的文件名</h4><pre><code>find /home -name &quot;*.txt&quot; 
+</code></pre><h4 id="同上，但忽略大小写"><a href="#同上，但忽略大小写" class="headerlink" title="同上，但忽略大小写"></a>同上，但忽略大小写</h4><pre><code>find /home -iname &quot;*.txt&quot; 
+</code></pre><h4 id="当前目录及子目录下查找所有以-txt和-pdf结尾的文件"><a href="#当前目录及子目录下查找所有以-txt和-pdf结尾的文件" class="headerlink" title="当前目录及子目录下查找所有以.txt和.pdf结尾的文件"></a>当前目录及子目录下查找所有以.txt和.pdf结尾的文件</h4><pre><code>find . \( -name &quot;*.txt&quot; -o -name &quot;*.pdf&quot; \) 
+或 
+find . -name &quot;*.txt&quot; -o -name &quot;*.pdf&quot; 
+</code></pre><h4 id="匹配文件路径或者文件"><a href="#匹配文件路径或者文件" class="headerlink" title="匹配文件路径或者文件"></a>匹配文件路径或者文件</h4><pre><code>find /usr/ -path &quot;*local*&quot; 
+</code></pre><h4 id="基于正则表达式匹配文件路径"><a href="#基于正则表达式匹配文件路径" class="headerlink" title="基于正则表达式匹配文件路径"></a>基于正则表达式匹配文件路径</h4><pre><code>find . -regex &quot;.*\(\.txt\|\.pdf\)$&quot; 
+</code></pre><h4 id="同上，但忽略大小写-1"><a href="#同上，但忽略大小写-1" class="headerlink" title="同上，但忽略大小写"></a>同上，但忽略大小写</h4><pre><code>find . -iregex &quot;.*\(\.txt\|\.pdf\)$&quot; 
+</code></pre><hr>
+<h3 id="否定参数"><a href="#否定参数" class="headerlink" title="否定参数"></a>否定参数</h3><h4 id="找出-home下不是以-txt结尾的文件"><a href="#找出-home下不是以-txt结尾的文件" class="headerlink" title="找出/home下不是以.txt结尾的文件"></a>找出/home下不是以.txt结尾的文件</h4><pre><code>find /home ! -name &quot;*.txt&quot; 
+</code></pre><h4 id="根据文件类型进行搜索"><a href="#根据文件类型进行搜索" class="headerlink" title="根据文件类型进行搜索"></a>根据文件类型进行搜索</h4><pre><code>find . -type 类型参数 
+</code></pre><hr>
+<h3 id="类型参数列表："><a href="#类型参数列表：" class="headerlink" title="类型参数列表："></a>类型参数列表：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">f 普通文件 </div><div class="line">l 符号连接 </div><div class="line">d 目录 </div><div class="line">c 字符设备 </div><div class="line">b 块设备 </div><div class="line">s 套接字 </div><div class="line">p Fifo</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="基于目录深度搜索"><a href="#基于目录深度搜索" class="headerlink" title="基于目录深度搜索"></a>基于目录深度搜索</h3><h4 id="向下最大深度限制为3"><a href="#向下最大深度限制为3" class="headerlink" title="向下最大深度限制为3"></a>向下最大深度限制为3</h4><pre><code>find . -maxdepth 3 -type f 
+</code></pre><h4 id="搜索出深度距离当前目录至少2个子目录的所有文件"><a href="#搜索出深度距离当前目录至少2个子目录的所有文件" class="headerlink" title="搜索出深度距离当前目录至少2个子目录的所有文件"></a>搜索出深度距离当前目录至少2个子目录的所有文件</h4><pre><code>find . -mindepth 2 -type f 
+</code></pre><h4 id="根据文件时间戳进行搜索"><a href="#根据文件时间戳进行搜索" class="headerlink" title="根据文件时间戳进行搜索"></a>根据文件时间戳进行搜索</h4><pre><code>find . -type f 时间戳 
+</code></pre><hr>
+<h3 id="UNIX-Linux文件系统每个文件都有三种时间戳"><a href="#UNIX-Linux文件系统每个文件都有三种时间戳" class="headerlink" title="UNIX/Linux文件系统每个文件都有三种时间戳:"></a>UNIX/Linux文件系统每个文件都有三种时间戳:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">访问时间（-atime/天，-amin/分钟）：用户最近一次访问时间。 </div><div class="line">修改时间（-mtime/天，-mmin/分钟）：文件最后一次修改时间。 </div><div class="line">变化时间（-ctime/天，-cmin/分钟）：文件数据元（例如权限等）最后一次修改时间。</div></pre></td></tr></table></figure>
+<h4 id="搜索最近七天内被访问过的所有文件"><a href="#搜索最近七天内被访问过的所有文件" class="headerlink" title="搜索最近七天内被访问过的所有文件"></a>搜索最近七天内被访问过的所有文件</h4><pre><code>find . -type f -atime -7 
+</code></pre><h4 id="搜索恰好在七天前被访问过的所有文件"><a href="#搜索恰好在七天前被访问过的所有文件" class="headerlink" title="搜索恰好在七天前被访问过的所有文件"></a>搜索恰好在七天前被访问过的所有文件</h4><pre><code>find . -type f -atime 7 
+</code></pre><h4 id="搜索超过七天内被访问过的所有文件"><a href="#搜索超过七天内被访问过的所有文件" class="headerlink" title="搜索超过七天内被访问过的所有文件"></a>搜索超过七天内被访问过的所有文件</h4><pre><code>find . -type f -atime +7 
+</code></pre><h4 id="搜索访问时间超过10分钟的所有文件"><a href="#搜索访问时间超过10分钟的所有文件" class="headerlink" title="搜索访问时间超过10分钟的所有文件"></a>搜索访问时间超过10分钟的所有文件</h4><pre><code>find . -type f -amin +10 
+</code></pre><h4 id="找出比file-log修改时间更长的所有文件"><a href="#找出比file-log修改时间更长的所有文件" class="headerlink" title="找出比file.log修改时间更长的所有文件"></a>找出比file.log修改时间更长的所有文件</h4><pre><code>find . -type f -newer file.log 
+</code></pre><hr>
+<h4 id="根据文件大小进行匹配"><a href="#根据文件大小进行匹配" class="headerlink" title="根据文件大小进行匹配"></a>根据文件大小进行匹配</h4><pre><code>find . -type f -size 文件大小单元 
+</code></pre><h4 id="文件大小单元："><a href="#文件大小单元：" class="headerlink" title="文件大小单元："></a>文件大小单元：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">b —— 块（512字节） </div><div class="line">c —— 字节 </div><div class="line">w —— 字（2字节） </div><div class="line">k —— 千字节 </div><div class="line">M —— 兆字节 </div><div class="line">G —— 吉字节</div></pre></td></tr></table></figure>
+<h4 id="搜索大于10KB的文件"><a href="#搜索大于10KB的文件" class="headerlink" title="搜索大于10KB的文件"></a>搜索大于10KB的文件</h4><pre><code>find . -type f -size +10k 
+</code></pre><h4 id="搜索小于10KB的文件"><a href="#搜索小于10KB的文件" class="headerlink" title="搜索小于10KB的文件"></a>搜索小于10KB的文件</h4><pre><code>find . -type f -size -10k 
+</code></pre><h4 id="搜索等于10KB的文件"><a href="#搜索等于10KB的文件" class="headerlink" title="搜索等于10KB的文件"></a>搜索等于10KB的文件</h4><pre><code>find . -type f -size 10k 
+</code></pre><hr>
+<h3 id="删除匹配文件"><a href="#删除匹配文件" class="headerlink" title="删除匹配文件"></a>删除匹配文件</h3><h4 id="删除当前目录下所有-txt文件"><a href="#删除当前目录下所有-txt文件" class="headerlink" title="删除当前目录下所有.txt文件"></a>删除当前目录下所有.txt文件</h4><pre><code>find . -type f -name &quot;*.txt&quot; -delete 
+</code></pre><h3 id="根据文件权限-所有权进行匹配"><a href="#根据文件权限-所有权进行匹配" class="headerlink" title="根据文件权限/所有权进行匹配"></a>根据文件权限/所有权进行匹配</h3><h4 id="当前目录下搜索出权限为777的文件"><a href="#当前目录下搜索出权限为777的文件" class="headerlink" title="当前目录下搜索出权限为777的文件"></a>当前目录下搜索出权限为777的文件</h4><pre><code>find . -type f -perm 777 
+</code></pre><h4 id="找出当前目录下权限不是644的php文件"><a href="#找出当前目录下权限不是644的php文件" class="headerlink" title="找出当前目录下权限不是644的php文件"></a>找出当前目录下权限不是644的php文件</h4><pre><code>find . -type f -name &quot;*.php&quot; ! -perm 644 
+</code></pre><h4 id="找出当前目录用户tom拥有的所有文件"><a href="#找出当前目录用户tom拥有的所有文件" class="headerlink" title="找出当前目录用户tom拥有的所有文件"></a>找出当前目录用户tom拥有的所有文件</h4><pre><code>find . -type f -user tom 
+</code></pre><h4 id="找出当前目录用户组sunk拥有的所有文件"><a href="#找出当前目录用户组sunk拥有的所有文件" class="headerlink" title="找出当前目录用户组sunk拥有的所有文件"></a>找出当前目录用户组sunk拥有的所有文件</h4><pre><code>find . -type f -group sunk 
+</code></pre><h3 id="借助-exec选项与其他命令结合使用"><a href="#借助-exec选项与其他命令结合使用" class="headerlink" title="借助-exec选项与其他命令结合使用"></a>借助-exec选项与其他命令结合使用</h3><h4 id="找出当前目录下所有root的文件，并把所有权更改为用户tom"><a href="#找出当前目录下所有root的文件，并把所有权更改为用户tom" class="headerlink" title="找出当前目录下所有root的文件，并把所有权更改为用户tom"></a>找出当前目录下所有root的文件，并把所有权更改为用户tom</h4><pre><code>find .-type f -user root -exec chown tom {} \; 
+</code></pre><blockquote>
+<p>上例中，{} 用于与-exec选项结合使用来匹配所有文件，然后会被替换为相应的文件名。 </p>
+</blockquote>
+<h4 id="找出自己家目录下所有的-txt文件并删除"><a href="#找出自己家目录下所有的-txt文件并删除" class="headerlink" title="找出自己家目录下所有的.txt文件并删除"></a>找出自己家目录下所有的.txt文件并删除</h4><pre><code>find $HOME/. -name &quot;*.txt&quot; -ok rm {} \; 
+</code></pre><blockquote>
+<p>上例中，-ok和-exec行为一样，不过它会给出提示，是否执行相应的操作。</p>
+</blockquote>
+<h4 id="查找当前目录下所有-txt文件并把他们拼接起来写入到all-txt文件中"><a href="#查找当前目录下所有-txt文件并把他们拼接起来写入到all-txt文件中" class="headerlink" title="查找当前目录下所有.txt文件并把他们拼接起来写入到all.txt文件中"></a>查找当前目录下所有.txt文件并把他们拼接起来写入到all.txt文件中</h4><pre><code>find . -type f -name &quot;*.txt&quot; -exec cat {} \;&gt; all.txt 
+</code></pre><h4 id="将30天前的-log文件移动到old目录中"><a href="#将30天前的-log文件移动到old目录中" class="headerlink" title="将30天前的.log文件移动到old目录中"></a>将30天前的.log文件移动到old目录中</h4><pre><code>find . -type f -mtime +30 -name &quot;*.log&quot; -exec cp {} old \; 
+</code></pre><h4 id="找出当前目录下所有-txt文件并以“File-文件名”的形式打印出来"><a href="#找出当前目录下所有-txt文件并以“File-文件名”的形式打印出来" class="headerlink" title="找出当前目录下所有.txt文件并以“File:文件名”的形式打印出来"></a>找出当前目录下所有.txt文件并以“File:文件名”的形式打印出来</h4><pre><code>find . -type f -name &quot;*.txt&quot; -exec printf &quot;File: %s\n&quot; {} \; 
+</code></pre><h4 id="因为单行命令中-exec参数中无法使用多个命令，以下方法可以实现在-exec之后接受多条命令"><a href="#因为单行命令中-exec参数中无法使用多个命令，以下方法可以实现在-exec之后接受多条命令" class="headerlink" title="因为单行命令中-exec参数中无法使用多个命令，以下方法可以实现在-exec之后接受多条命令"></a>因为单行命令中-exec参数中无法使用多个命令，以下方法可以实现在-exec之后接受多条命令</h4><pre><code>-exec ./text.sh {} \; 
+</code></pre><h4 id="搜索但跳出指定的目录-查找当前目录或者子目录下所有-txt文件，但是跳过子目录sk"><a href="#搜索但跳出指定的目录-查找当前目录或者子目录下所有-txt文件，但是跳过子目录sk" class="headerlink" title="搜索但跳出指定的目录 查找当前目录或者子目录下所有.txt文件，但是跳过子目录sk"></a>搜索但跳出指定的目录 查找当前目录或者子目录下所有.txt文件，但是跳过子目录sk</h4><pre><code>find . -path &quot;./sk&quot; -prune -o -name &quot;*.txt&quot; -print 
+</code></pre><h4 id="find其他技巧收集-要列出所有长度为零的文件"><a href="#find其他技巧收集-要列出所有长度为零的文件" class="headerlink" title="find其他技巧收集 要列出所有长度为零的文件"></a>find其他技巧收集 要列出所有长度为零的文件</h4><pre><code>find . -empty
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh_08c2f53d4101_430.jpg" alt="By Kebyn wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我记得我还有微信公众号,已经基本不更新了</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>觉得有用的话,给我来上一杯咖啡,或者一顿大餐,或许我会更有动力!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/tencent.jpg" alt="By Kebyn WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="By Kebyn Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/command/" rel="tag"># command</a>
+          
+            <a href="/tags/find/" rel="tag"># find</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/09/user/" rel="next" title="useradd">
+                <i class="fa fa-chevron-left"></i> useradd
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/17/openssh/" rel="prev" title="openssh">
+                openssh <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/06/19/find/"
+           data-title="find" data-url="https://code.kebyn.cc/2015/06/19/find/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.webp"
+               alt="By Kebyn" />
+          <p class="site-author-name" itemprop="name">By Kebyn</p>
+           
+              <p class="site-description motion-element" itemprop="description">觅我心中方向</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kebyn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kebuyuni" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3083159625" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#find命令用来在指定目录下查找文件。"><span class="nav-number">1.</span> <span class="nav-text">find命令用来在指定目录下查找文件。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法-find-选项-参数"><span class="nav-number">1.1.</span> <span class="nav-text">语法 find(选项)(参数)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选项"><span class="nav-number">1.2.</span> <span class="nav-text">选项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">2.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#列出当前目录及子目录下所有文件和文件夹"><span class="nav-number">2.1.</span> <span class="nav-text">列出当前目录及子目录下所有文件和文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在-home目录下查找以-txt结尾的文件名"><span class="nav-number">2.2.</span> <span class="nav-text">在/home目录下查找以.txt结尾的文件名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同上，但忽略大小写"><span class="nav-number">2.3.</span> <span class="nav-text">同上，但忽略大小写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当前目录及子目录下查找所有以-txt和-pdf结尾的文件"><span class="nav-number">2.4.</span> <span class="nav-text">当前目录及子目录下查找所有以.txt和.pdf结尾的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配文件路径或者文件"><span class="nav-number">2.5.</span> <span class="nav-text">匹配文件路径或者文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于正则表达式匹配文件路径"><span class="nav-number">2.6.</span> <span class="nav-text">基于正则表达式匹配文件路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同上，但忽略大小写-1"><span class="nav-number">2.7.</span> <span class="nav-text">同上，但忽略大小写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#否定参数"><span class="nav-number">3.</span> <span class="nav-text">否定参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#找出-home下不是以-txt结尾的文件"><span class="nav-number">3.1.</span> <span class="nav-text">找出/home下不是以.txt结尾的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据文件类型进行搜索"><span class="nav-number">3.2.</span> <span class="nav-text">根据文件类型进行搜索</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型参数列表："><span class="nav-number">4.</span> <span class="nav-text">类型参数列表：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于目录深度搜索"><span class="nav-number">5.</span> <span class="nav-text">基于目录深度搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#向下最大深度限制为3"><span class="nav-number">5.1.</span> <span class="nav-text">向下最大深度限制为3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索出深度距离当前目录至少2个子目录的所有文件"><span class="nav-number">5.2.</span> <span class="nav-text">搜索出深度距离当前目录至少2个子目录的所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据文件时间戳进行搜索"><span class="nav-number">5.3.</span> <span class="nav-text">根据文件时间戳进行搜索</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-Linux文件系统每个文件都有三种时间戳"><span class="nav-number">6.</span> <span class="nav-text">UNIX/Linux文件系统每个文件都有三种时间戳:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索最近七天内被访问过的所有文件"><span class="nav-number">6.1.</span> <span class="nav-text">搜索最近七天内被访问过的所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索恰好在七天前被访问过的所有文件"><span class="nav-number">6.2.</span> <span class="nav-text">搜索恰好在七天前被访问过的所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索超过七天内被访问过的所有文件"><span class="nav-number">6.3.</span> <span class="nav-text">搜索超过七天内被访问过的所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索访问时间超过10分钟的所有文件"><span class="nav-number">6.4.</span> <span class="nav-text">搜索访问时间超过10分钟的所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找出比file-log修改时间更长的所有文件"><span class="nav-number">6.5.</span> <span class="nav-text">找出比file.log修改时间更长的所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据文件大小进行匹配"><span class="nav-number">6.6.</span> <span class="nav-text">根据文件大小进行匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件大小单元："><span class="nav-number">6.7.</span> <span class="nav-text">文件大小单元：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索大于10KB的文件"><span class="nav-number">6.8.</span> <span class="nav-text">搜索大于10KB的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索小于10KB的文件"><span class="nav-number">6.9.</span> <span class="nav-text">搜索小于10KB的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索等于10KB的文件"><span class="nav-number">6.10.</span> <span class="nav-text">搜索等于10KB的文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除匹配文件"><span class="nav-number">7.</span> <span class="nav-text">删除匹配文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#删除当前目录下所有-txt文件"><span class="nav-number">7.1.</span> <span class="nav-text">删除当前目录下所有.txt文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据文件权限-所有权进行匹配"><span class="nav-number">8.</span> <span class="nav-text">根据文件权限/所有权进行匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当前目录下搜索出权限为777的文件"><span class="nav-number">8.1.</span> <span class="nav-text">当前目录下搜索出权限为777的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找出当前目录下权限不是644的php文件"><span class="nav-number">8.2.</span> <span class="nav-text">找出当前目录下权限不是644的php文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找出当前目录用户tom拥有的所有文件"><span class="nav-number">8.3.</span> <span class="nav-text">找出当前目录用户tom拥有的所有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找出当前目录用户组sunk拥有的所有文件"><span class="nav-number">8.4.</span> <span class="nav-text">找出当前目录用户组sunk拥有的所有文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#借助-exec选项与其他命令结合使用"><span class="nav-number">9.</span> <span class="nav-text">借助-exec选项与其他命令结合使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#找出当前目录下所有root的文件，并把所有权更改为用户tom"><span class="nav-number">9.1.</span> <span class="nav-text">找出当前目录下所有root的文件，并把所有权更改为用户tom</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找出自己家目录下所有的-txt文件并删除"><span class="nav-number">9.2.</span> <span class="nav-text">找出自己家目录下所有的.txt文件并删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找当前目录下所有-txt文件并把他们拼接起来写入到all-txt文件中"><span class="nav-number">9.3.</span> <span class="nav-text">查找当前目录下所有.txt文件并把他们拼接起来写入到all.txt文件中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将30天前的-log文件移动到old目录中"><span class="nav-number">9.4.</span> <span class="nav-text">将30天前的.log文件移动到old目录中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找出当前目录下所有-txt文件并以“File-文件名”的形式打印出来"><span class="nav-number">9.5.</span> <span class="nav-text">找出当前目录下所有.txt文件并以“File:文件名”的形式打印出来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#因为单行命令中-exec参数中无法使用多个命令，以下方法可以实现在-exec之后接受多条命令"><span class="nav-number">9.6.</span> <span class="nav-text">因为单行命令中-exec参数中无法使用多个命令，以下方法可以实现在-exec之后接受多条命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索但跳出指定的目录-查找当前目录或者子目录下所有-txt文件，但是跳过子目录sk"><span class="nav-number">9.7.</span> <span class="nav-text">搜索但跳出指定的目录 查找当前目录或者子目录下所有.txt文件，但是跳过子目录sk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#find其他技巧收集-要列出所有长度为零的文件"><span class="nav-number">9.8.</span> <span class="nav-text">find其他技巧收集 要列出所有长度为零的文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kebyn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

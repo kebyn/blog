@@ -1,0 +1,1009 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="oracle,error," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="待回首" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="In this DocumentPurposeTroubleshooting Steps     Section I: Steps to approach ORA-12518/TNS-12518 Error: 
+Section II: Commonly Known Errors:Error: 32: Broken pipeError: 11: Resource temporarily unavai">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oracle error">
+<meta property="og:url" content="https://code.kebyn.cc/2016/09/11/oracle_error/index.html">
+<meta property="og:site_name" content="待回首">
+<meta property="og:description" content="In this DocumentPurposeTroubleshooting Steps     Section I: Steps to approach ORA-12518/TNS-12518 Error: 
+Section II: Commonly Known Errors:Error: 32: Broken pipeError: 11: Resource temporarily unavai">
+<meta property="og:updated_time" content="2017-03-10T07:12:48.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oracle error">
+<meta name="twitter:description" content="In this DocumentPurposeTroubleshooting Steps     Section I: Steps to approach ORA-12518/TNS-12518 Error: 
+Section II: Commonly Known Errors:Error: 32: Broken pipeError: 11: Resource temporarily unavai">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6396258217105556000',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://code.kebyn.cc/2016/09/11/oracle_error/"/>
+
+
+
+
+
+  <title> oracle error | 待回首 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">待回首</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://code.kebyn.cc/2016/09/11/oracle_error/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="By Kebyn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/avatar.webp">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="待回首">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                oracle error
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-11T22:22:17-04:00">
+                2016-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/11/oracle_error/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/oracle_error/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>In this Document<br>Purpose<br>Troubleshooting Steps<br>     Section I: Steps to approach ORA-12518/TNS-12518 Error: </p>
+<h3 id="Section-II-Commonly-Known-Errors"><a href="#Section-II-Commonly-Known-Errors" class="headerlink" title="Section II: Commonly Known Errors:"></a>Section II: Commonly Known Errors:</h3><h4 id="Error-32-Broken-pipe"><a href="#Error-32-Broken-pipe" class="headerlink" title="Error: 32: Broken pipe"></a>Error: 32: Broken pipe</h4><h4 id="Error-11-Resource-temporarily-unavailable"><a href="#Error-11-Resource-temporarily-unavailable" class="headerlink" title="Error: 11: Resource temporarily unavailable"></a>Error: 11: Resource temporarily unavailable</h4><h4 id="Error-12-Not-enough-space"><a href="#Error-12-Not-enough-space" class="headerlink" title="Error: 12: Not enough space"></a>Error: 12: Not enough space</h4><a id="more"></a>
+<hr>
+<h3 id="Error-Connection-Pooling-limit-reached"><a href="#Error-Connection-Pooling-limit-reached" class="headerlink" title="Error: Connection Pooling limit reached"></a>Error: Connection Pooling limit reached</h3><h4 id="Error-2-No-such-file-or-directory"><a href="#Error-2-No-such-file-or-directory" class="headerlink" title="Error: 2: No such file or directory"></a>Error: 2: No such file or directory</h4><h4 id="Error-24-Too-many-open-files"><a href="#Error-24-Too-many-open-files" class="headerlink" title="Error: 24: Too many open files"></a>Error: 24: Too many open files</h4><hr>
+<h3 id="Section-III-Errors-Specific-to-Windows"><a href="#Section-III-Errors-Specific-to-Windows" class="headerlink" title="Section III: Errors Specific to Windows"></a>Section III: Errors Specific to Windows</h3><h4 id="Error-233-Unknown-error"><a href="#Error-233-Unknown-error" class="headerlink" title="Error: 233: Unknown error"></a>Error: 233: Unknown error</h4><h4 id="Error-54-Unknown-error"><a href="#Error-54-Unknown-error" class="headerlink" title="Error: 54: Unknown error"></a>Error: 54: Unknown error</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">References</div><div class="line"></div><div class="line">APPLIES TO:</div><div class="line">Oracle Net Services - Version 10.1.0.2 to 11.2.0.3 [Release 10.1 to 11.2]</div><div class="line">Information in this document applies to any platform.</div><div class="line">PURPOSE</div><div class="line">This article discusses about how to approach ORA-12518/TNS-12518 and troubleshoot it for the resolution.</div><div class="line">TROUBLESHOOTING STEPS</div><div class="line">Section I: Steps to approach ORA-12518/TNS-12518 Error: </div><div class="line">ORA-12518/TNS-12518 indicates a problem while listener hands off the client connection to the server process or dispatcher process.TNS-12518 is logged in the listener log. The client might receive ORA-12518 or some other disconnection errors like ORA-12537. Once TNS-12518 is noted in the listener log, follow the below steps to approach and resolve this error. </div><div class="line"></div><div class="line">Let us have a small discussion about how actually database connections are made:</div><div class="line"></div><div class="line">In Dedicated mode, database client contacts listener and supplies the SERVICE NAME of the database. Then listener spawns a dedicated server process and hands off the client connection to this dedicated server process. TNS-12518 indicates a problem while handing off the client connection to the server process.</div><div class="line">In Shared Server mode, database client contacts listener and supplies the SERVICE NAME of the database. Then listener hands off the client connection to one of the dispatcher configured for that service. TNS-12518 indicates a problem while handing off the client connection to the dispatcher server process.</div><div class="line"></div><div class="line">Though this error is logged in the listener log, the listener is just the messenger, ORA-12518/TNS-12518 is mostly related to RDBMS and OS resources.</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Step-1-Is-listener-version-compatible-to-the-database"><a href="#Step-1-Is-listener-version-compatible-to-the-database" class="headerlink" title="Step 1. Is listener version compatible to the database"></a>Step 1. Is listener version compatible to the database</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Check if you are using compatible listener version for your database version. </div><div class="line"></div><div class="line">If the database is 8i then use 8i or 9i listeners only. 10g listeners are not compatible to work with 8i databases. </div><div class="line">For 9i databases, 9i or 10g listeners can be used. </div><div class="line">For 10g databases, only 10g listeners can be used. </div><div class="line"></div><div class="line">The general rule is that use the higher version of the listener when there is a version mismatch between database and the listener.</div></pre></td></tr></table></figure>
+<h3 id="Step-2-Gather-more-information-from-listener-log"><a href="#Step-2-Gather-more-information-from-listener-log" class="headerlink" title="Step 2. Gather more information from listener log"></a>Step 2. Gather more information from listener log</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">The first place you would look for the TNS-12518 error is the listener log. Usually the listener log would be located under $ORACLE_HOME/network/log directory. You can use &apos;lsnrctl status&apos; command output to look for the location of the listener log file.</div><div class="line">$lsnrctl status </div><div class="line">- - - </div><div class="line">- - - </div><div class="line">Listener Parameter File /ora10g/home_ora10g/network/admin/listener.ora </div><div class="line">Listener Log File /ora10g/home_ora10g/network/log/listener.log </div><div class="line">- - - </div><div class="line">- - -</div><div class="line">listener log gives the complete error stack and the database service name to which the client tried to connect to.</div><div class="line">19-SEP-2007 13:55:34 * (CONNECT_DATA=(CID=(PROGRAM=)(HOST=__jdbc__)(USER=))(SERVICE_NAME=test.oracle.com)) * (ADDRESS=(PROTOCOL=tcp)(HOST=10.10.10.3)(PORT=36030)) * establish * test.oracle.com * 12518 </div><div class="line">TNS-12518: TNS:listener could not hand off client connection </div><div class="line"> TNS-12547: TNS:lost contact </div><div class="line">  TNS-12560: TNS:protocol adapter error </div><div class="line">   TNS-00517: Lost contact </div><div class="line">    Linux Error: 32: Broken pipe</div><div class="line"></div><div class="line">In the above example, listener log shows the complete error stack, the bottom error being 32 is the OS error. It also shows that the jdbc client from IP 10.10.10.3 has tried to connect to the database service &apos;test.oracle.com&apos; and failed with the error 12518.</div><div class="line">Look for the lowest error in the stack. That is the error we have to concentrate on and try to resolve it. In the above example, the lower error is &apos;Linux Error: 32: Broken pipe&apos;.</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Step-3-Is-service-handlers-in-blocked-state"><a href="#Step-3-Is-service-handlers-in-blocked-state" class="headerlink" title="Step 3. Is service handlers in blocked state"></a>Step 3. Is service handlers in blocked state</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Check if the handlers are in blocked state. Check the output of the &apos;lsnrctl services&apos;. Examine the status information under the database service name. From the listener log you would know which database service was affected by the 12518 error, now with the output of the &apos;lsnrctl services&apos; under that service name gather more information.</div><div class="line">Service &quot;test.oracle.com&quot; has 1 instance(s). </div><div class="line">  Instance &quot;db10g&quot;, status READY, has 2 handler(s) for this service... </div><div class="line">    Handler(s): </div><div class="line">      &quot;DEDICATED&quot; established:9 refused:0 state:ready </div><div class="line">         LOCAL SERVER </div><div class="line">      &quot;D000&quot; established:10 refused:0 current:0 max:972 state:ready </div><div class="line">         DISPATCHER  </div><div class="line">         (ADDRESS=(PROTOCOL=tcp)(HOST=oid.mohan.com)(PORT=33487))</div><div class="line"></div><div class="line">The highlighted state should be in &apos;ready&apos; state for the connection to be successful. If the state is in &apos;blocked&apos; then the connection are not possible. The state of a handler could be in blocked state in the following scenario: </div><div class="line">i. The database parameter processes reached its value. </div><div class="line">ii. The database is in the process of startup or shutting down. </div><div class="line"></div><div class="line">In shared server mode, the number of dispatchers should be set according to the load that you expect. &apos;lsnrctl services&apos; output shows the maximum number(max:997) of connections that the dispatcher would accept and the number connections refused (refused:0) by this dispatcher. If any connections refused by the dispatcher, then consider increasing the number of dispatchers. </div><div class="line"></div><div class="line">If you are using PFILE edit init.ora and increase the dispatchers parameter. If you are using SPFILE you can dynamically increase the dispatchers parameter by the &apos;alter system set&apos; command.</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Step-4-Is-local-BEQ-connection-successful"><a href="#Step-4-Is-local-BEQ-connection-successful" class="headerlink" title="Step 4. Is local BEQ connection successful"></a>Step 4. Is local BEQ connection successful</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Check if local BEQ connection to the database works fine. It also verifies if the database is up and in good condition to accept the connection. If the database is down or in a hung state then a connection request to the database by the listener will not be possible. </div><div class="line"></div><div class="line">Connect to the database server via telnet or ssh and check if a local bequeath SQL*Plus connection works. In other words, issue:</div><div class="line">sqlplus username/password [Enter]</div><div class="line"></div><div class="line">This connection bypasses the listener and directly connects to the database via the BEQ (bequeath) protocol. If this fails, then the TNS-12518 listener error is simply a result of the database issue. </div><div class="line"></div><div class="line">One such error is:</div><div class="line">ORA-12560: TNS:protocol adapter error</div><div class="line"></div><div class="line">A possible cause for this error on Microsoft Windows servers, is that the Windows Database Service has not yet been created (common when creating a &quot;standby&quot; instance).</div><div class="line">Resolution for this would be to create the Windows Service first by using the &quot;oradim&quot; command (see the Database Admin guide for details on oradim and service creation).</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Step-5-Is-number-of-processes-reached-its-limit"><a href="#Step-5-Is-number-of-processes-reached-its-limit" class="headerlink" title="Step 5. Is number of processes reached its limit"></a>Step 5. Is number of processes reached its limit</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">If local BEQ is successful, check the below query</div><div class="line">SQL&gt; select * from v$resource_limit; </div><div class="line"></div><div class="line">RESOURCE_NAME CURRENT_UTILIZATION MAX_UTILIZATION INITIAL_AL LIMIT_VALU </div><div class="line">-------------------- ------------------- --------------- ---------- ---------- </div><div class="line">processes 249 250 250 250 </div><div class="line">sessions 54 82 280 280 </div><div class="line">- - - - - -</div><div class="line">- - - - - -</div><div class="line"></div><div class="line"> </div><div class="line">Verify if the processes or sessions reached its limit value. If these database parameters reached its limit value, then consider increasing it accordingly. </div><div class="line"></div><div class="line">In the above example, the processes parameter has been set to 250. It&apos;sMAX_UTILIZATION has reached the limit value of 250, so the processes parameter should be increased further to accomodate the number of incoming connections. </div><div class="line"></div><div class="line">Edit the init.ora and set the processes parameter to a higher value. By default, if you just increase the processes it is enough, the sessions value would automatically be increased.</div><div class="line">Check the alert.log for a corresponding error such as &quot;ksvcreate&quot; process failed, etc.  Check timestamp against listener.log timestamps for causal relationship.</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Step-6-Is-OS-kernal-parameters-configured-for-optimum"><a href="#Step-6-Is-OS-kernal-parameters-configured-for-optimum" class="headerlink" title="Step 6. Is OS kernal parameters configured for optimum"></a>Step 6. Is OS kernal parameters configured for optimum</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Database is operated by a single user, normally it would be &apos;oracle&apos; user. At the Operating System level, there is a limit for the number of process spawned by a user. And also there is a limit for the total number of process running on the entire OS. </div><div class="line"></div><div class="line">The Oracle Database and the newly spawned processes would be owned by the &apos;oracle&apos; user. And so make sure that these values are set accordingly.On Unix these values are configured through the configurable OS kernal parameters and is specific to Operating Systems. You will have check your corresponding OS documentation for your OS. </div><div class="line"></div><div class="line">For example for HP-UX the configurable kernal parameters are, </div><div class="line"></div><div class="line">maxuprc  Maximum number of processes for each non-root user </div><div class="line">nproc      Maximum number of processes on the system</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Step-7-Does-alert-log-have-any-errors"><a href="#Step-7-Does-alert-log-have-any-errors" class="headerlink" title="Step 7. Does alert log have any errors"></a>Step 7. Does alert log have any errors</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">Look in alert log and look for any errors related to memory or process during the time the error TNS-12518 occurred in the listener log. If the alert log has any memory related errors, there there is a potential memory resource issue at the OS level. </div><div class="line"></div><div class="line">OS memory issues can be addressed by the below: </div><div class="line">i.   Make sure that the OS has been configured with the enough Swap memory. In case of Windows it is called as Virtual Memory. </div><div class="line">ii.  Reduce the size of SGA, thus the newly spawned server process will have some more system memory available. </div><div class="line">iii. Reduce the PGA size, so that the newly spawned server process would occupy less memory. </div><div class="line">iv. If you are in DEDICATED mode, try switching to MTS mode. </div><div class="line"></div><div class="line">To address memory issue for 32-bit Windows: Refer Note 371983.1</div><div class="line">If there are any memory or process related error in the alert log during the time the TNS-12518 is logged in the listener log, then those errors in the alert log should be focused on and should be solved at first. Because, the errors in the alert log is the base error for the TNS-12518 in the listener log. </div><div class="line"></div><div class="line">However, the errors in the alert logs are not being discussed in this article, they are out of the scope of this article.</div><div class="line">Step 8. If using a statically defined SID_DESC in the listener.ora file for your sid, ensure that it is configured properly. </div><div class="line">A common mistake is to include a (PROGRAM=EXTPROC) parameter:</div><div class="line">  (SID_LIST= </div><div class="line">    (SID_DESC = </div><div class="line">      (GLOBAL_DBNAME = ORCL.oracle.com) </div><div class="line">      (SID_NAME = ORCL) </div><div class="line">      (PROGRAM=extproc) </div><div class="line">      (ORACLE_HOME = D:\oracle\product\10.2.0\db_1)))</div><div class="line">This misconfiguration occurs when the PLSExtproc SID_DESC is copied, pasted and edited in the listener.ora file.  The inclusion of the PROGRAM line will cause an ORA-12518 to be returned to the client.  Here&apos;s the corrected SID_DESC for our example SID:</div><div class="line">  (SID_LIST= </div><div class="line">     (SID_DESC = </div><div class="line">     (GLOBAL_DBNAME = ORCL.oracle.com) </div><div class="line">     (SID_NAME = ORCL) </div><div class="line">     (ORACLE_HOME = D:\oracle\product\10.2.0\db_1)))</div><div class="line">Section II: Commonly Known Errors:</div><div class="line"></div><div class="line">This section lists some of the known and reported errors. It is also recommended that you refer the Section I above for a generic troubleshooting approach to the error TNS-12518.</div><div class="line"></div><div class="line">Below shows example error stack that can be found in the listener log. The last line in the error stack shows the actual operating system name. Depending on the OS, only the operating system name would be different. For example, if you encounter error 32: Broken pipe, according to the OS, the last line in the error stack would be different only by the OS name, as shown below.</div><div class="line"></div><div class="line">Solaris Error: 32: Broken pipe </div><div class="line">HPUX Error: 32: Broken pipe </div><div class="line">Linux Error: 32: Broken pipe</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-32-Broken-pipe-1"><a href="#Error-32-Broken-pipe-1" class="headerlink" title="Error: 32: Broken pipe"></a>Error: 32: Broken pipe</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log: </div><div class="line"></div><div class="line">TNS-12518: TNS:listener could not hand off client connection </div><div class="line"> TNS-12547: TNS:lost contact </div><div class="line">   TNS-12560: TNS:protocol adapter error </div><div class="line">     TNS-00517: Lost contact </div><div class="line">       IBM/AIX RISC System/6000 Error: 32: Broken pipe </div><div class="line"></div><div class="line"></div><div class="line">Cause: </div><div class="line">The error 32 indicates the communication has been broken while the listener is trying to hand off the client connection to the server process or dispatcher process. </div><div class="line"></div><div class="line">Action: </div><div class="line">1.  One of reason would be processes parameter being low, and can be verified by the v$resource_limit view. </div><div class="line">2. In Shared Server mode, check the &apos;lsnrctl services&apos; output and see if the dispatcher has refused any connections, if so, then consider increasing the number of dispatchers. </div><div class="line">3. Check the alert log for any possible errors. </div><div class="line">4. Memory resource is also another cause for this issue. Check the swap, memory usage of the OS.</div><div class="line">5. If RAC/SCAN or listener is running in separate home, check the following note:</div><div class="line"></div><div class="line">Note: 1069517.1  ORA-12537 or TNS-12518 if Listener (including SCAN Listener) and Database are Owned by Different OS User</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-11-Resource-temporarily-unavailable-1"><a href="#Error-11-Resource-temporarily-unavailable-1" class="headerlink" title="Error: 11: Resource temporarily unavailable"></a>Error: 11: Resource temporarily unavailable</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log: </div><div class="line">TNS-12518: TNS:listener could not hand off client connection </div><div class="line"> TNS-12549: TNS:operating system resource quota exceeded </div><div class="line">  TNS-12560: TNS:protocol adapter error </div><div class="line">   TNS-00519: Operating system resource quota exceeded </div><div class="line">    IBM/AIX RISC System/6000 Error: 11: Resource temporarily unavailable </div><div class="line"></div><div class="line"></div><div class="line">Cause: </div><div class="line">As the error indicates operating system resource has exceeded. </div><div class="line"></div><div class="line">Action: </div><div class="line">1. Increase the appropriate OS kernal parameters for &apos;maximum number of processes allowed per user&apos;. </div><div class="line">For example for HP-UX the parameters are maxuprc and nproc.</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-12-Not-enough-space-1"><a href="#Error-12-Not-enough-space-1" class="headerlink" title="Error: 12: Not enough space"></a>Error: 12: Not enough space</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log: </div><div class="line"> TNS-12518: TNS:listener could not hand off client connection </div><div class="line">   TNS-12549: TNS:operating system resource quota exceeded </div><div class="line">     TNS-12560: TNS:protocol adapter error </div><div class="line">       TNS-00519: Operating system resource quota exceeded </div><div class="line">         IBM/AIX RISC System/6000 Error: 12: Not enough space </div><div class="line"></div><div class="line"></div><div class="line">Cause: </div><div class="line">This is a memory related issue. The error indicates that there is not enough memory available to spawn and hand off the client connections. </div><div class="line">Typical problems are: </div><div class="line">- Out of system memory / swap </div><div class="line">- Out of process slots in the process table </div><div class="line">- Streams resources depleted </div><div class="line">- Out of File Handles </div><div class="line">- sga memory usage </div><div class="line"></div><div class="line"></div><div class="line">Action: </div><div class="line">1. Check in the alert log for any possible memory related error. </div><div class="line">2. Increase swap/Virtual memory if possible the available memory. </div><div class="line">3. SGA and PGA can be reduced to address the memory consumption. </div><div class="line">4. MTS mode can be used to reduce the amount of process and memory consumption.</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-Connection-Pooling-limit-reached-1"><a href="#Error-Connection-Pooling-limit-reached-1" class="headerlink" title="Error: Connection Pooling limit reached"></a>Error: Connection Pooling limit reached</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log: </div><div class="line"> TNS-12518 TNS:listener could not hand off client connection </div><div class="line">  TNS-12564 TNS:connection refused </div><div class="line">   TNS-12602 TNS: Connection Pooling limit reached </div><div class="line"></div><div class="line"></div><div class="line">Action: </div><div class="line">1. Try increasing initial number of dispatchers.</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-2-No-such-file-or-directory-1"><a href="#Error-2-No-such-file-or-directory-1" class="headerlink" title="Error: 2: No such file or directory"></a>Error: 2: No such file or directory</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log: </div><div class="line"> TNS-12518: TNS:listener could not hand off client connection </div><div class="line">  TNS-12560: TNS:proto adapter error </div><div class="line">   TNS-00530: Proto adapter error </div><div class="line">    32-bit Windows Error: 2: No such file or directory </div><div class="line"></div><div class="line"></div><div class="line">Error Description: </div><div class="line">ERROR_FILE_NOT_FOUND </div><div class="line">2 </div><div class="line">The system cannot find the file specified. </div><div class="line"></div><div class="line">Cause: </div><div class="line">This indicates the database service is not actually available </div><div class="line"></div><div class="line"></div><div class="line">Action: </div><div class="line">1.Verify if the intended database really up and accepting local BEQ connections.</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-24-Too-many-open-files-1"><a href="#Error-24-Too-many-open-files-1" class="headerlink" title="Error: 24: Too many open files"></a>Error: 24: Too many open files</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log:</div><div class="line">    TNS-12518: TNS:listener could not hand off client connection</div><div class="line">      TNS-12560: TNS:protocol adapter error</div><div class="line">       TNS-00530: Protocol adapter error</div><div class="line">        Linux Error: 24: Too many open files</div><div class="line"></div><div class="line">or    </div><div class="line"></div><div class="line">    TNS-12518: TNS:listener could not hand off client connection</div><div class="line">      TNS-12560: TNS:protocol adapter error</div><div class="line">       TNS-00530: Protocol adapter error</div><div class="line">        Solaris Error: 24: Too many open files</div><div class="line">Error Description:</div><div class="line"> Out of file descriptors</div><div class="line">Cause:</div><div class="line">Can be caused by the following unpublished defect:</div><div class="line">BUG 13078786 - LISTENER GOES DOWN SUDDENLY W/ LINUX ERROR: 32: BROKEN PIPE</div><div class="line">Action:</div><div class="line"></div><div class="line">See Note 1527483.1  11.2 : ORA-12518 Listener Hangs and Reports &quot;Too Many Open Files&quot; </div><div class="line"></div><div class="line">Use prescribed workaround OR apply one-off patch to your environment if available.</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Section-III-Errors-Specific-to-Windows-1"><a href="#Section-III-Errors-Specific-to-Windows-1" class="headerlink" title="Section III: Errors Specific to Windows"></a>Section III: Errors Specific to Windows</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">It is also recommended that you refer the Section I above for a generic troubleshooting approach to the error TNS-12518.</div><div class="line"></div><div class="line">This section briefly describes about the errors that are encountered on Windows Operating System. TNS-12518 most commonly occurs on 32-bit OS due to its memory constraint, however TNS-12518 can occur on 64-bit OS as well. See Note 873752.1 for more information on Windows memory addressing and the 3GB switch.</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-233-Unknown-error-1"><a href="#Error-233-Unknown-error-1" class="headerlink" title="Error: 233: Unknown error"></a>Error: 233: Unknown error</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log: </div><div class="line"> TNS-12518: TNS:listener could not hand off client connection </div><div class="line">  TNS-12560: TNS:protocol adapter error </div><div class="line">   TNS-00530: Protocol adapter error </div><div class="line">    32-bit Windows Error: 233: Unknown error </div><div class="line"></div><div class="line"></div><div class="line">Error Description: </div><div class="line">ERROR_PIPE_NOT_CONNECTED </div><div class="line">233 </div><div class="line">No process is on the other end of the pipe. </div><div class="line"></div><div class="line">Cause: </div><div class="line">The communication has been broken while the listener is trying to hand off the client connection to the server process or dispatcher process. </div><div class="line"></div><div class="line"></div><div class="line">Action: </div><div class="line">Refer Note 371983.1</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="Error-54-Unknown-error-1"><a href="#Error-54-Unknown-error-1" class="headerlink" title="Error: 54: Unknown error"></a>Error: 54: Unknown error</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">Error stack in listener log: </div><div class="line"> TNS-12518: TNS:listener could not hand off client connection </div><div class="line">  TNS-12571: TNS:packet writer failure </div><div class="line">   TNS-12560: TNS:protocol adapter error </div><div class="line">    TNS-00530: Protocol adapter error </div><div class="line">      32-bit Windows Error: 54: Unknown error </div><div class="line"></div><div class="line"></div><div class="line"> Error Description: </div><div class="line">ERROR_NETWORK_BUSY </div><div class="line">54 </div><div class="line">0x36 </div><div class="line">The network is busy. </div><div class="line"></div><div class="line"></div><div class="line">Cause: </div><div class="line">This indicates a bottleneck at the network layer(TCP/IP). </div><div class="line"></div><div class="line"></div><div class="line">Action: </div><div class="line">1.Try increasing dispatchers and shared servers.</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>转载ROUBLESHOOTING GUIDE TNS-12518 TNS listener could not hand off client connection (文档ID 550859.1)</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh_08c2f53d4101_430.jpg" alt="By Kebyn wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我记得我还有微信公众号,已经基本不更新了</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>觉得有用的话,给我来上一杯咖啡,或者一顿大餐,或许我会更有动力!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/tencent.jpg" alt="By Kebyn WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="By Kebyn Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/oracle/" rel="tag"># oracle</a>
+          
+            <a href="/tags/error/" rel="tag"># error</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/06/db2/" rel="next" title="DB2常用命令">
+                <i class="fa fa-chevron-left"></i> DB2常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/05/oracle_11gr2_silent_install/" rel="prev" title="ORACLE 11G R2静默安装，配置">
+                ORACLE 11G R2静默安装，配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/11/oracle_error/"
+           data-title="oracle error" data-url="https://code.kebyn.cc/2016/09/11/oracle_error/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.webp"
+               alt="By Kebyn" />
+          <p class="site-author-name" itemprop="name">By Kebyn</p>
+           
+              <p class="site-description motion-element" itemprop="description">觅我心中方向</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kebyn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kebuyuni" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3083159625" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-II-Commonly-Known-Errors"><span class="nav-number">1.</span> <span class="nav-text">Section II: Commonly Known Errors:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-32-Broken-pipe"><span class="nav-number">1.1.</span> <span class="nav-text">Error: 32: Broken pipe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-11-Resource-temporarily-unavailable"><span class="nav-number">1.2.</span> <span class="nav-text">Error: 11: Resource temporarily unavailable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-12-Not-enough-space"><span class="nav-number">1.3.</span> <span class="nav-text">Error: 12: Not enough space</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-Connection-Pooling-limit-reached"><span class="nav-number">2.</span> <span class="nav-text">Error: Connection Pooling limit reached</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-2-No-such-file-or-directory"><span class="nav-number">2.1.</span> <span class="nav-text">Error: 2: No such file or directory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-24-Too-many-open-files"><span class="nav-number">2.2.</span> <span class="nav-text">Error: 24: Too many open files</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-III-Errors-Specific-to-Windows"><span class="nav-number">3.</span> <span class="nav-text">Section III: Errors Specific to Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-233-Unknown-error"><span class="nav-number">3.1.</span> <span class="nav-text">Error: 233: Unknown error</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-54-Unknown-error"><span class="nav-number">3.2.</span> <span class="nav-text">Error: 54: Unknown error</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Is-listener-version-compatible-to-the-database"><span class="nav-number">4.</span> <span class="nav-text">Step 1. Is listener version compatible to the database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Gather-more-information-from-listener-log"><span class="nav-number">5.</span> <span class="nav-text">Step 2. Gather more information from listener log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-Is-service-handlers-in-blocked-state"><span class="nav-number">6.</span> <span class="nav-text">Step 3. Is service handlers in blocked state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-Is-local-BEQ-connection-successful"><span class="nav-number">7.</span> <span class="nav-text">Step 4. Is local BEQ connection successful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-5-Is-number-of-processes-reached-its-limit"><span class="nav-number">8.</span> <span class="nav-text">Step 5. Is number of processes reached its limit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-6-Is-OS-kernal-parameters-configured-for-optimum"><span class="nav-number">9.</span> <span class="nav-text">Step 6. Is OS kernal parameters configured for optimum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-7-Does-alert-log-have-any-errors"><span class="nav-number">10.</span> <span class="nav-text">Step 7. Does alert log have any errors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-32-Broken-pipe-1"><span class="nav-number">10.0.1.</span> <span class="nav-text">Error: 32: Broken pipe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-11-Resource-temporarily-unavailable-1"><span class="nav-number">10.0.2.</span> <span class="nav-text">Error: 11: Resource temporarily unavailable</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-12-Not-enough-space-1"><span class="nav-number">10.0.3.</span> <span class="nav-text">Error: 12: Not enough space</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-Connection-Pooling-limit-reached-1"><span class="nav-number">10.0.4.</span> <span class="nav-text">Error: Connection Pooling limit reached</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-2-No-such-file-or-directory-1"><span class="nav-number">10.0.5.</span> <span class="nav-text">Error: 2: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-24-Too-many-open-files-1"><span class="nav-number">10.0.6.</span> <span class="nav-text">Error: 24: Too many open files</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Section-III-Errors-Specific-to-Windows-1"><span class="nav-number">10.0.7.</span> <span class="nav-text">Section III: Errors Specific to Windows</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-233-Unknown-error-1"><span class="nav-number">10.0.8.</span> <span class="nav-text">Error: 233: Unknown error</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-54-Unknown-error-1"><span class="nav-number">10.0.9.</span> <span class="nav-text">Error: 54: Unknown error</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kebyn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1210 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="awk,command," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="待回首" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。#####数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是linux/unix下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势。 
+awk命令格式和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="awk">
+<meta property="og:url" content="https://code.kebyn.cc/2014/03/20/awk/index.html">
+<meta property="og:site_name" content="待回首">
+<meta property="og:description" content="awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。#####数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是linux/unix下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势。 
+awk命令格式和">
+<meta property="og:updated_time" content="2017-03-10T11:31:41.554Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="awk">
+<meta name="twitter:description" content="awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。#####数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是linux/unix下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势。 
+awk命令格式和">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6396258217105556000',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://code.kebyn.cc/2014/03/20/awk/"/>
+
+
+
+
+
+  <title> awk | 待回首 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">待回首</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://code.kebyn.cc/2014/03/20/awk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="By Kebyn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/avatar.webp">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="待回首">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                awk
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-03-20T03:17:43-04:00">
+                2014-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/03/20/awk/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/20/awk/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="awk是一种编程语言，用于在linux-unix下对文本和数据进行处理。"><a href="#awk是一种编程语言，用于在linux-unix下对文本和数据进行处理。" class="headerlink" title="awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。"></a>awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。</h3><p>#####数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是linux/unix下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势。 </p>
+<h3 id="awk命令格式和选项"><a href="#awk命令格式和选项" class="headerlink" title="awk命令格式和选项"></a>awk命令格式和选项</h3><h4 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h4><pre><code>awk [options] &apos;script&apos; var=value file(s) 
+awk [options] -f scriptfile var=value file(s) 
+</code></pre><h4 id="常用命令选项"><a href="#常用命令选项" class="headerlink" title="常用命令选项"></a>常用命令选项</h4><pre><code>-F fs fs指定输入分隔符，fs可以是字符串或正则表达式，如-F: 
+-v var=value 赋值一个用户定义变量，将外部变量传递给awk 
+-f scripfile 从脚本文件中读取awk命令 
+-m[fr] val 对val值设置内在限制，-mf选项限制分配给val的最大块数目；
+-mr选项限制记录的最大数目。这两个功能是Bell实验室版awk的扩展功能，在标准awk中不适用。 
+</code></pre><a id="more"></a>
+<h4 id="awk模式和操作"><a href="#awk模式和操作" class="headerlink" title="awk模式和操作"></a>awk模式和操作</h4><p>#####awk脚本是由模式和操作组成的。 </p>
+<ol>
+<li>模式 <h5 id="模式可以是以下任意一个："><a href="#模式可以是以下任意一个：" class="headerlink" title="模式可以是以下任意一个："></a>模式可以是以下任意一个：</h5><ul>
+<li>/正则表达式/：使用通配符的扩展集。 </li>
+<li>关系表达式：使用运算符进行操作，可以是字符串或数字的比较测试。 </li>
+<li>模式匹配表达式：用运算符~（匹配）和~!（不匹配）。 </li>
+<li>BEGIN语句块、pattern语句块、END语句块：参见awk的工作原理 </li>
+</ul>
+</li>
+<li>操作 <h3 id="操作由一个或多个命令、函数、表达式组成，之间由换行符或分号隔开，并位于大括号内，主要部分是："><a href="#操作由一个或多个命令、函数、表达式组成，之间由换行符或分号隔开，并位于大括号内，主要部分是：" class="headerlink" title="操作由一个或多个命令、函数、表达式组成，之间由换行符或分号隔开，并位于大括号内，主要部分是："></a>操作由一个或多个命令、函数、表达式组成，之间由换行符或分号隔开，并位于大括号内，主要部分是：</h3><ul>
+<li>变量或数组赋值 </li>
+<li>输出命令 </li>
+<li>内置函数 </li>
+<li>控制流语句 </li>
+</ul>
+</li>
+</ol>
+<h4 id="awk脚本基本结构"><a href="#awk脚本基本结构" class="headerlink" title="awk脚本基本结构"></a>awk脚本基本结构</h4><pre><code>awk &apos;BEGIN{ print &quot;start&quot; } pattern{ commands } END{ print &quot;end&quot; }&apos; file 
+</code></pre><h5 id="一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如："><a href="#一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如：" class="headerlink" title="一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如："></a>一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如：</h5><pre><code>awk &apos;BEGIN{ i=0 } { i++ } END{ print i }&apos; filename 
+awk &quot;BEGIN{ i=0 } { i++ } END{ print i }&quot; filename 
+</code></pre><h4 id="awk的工作原理"><a href="#awk的工作原理" class="headerlink" title="awk的工作原理"></a>awk的工作原理</h4><pre><code>awk &apos;BEGIN{ commands } pattern{ commands } END{ commands }&apos; 
+</code></pre><ol>
+<li>执行BEGIN{ commands }语句块中的语句； </li>
+<li>从文件或标准输入(stdin)读取一行，然后执行pattern{ commands }语句块，它逐行扫描文件，从第一行到最后一行重复这个过程，直到文件全部被读取完毕。 </li>
+<li>当读至输入流末尾时，执行END{ commands }语句块。 </li>
+</ol>
+<h4 id="BEGIN语句块"><a href="#BEGIN语句块" class="headerlink" title="BEGIN语句块"></a>BEGIN语句块</h4><p>在awk开始从输入流中读取行之前被执行，这是一个可选的语句块，比如变量初始化、打印输出表格的表头等语句通常可以写在BEGIN语句块中。 </p>
+<h4 id="END语句块"><a href="#END语句块" class="headerlink" title="END语句块"></a>END语句块</h4><p>在awk从输入流中读取完所有的行之后即被执行，比如打印所有行的分析结果这类信息汇总都是在END语句块中完成，它也是一个可选语句块。<br> pattern语句块中的通用命令是最重要的部分，它也是可选的。如果没有提供pattern语句块，则默认执行{ print }，即打印每一个读取到的行，awk读取的每一行都会执行该语句块。 </p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><pre><code>echo -e &quot;A line 1nA line 2&quot; | awk &apos;BEGIN{ print &quot;Start&quot; } { print } END{ print &quot;End&quot; }&apos; 
+Start 
+A line 1 
+A line 2 
+End 
+</code></pre><h6 id="当使用不带参数的print时，它就打印当前行，当print的参数是以逗号进行分隔时，打印时则以空格作为定界符。在awk的print语句块中双引号是被当作拼接符使用，例如："><a href="#当使用不带参数的print时，它就打印当前行，当print的参数是以逗号进行分隔时，打印时则以空格作为定界符。在awk的print语句块中双引号是被当作拼接符使用，例如：" class="headerlink" title="当使用不带参数的print时，它就打印当前行，当print的参数是以逗号进行分隔时，打印时则以空格作为定界符。在awk的print语句块中双引号是被当作拼接符使用，例如："></a>当使用不带参数的print时，它就打印当前行，当print的参数是以逗号进行分隔时，打印时则以空格作为定界符。在awk的print语句块中双引号是被当作拼接符使用，例如：</h6><pre><code>echo | awk &apos;{ var1=&quot;v1&quot;; var2=&quot;v2&quot;; var3=&quot;v3&quot;; print var1,var2,var3; }&apos; 
+v1 v2 v3 
+</code></pre><h4 id="双引号拼接使用："><a href="#双引号拼接使用：" class="headerlink" title="双引号拼接使用："></a>双引号拼接使用：</h4><pre><code>echo | awk &apos;{ var1=&quot;v1&quot;; var2=&quot;v2&quot;; var3=&quot;v3&quot;; print var1&quot;=&quot;var2&quot;=&quot;var3; }&apos; 
+v1=v2=v3 
+</code></pre><blockquote>
+<p>{ }类似一个循环体，会对文件中的每一行进行迭代，通常变量初始化语句（如：i=0）以及打印文件头部的语句放入BEGIN语句块中，将打印的结果等语句放在END语句块中。 </p>
+</blockquote>
+<h3 id="awk内置变量（预定义变量）"><a href="#awk内置变量（预定义变量）" class="headerlink" title="awk内置变量（预定义变量）"></a>awk内置变量（预定义变量）</h3><blockquote>
+<p>说明：[A][N][P][G]表示第一个支持变量的工具，[A]=awk、[N]=nawk、[P]=POSIXawk、[G]=gawk </p>
+</blockquote>
+<h6 id="n-当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。"><a href="#n-当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。" class="headerlink" title="$n 当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。"></a>$n 当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。</h6><h6 id="0-这个变量包含执行过程中当前行的文本内容。"><a href="#0-这个变量包含执行过程中当前行的文本内容。" class="headerlink" title="$0 这个变量包含执行过程中当前行的文本内容。"></a>$0 这个变量包含执行过程中当前行的文本内容。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">| [N] | ARGC        | 命令行参数的数目。                                                |   |   |</div><div class="line">| [G] | ARGIND      | 命令行中当前文件的位置（从0开始算）。                             |   |   |</div><div class="line">| [N] | ARGV        | 包含命令行参数的数组。 [G] CONVFMT 数字转换格式（默认值为%.6g）。 |   |   |</div><div class="line">| [P] | ENVIRON     | 环境变量关联数组。                                                |   |   |</div><div class="line">| [N] | ERRNO       | 最后一个系统错误的描述。                                          |   |   |</div><div class="line">| [G] | FIELDWIDTHS | 字段宽度列表（用空格键分隔）。                                    |   |   |</div><div class="line">| [A] | FILENAME    | 当前输入文件的名。                                                |   |   |</div><div class="line">| [P] | FNR         | 同NR，但相对于当前文件。                                          |   |   |</div><div class="line">| [A] | FS          | 字段分隔符（默认是任何空格）。                                    |   |   |</div><div class="line">| [G] | IGNORECASE  | 如果为真，则进行忽略大小写的匹配。                                |   |   |</div><div class="line">| [A] | NF          | 表示字段数，在执行过程中对应于当前的字段数。                      |   |   |</div><div class="line">| [A] | NR          | 表示记录数，在执行过程中对应于当前的行号。                        |   |   |</div><div class="line">| [A] | OFMT        | 数字的输出格式（默认值是%.6g）。                                  |   |   |</div><div class="line">| [A] | OFS         | 输出字段分隔符（默认值是一个空格）。                              |   |   |</div><div class="line">| [A] | ORS         | 输出记录分隔符（默认值是一个换行符）。                            |   |   |</div><div class="line">| [A] | RS          | 记录分隔符（默认是一个换行符）。                                  |   |   |</div><div class="line">| [N] | RSTART      | 由match函数所匹配的字符串的第一个位置。                           |   |   |</div><div class="line">| [N] | RLENGTH     | 由match函数所匹配的字符串的长度。                                 |   |   |</div><div class="line">| [N] | SUBSEP      | 数组下标分隔符（默认值是34）。                                    |   |   |</div></pre></td></tr></table></figure>
+<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h5><pre><code>echo -e &quot;line1 f2 f3nline2 f4 f5nline3 f6 f7&quot; | awk &apos;{print &quot;Line No:&quot;NR&quot;, No of fields:&quot;NF, &quot;$0=&quot;$0, &quot;$1=&quot;$1, &quot;$2=&quot;$2, &quot;$3=&quot;$3}&apos; 
+    Line No:1, No of fields:3 $0=line1 f2 f3 $1=line1 $2=f2 $3=f3 
+    Line No:2, No of fields:3 $0=line2 f4 f5 $1=line2 $2=f4 $3=f5 
+    Line No:3, No of fields:3 $0=line3 f6 f7 $1=line3 $2=f6 $3=f7 
+</code></pre><h6 id="使用print-NF可以打印出一行中的最后一个字段，使用-NF-1-则是打印倒数第二个字段，其他以此类推："><a href="#使用print-NF可以打印出一行中的最后一个字段，使用-NF-1-则是打印倒数第二个字段，其他以此类推：" class="headerlink" title="使用print $NF可以打印出一行中的最后一个字段，使用$(NF-1)则是打印倒数第二个字段，其他以此类推："></a>使用print $NF可以打印出一行中的最后一个字段，使用$(NF-1)则是打印倒数第二个字段，其他以此类推：</h6><pre><code>echo -e &quot;line1 f2 f3n line2 f4 f5&quot; | awk &apos;{print $NF}&apos; f3 f5 
+echo -e &quot;line1 f2 f3n line2 f4 f5&quot; | awk &apos;{print $(NF-1)}&apos; f2 f4 
+</code></pre><h5 id="打印每一行的第二和第三个字段："><a href="#打印每一行的第二和第三个字段：" class="headerlink" title="打印每一行的第二和第三个字段："></a>打印每一行的第二和第三个字段：</h5><pre><code>awk &apos;{ print $2,$3 }&apos; filename 
+</code></pre><h5 id="统计文件中的行数："><a href="#统计文件中的行数：" class="headerlink" title="统计文件中的行数："></a>统计文件中的行数：</h5><pre><code>awk &apos;END{ print NR }&apos; filename 
+</code></pre><blockquote>
+<p>以上命令只使用了END语句块，在读入每一行的时，awk会将NR更新为对应的行号，当到达最后一行NR的值就是最后一行的行号，所以END语句块中的NR就是文件的行数。 </p>
+</blockquote>
+<h6 id="一个每一行中第一个字段值累加的例子："><a href="#一个每一行中第一个字段值累加的例子：" class="headerlink" title="一个每一行中第一个字段值累加的例子："></a>一个每一行中第一个字段值累加的例子：</h6><pre><code>seq 5 | awk &apos;BEGIN{ sum=0; print &quot;总和：&quot; } { print $1&quot;+&quot;; sum+=$1 } END{ print &quot;等于&quot;; print sum }&apos; 
+总和： 
+1+ 2+ 3+ 4+ 5+ 
+等于 
+15 
+</code></pre><h5 id="将外部变量值传递给awk"><a href="#将外部变量值传递给awk" class="headerlink" title="将外部变量值传递给awk"></a>将外部变量值传递给awk</h5><h6 id="借助-v选项，可以将外部值（并非来自stdin）传递给awk："><a href="#借助-v选项，可以将外部值（并非来自stdin）传递给awk：" class="headerlink" title="借助-v选项，可以将外部值（并非来自stdin）传递给awk："></a>借助-v选项，可以将外部值（并非来自stdin）传递给awk：</h6><pre><code>VAR=10000 
+echo | awk -v VARIABLE=$VAR &apos;{ print VARIABLE }&apos; 
+</code></pre><h6 id="另一种传递外部变量方法："><a href="#另一种传递外部变量方法：" class="headerlink" title="另一种传递外部变量方法："></a>另一种传递外部变量方法：</h6><pre><code>var1=&quot;aaa&quot; 
+var2=&quot;bbb&quot; 
+echo | awk &apos;{ print v1,v2 }&apos; v1=$var1 v2=$var2 
+</code></pre><h6 id="当输入来自于文件时使用："><a href="#当输入来自于文件时使用：" class="headerlink" title="当输入来自于文件时使用："></a>当输入来自于文件时使用：</h6><pre><code>awk &apos;{ print v1,v2 }&apos; v1=$var1 v2=$var2 filename 
+</code></pre><blockquote>
+<p>以上方法中，变量之间用空格分隔作为awk的命令行参数跟随在BEGIN、{}和END语句块之后。 </p>
+</blockquote>
+<h3 id="awk运算与判断"><a href="#awk运算与判断" class="headerlink" title="awk运算与判断"></a>awk运算与判断</h3><p>作为一种程序设计语言所应具有的特点之一，awk支持多种运算，这些运算与C语言提供的基本相同。awk还提供了一系列内置的运算函数（如log、sqr、cos、sin等）和一些用于对字符串进行操作（运算）的函数（如length、substr等等）。这些函数的引用大大的提高了awk的运算功能。作为对条件转移指令的一部分，关系判断是每种程序设计语言都具备的功能，awk也不例外，awk中允许进行多种测试，作为样式匹配，还提供了模式匹配表达式~（匹配）和~!（不匹配）。作为对测试的一种扩充，awk也支持用逻辑运算符。 </p>
+<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">|运算符  | 描述 |</div><div class="line">| + -   | 加，减                     |</div><div class="line">| * / &amp; | 乘，除与求余               |</div><div class="line">| + - ! | 一元加，减和逻辑非         |</div><div class="line">| ^ *** | 求幂                       |</div><div class="line">| ++ -- | 增加或减少，作为前缀或后缀 |</div></pre></td></tr></table></figure>
+<h5 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h5><pre><code>awk &apos;BEGIN{a=&quot;b&quot;;print a++,++a;}&apos; 0 2 
+</code></pre><blockquote>
+<p>注意：所有用作算术运算符进行操作，操作数自动转为数值，所有非数值都变为0 </p>
+</blockquote>
+<h4 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">| 运算符                  | 描述     |</div><div class="line">| = += -= *= /= %= ^= **= | 赋值语句 |</div></pre></td></tr></table></figure>
+<h4 id="例：-1"><a href="#例：-1" class="headerlink" title="例："></a>例：</h4><pre><code>a+=5; 等价于：a=a+5; 其它同类 
+</code></pre><h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">| 运算符 | 描述   |</div><div class="line">|   ||     | 逻辑或 |</div><div class="line">|   &amp;&amp;   | 逻辑与 |</div></pre></td></tr></table></figure>
+<h5 id="例：-2"><a href="#例：-2" class="headerlink" title="例："></a>例：</h5><pre><code>awk &apos;BEGIN{a=1;b=2;print (a&gt;5 &amp;&amp; b&lt;=2),(a&gt;5 || b&lt;=2);}&apos; 
+0 1
+</code></pre><h4 id="正则运算符"><a href="#正则运算符" class="headerlink" title="正则运算符"></a>正则运算符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">|运算符 |描述</div><div class="line">| ~ ~! |匹配正则表达式和不匹配正则表达式</div></pre></td></tr></table></figure>
+<h5 id="例：-3"><a href="#例：-3" class="headerlink" title="例："></a>例：</h5><pre><code>awk &apos;BEGIN{a=&quot;100testa&quot;;if(a ~ /^100*/){print &quot;ok&quot;;}}&apos; 
+ok
+</code></pre><h4 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">| 运算符          | 描述       |</div><div class="line">| &lt; &lt;= &gt; &gt;= != == | 关系运算符 |</div></pre></td></tr></table></figure>
+<h5 id="例：-4"><a href="#例：-4" class="headerlink" title="例："></a>例：</h5><pre><code>awk &apos;BEGIN{a=11;if(a &gt;= 9){print &quot;ok&quot;;}}&apos; 
+ok 
+</code></pre><blockquote>
+<p>注意：&gt; &lt; 可以作为字符串比较，也可以用作数值比较，关键看操作数如果是字符串就会转换为字符串比较。两个都为数字才转为数值比较。字符串比较：按照ASCII码顺序比较。 </p>
+</blockquote>
+<h4 id="其它运算符"><a href="#其它运算符" class="headerlink" title="其它运算符"></a>其它运算符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| 描述                 | 运算符   |</div><div class="line">| $                    | 字段引用 |</div><div class="line">| 字符串连接符         | 空格     |</div><div class="line">| C条件表达式          | ?:       |</div><div class="line">| 数组中是否存在某键值 | in       |</div></pre></td></tr></table></figure>
+<h5 id="例：-5"><a href="#例：-5" class="headerlink" title="例："></a>例：</h5><pre><code>awk &apos;BEGIN{a=&quot;b&quot;;print a==&quot;b&quot;?&quot;ok&quot;:&quot;err&quot;;}&apos; 
+ok 
+awk &apos;BEGIN{a=&quot;b&quot;;arr[0]=&quot;b&quot;;arr[1]=&quot;c&quot;;print (a in arr);}&apos; 
+0 
+awk &apos;BEGIN{a=&quot;b&quot;;arr[0]=&quot;b&quot;;arr[&quot;b&quot;]=&quot;c&quot;;print (a in arr);}&apos; 
+1 
+</code></pre><h4 id="运算级优先级表"><a href="#运算级优先级表" class="headerlink" title="运算级优先级表"></a>运算级优先级表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">| 级别 | 运算符                           | 说明             |</div><div class="line">|    1 | =,+=,-=,*=,/=,%=,&amp;=,^=,|=,&lt;&lt;=,&gt;&gt;= | 赋值、运算、赋值 |</div><div class="line">|    2 |               ||                   |  逻辑或             |</div><div class="line">|    3 |               &amp;&amp;                 |    逻辑或           |</div><div class="line">|    4 |               |                   |   按位或            |</div><div class="line">|    5 |               ^                  |    按位异或          |</div><div class="line">|    6 |               &amp;                  |    按位与           |</div><div class="line">|    7 |               ==,!=              |    等于、不等于        |</div><div class="line">|    8 |               &lt;=,&gt;=,&lt;,&gt;          |  小于等于、大于等于、小于、大于 |</div><div class="line">|    9 |               &lt;&lt;,&gt;&gt;              |     按位左移、按位右移    |</div><div class="line">|   10 |               +,-                |       加、减        |</div><div class="line">|   11 |               *,/,%              |    乘、除、取模        |</div><div class="line">|   12 |               !,~                | 逻辑非、按位取反或补码      |</div><div class="line">|   13 |               -,+                |        正反        |</div></pre></td></tr></table></figure>
+<blockquote>
+<p>级别越高越优先 级别越高越优先</p>
+</blockquote>
+<h4 id="awk高级输入输出"><a href="#awk高级输入输出" class="headerlink" title="awk高级输入输出"></a>awk高级输入输出</h4><h5 id="读取下一条记录"><a href="#读取下一条记录" class="headerlink" title="读取下一条记录"></a>读取下一条记录</h5><p>awk中next语句使用：在循环逐行匹配，如果遇到next，就会跳过当前行，直接忽略下面语句。而进行下一行匹配。net语句一般用于多行合并： </p>
+<pre><code>cat text.txt 
+a 
+b 
+c 
+d 
+e 
+awk &apos;NR%2==1{next}{print NR,$0;}&apos; text.txt 
+2 b 
+4 d 
+</code></pre><p>当记录行号除以2余1，就跳过当前行。下面的print NR,$0也不会执行。下一行开始，程序有开始判断NR%2值。这个时候记录行号是：2 ，就会执行下面语句块：’print NR,$0’<br>分析发现需要将包含有“web”行进行跳过，然后需要将内容与下面行合并为一行： </p>
+<pre><code>cat text.txt 
+web01[192.168.2.100] 
+httpd ok 
+tomcat ok 
+sendmail ok 
+web02[192.168.2.101] 
+httpd ok 
+postfix ok 
+web03[192.168.2.102] 
+mysqld ok 
+httpd ok 
+0 
+awk &apos;/^web/{T=$0;next;}{print T&quot;:t&quot;$0;}&apos; test.txt 
+web01[192.168.2.100]: httpd ok 
+web01[192.168.2.100]: tomcat ok 
+web01[192.168.2.100]: sendmail ok 
+web02[192.168.2.101]: httpd ok 
+web02[192.168.2.101]: postfix ok 
+web03[192.168.2.102]: mysqld ok 
+web03[192.168.2.102]: httpd ok 
+</code></pre><p>简单地读取一条记录 </p>
+<pre><code>awk getline用法：
+</code></pre><p>输出重定向需用到getline函数。getline从标准输入、管道或者当前正在处理的文件之外的其他输入文件获得输入。它负责从输入获得下一行的内容，并给NF,NR和FNR等内建变量赋值。如果得到一条记录，getline函数返回1，如果到达文件的末尾就返回0，如果出现错误，例如打开文件失败，就返回-1。 </p>
+<h4 id="getline语法："><a href="#getline语法：" class="headerlink" title="getline语法："></a>getline语法：</h4><p>getline var，变量var包含了特定行的内容。 </p>
+<h5 id="awk-getline从整体上来说，用法说明："><a href="#awk-getline从整体上来说，用法说明：" class="headerlink" title="awk getline从整体上来说，用法说明："></a>awk getline从整体上来说，用法说明：</h5><p>当其左右无重定向符|或&lt;时：getline作用于当前文件，读入当前文件的第一行给其后跟的变量var或$0（无变量），应该注意到，由于awk在处理getline之前已经读入了一行，所以getline得到的返回结果是隔行的。 </p>
+<p>当其左右有重定向符|或&lt;时：getline则作用于定向输入文件，由于该文件是刚打开，并没有被awk读入一行，只是getline读入，那么getline返回的是该文件的第一行，而不是隔行。 </p>
+<h5 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h5><h6 id="执行linux的date命令，并通过管道输出给getline，然后再把输出赋值给自定义变量out，并打印它："><a href="#执行linux的date命令，并通过管道输出给getline，然后再把输出赋值给自定义变量out，并打印它：" class="headerlink" title="执行linux的date命令，并通过管道输出给getline，然后再把输出赋值给自定义变量out，并打印它："></a>执行linux的date命令，并通过管道输出给getline，然后再把输出赋值给自定义变量out，并打印它：</h6><pre><code>awk &apos;BEGIN{ &quot;date&quot; | getline out; print out }&apos; test 
+</code></pre><h6 id="执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素："><a href="#执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素：" class="headerlink" title="执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素："></a>执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素：</h6><pre><code>awk &apos;BEGIN{ &quot;date&quot; | getline out; split(out,mon); print mon[2] }&apos; test 
+</code></pre><h6 id="命令ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。"><a href="#命令ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。" class="headerlink" title="命令ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。"></a>命令ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。</h6><pre><code>awk &apos;BEGIN{ while( &quot;ls&quot; | getline) print }&apos; 
+</code></pre><h6 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h6><pre><code>awk中允许在程序中关闭一个输入或输出文件，方法是使用awk的close语句。 
+close(&quot;filename&quot;) 
+filename可以是getline打开的文件，也可以是stdin，包含文件名的变量或者getline使用的确切命令。或一个输出文件，可以是stdout，包含文件名的变量或使用管道的确切命令。 
+</code></pre><h5 id="输出到一个文件"><a href="#输出到一个文件" class="headerlink" title="输出到一个文件"></a>输出到一个文件</h5><p>awk中允许用如下方式将结果输出到一个文件： </p>
+<pre><code>echo | awk &apos;{printf(&quot;hello word!n&quot;) &gt; &quot;datafile&quot;}&apos; 
+或 
+echo | awk &apos;{printf(&quot;hello word!n&quot;) &gt;&gt; &quot;datafile&quot;}&apos; 
+</code></pre><h5 id="设置字段定界符"><a href="#设置字段定界符" class="headerlink" title="设置字段定界符"></a>设置字段定界符</h5><p>默认的字段定界符是空格，可以使用-F “定界符” 明确指定一个定界符： </p>
+<pre><code>awk -F: &apos;{ print $NF }&apos; /etc/passwd 
+或 
+awk &apos;BEGIN{ FS=&quot;:&quot; } { print $NF }&apos; /etc/passwd 
+</code></pre><p>在BEGIN语句块中则可以用OFS=“定界符”设置输出字段的定界符。 </p>
+<h4 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h4><p>在linux awk的while、do-while和for语句中允许使用break,continue语句来控制流程走向，也允许使用exit这样的语句来退出。break中断当前正在执行的循环并跳到循环外执行下一条语句。if 是流程选择用法。awk中，流程控制语句，语法结构，与c语言类型。有了这些语句，其实很多shell程序都可以交给awk，而且性能是非常快的。下面是各个语句用法。 </p>
+<h5 id="条件判断语句"><a href="#条件判断语句" class="headerlink" title="条件判断语句"></a>条件判断语句</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if(表达式) </div><div class="line">    语句1 </div><div class="line">else </div><div class="line">    语句2</div></pre></td></tr></table></figure>
+<h6 id="格式中语句1可以是多个语句，为了方便判断和阅读，最好将多个语句用-括起来。"><a href="#格式中语句1可以是多个语句，为了方便判断和阅读，最好将多个语句用-括起来。" class="headerlink" title="格式中语句1可以是多个语句，为了方便判断和阅读，最好将多个语句用{}括起来。"></a>格式中语句1可以是多个语句，为了方便判断和阅读，最好将多个语句用{}括起来。</h6><p>awk分枝结构允许嵌套，其格式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if(表达式) </div><div class="line">    &#123;语句1&#125; </div><div class="line">else if(表达式) </div><div class="line">    &#123;语句2&#125; </div><div class="line">else </div><div class="line">    &#123;语句3&#125;</div></pre></td></tr></table></figure></p>
+<h6 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">awk &apos;BEGIN&#123; </div><div class="line">test=100; </div><div class="line">if(test&gt;90)&#123; </div><div class="line">    print &quot;very good&quot;; </div><div class="line">    &#125; </div><div class="line">    else if(test&gt;60)&#123; </div><div class="line">        print &quot;good&quot;; </div><div class="line">    &#125; </div><div class="line">    else&#123; </div><div class="line">        print &quot;no pass&quot;; </div><div class="line">    &#125; </div><div class="line">&#125;&apos; </div><div class="line">very good</div></pre></td></tr></table></figure>
+<p>每条命令语句后面可以用;分号结尾。 </p>
+<h5 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h5><h6 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">while(表达式) </div><div class="line">    &#123;语句&#125;</div></pre></td></tr></table></figure>
+<h4 id="示例：-2"><a href="#示例：-2" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">awk &apos;BEGIN&#123; </div><div class="line">test=100; </div><div class="line">total=0; </div><div class="line">while(i&lt;=test)&#123; </div><div class="line">    total+=i; </div><div class="line">    i++; </div><div class="line">&#125; </div><div class="line">print total; </div><div class="line">&#125;&apos; </div><div class="line">5050</div></pre></td></tr></table></figure>
+<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><p>#####for循环有两种格式： </p>
+<ul>
+<li>格式1： </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">for(变量 in 数组) </div><div class="line">    &#123;语句&#125; </div><div class="line">示例： </div><div class="line">awk &apos;BEGIN&#123; </div><div class="line">for(k in ENVIRON)&#123; </div><div class="line">    print k&quot;=&quot;ENVIRON[k]; </div><div class="line">&#125; </div><div class="line"></div><div class="line">&#125;&apos; </div><div class="line">TERM=linux </div><div class="line">G_BROKEN_FILENAMES=1 </div><div class="line">SHLVL=1 </div><div class="line">pwd=/root/text </div><div class="line">...</div><div class="line">logname=root </div><div class="line">HOME=/root </div><div class="line">SSH_CLIENT=192.168.1.21 53087 22</div></pre></td></tr></table></figure>
+<blockquote>
+<p>ENVIRON是awk常量，是子典型数组。 </p>
+</blockquote>
+<ul>
+<li>格式2： </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">for(变量;条件;表达式) </div><div class="line">    &#123;语句&#125; </div><div class="line">示例： </div><div class="line">awk &apos;BEGIN&#123; </div><div class="line">total=0; </div><div class="line">for(i=0;i&lt;=100;i++)&#123; </div><div class="line">    total+=i; </div><div class="line">&#125; </div><div class="line">print total; </div><div class="line">&#125;&apos; </div><div class="line">5050</div></pre></td></tr></table></figure>
+<ul>
+<li>do循环</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">do </div><div class="line">&#123;语句&#125; while(条件) </div><div class="line">例子： </div><div class="line">awk &apos;BEGIN&#123; </div><div class="line">total=0; </div><div class="line">i=0; </div><div class="line">do &#123;total+=i;i++;&#125; while(i&lt;=100) </div><div class="line">    print total; </div><div class="line">&#125;&apos; </div><div class="line">5050</div></pre></td></tr></table></figure>
+<ul>
+<li><p>其他语句 </p>
+<ul>
+<li><p>break 当 break 语句用于 while 或 for 语句时，导致退出程序循环。 </p>
+</li>
+<li><p>continue 当 continue 语句用于 while 或 for 语句时，使程序循环移动到下一个迭代。 </p>
+</li>
+<li><p>next 能能够导致读入下一个输入行，并返回到脚本的顶部。这可以避免对当前输入行执行其他的操作过程。 </p>
+</li>
+<li><p>exit 语句使主输入循环退出并将控制转移到END,如果END存在的话。如果没有定义END规则，或在END中应用exit语句，则终止脚本的执行。 </p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="数组应用"><a href="#数组应用" class="headerlink" title="数组应用"></a>数组应用</h4><p>数组是awk的灵魂，处理文本中最不能少的就是它的数组处理。因为数组索引（下标）可以是数字和字符串在awk中数组叫做关联数组(associative arrays)。awk 中的数组不必提前声明，也不必声明大小。数组元素用0或空字符串来初始化，这根据上下文而定。 </p>
+<h5 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h5><p>数字做数组索引（下标）： </p>
+<pre><code>Array[1]=&quot;sun&quot; 
+Array[2]=&quot;kai&quot; 
+</code></pre><p>字符串做数组索引（下标）： </p>
+<pre><code>Array[&quot;first&quot;]=&quot;www&quot; 
+Array[&quot;last&quot;]=&quot;name&quot; 
+Array[&quot;birth&quot;]=&quot;1987&quot; 
+</code></pre><p>使用中print Array[1]会打印出sun；使用print Array[2]会打印出kai；使用print[“birth”]会得到1987。 </p>
+<ul>
+<li><p>读取数组的值 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#123; for(item in array) &#123;print array[item]&#125;; &#125; #输出的顺序是随机的 </div><div class="line">&#123; for(i=1;i&lt;=len;i++) &#123;print array[i]&#125;; &#125; #Len是数组的长度</div></pre></td></tr></table></figure>
+</li>
+<li><p>数组相关函数 </p>
+</li>
+<li>得到数组长度： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">awk &apos;BEGIN&#123;info=&quot;it is a test&quot;;lens=split(info,tA,&quot; &quot;);print length(tA),lens;&#125;&apos; </div><div class="line">4 4 </div><div class="line">length返回字符串以及数组长度，split进行分割字符串为数组，也会返回分割得到数组长度。 </div><div class="line">awk &apos;BEGIN&#123;info=&quot;it is a test&quot;;split(info,tA,&quot; &quot;);print asort(tA);&#125;&apos; </div><div class="line">4 </div><div class="line">asort对数组进行排序，返回数组长度。 </div><div class="line">*** 输出数组内容（无序，有序输出）： </div><div class="line">awk &apos;BEGIN&#123;info=&quot;it is a test&quot;;split(info,tA,&quot; &quot;);for(k in tA)&#123;print k,tA[k];&#125;&#125;&apos; </div><div class="line">4 test </div><div class="line">1 it </div><div class="line">2 is </div><div class="line">3 a </div><div class="line">for…in输出，因为数组是关联数组，默认是无序的。所以通过for…in得到是无序的数组。如果需要得到有序数组，需要通过下标获得。 </div><div class="line">awk &apos;BEGIN&#123;info=&quot;it is a test&quot;;tlen=split(info,tA,&quot; &quot;);for(k=1;k&lt;=tlen;k++)&#123;print k,tA[k];&#125;&#125;&apos; </div><div class="line">1 it </div><div class="line">2 is </div><div class="line">3 a </div><div class="line">4 test</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>注意：数组下标是从1开始，与C数组不一样。 </p>
+</blockquote>
+<ul>
+<li>判断键值存在以及删除键值：<br>错误的判断方法： </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">awk &apos;BEGIN&#123;tB[&quot;a&quot;]=&quot;a1&quot;;tB[&quot;b&quot;]=&quot;b1&quot;;if(tB[&quot;c&quot;]!=&quot;1&quot;)&#123;print &quot;no found&quot;;&#125;;for(k in tB)&#123;print k,tB[k];&#125;&#125;&apos; </div><div class="line">no found </div><div class="line">a a1 </div><div class="line">b b1 </div><div class="line">c</div></pre></td></tr></table></figure>
+<blockquote>
+<p>以上出现奇怪问题，tB[“c”]没有定义，但是循环时候，发现已经存在该键值，它的值为空，这里需要注意，awk数组是关联数组，只要通过数组引用它的key，就会自动创建改序列。 </p>
+</blockquote>
+<ul>
+<li><p>正确判断方法： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">awk &apos;BEGIN&#123;tB[&quot;a&quot;]=&quot;a1&quot;;tB[&quot;b&quot;]=&quot;b1&quot;;if( &quot;c&quot; in tB)&#123;print &quot;ok&quot;;&#125;;for(k in tB)&#123;print k,tB[k];&#125;&#125;&apos; </div><div class="line">a a1 </div><div class="line">b b1 </div><div class="line">if(key in array)通过这种方法判断数组中是否包含key键值。</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除键值： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[chengmo@localhost ~]$ awk &apos;BEGIN&#123;tB[&quot;a&quot;]=&quot;a1&quot;;tB[&quot;b&quot;]=&quot;b1&quot;;delete tB[&quot;a&quot;];for(k in tB)&#123;print k,tB[k];&#125;&#125;&apos; </div><div class="line">b b1 </div><div class="line">delete array[key]可以删除，对应数组key的，序列值。</div></pre></td></tr></table></figure>
+</li>
+<li><p>二维、多维数组使用 </p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">awk &apos;BEGIN&#123; </div><div class="line">    for(i=1;i&lt;=9;i++)&#123; </div><div class="line">        for(j=1;j&lt;=9;j++)&#123; </div><div class="line">            tarr[i,j]=i*j; print i,&quot;*&quot;,j,&quot;=&quot;,tarr[i,j]; </div><div class="line">        &#125; </div><div class="line">    &#125; </div><div class="line">&#125;&apos; </div><div class="line">1 * 1 = 1 </div><div class="line">1 * 2 = 2 </div><div class="line">1 * 3 = 3 </div><div class="line">1 * 4 = 4 </div><div class="line">1 * 5 = 5 </div><div class="line">1 * 6 = 6 </div><div class="line">... </div><div class="line">9 * 6 = 54 </div><div class="line">9 * 7 = 63 </div><div class="line">9 * 8 = 72 </div><div class="line">9 * 9 = 81 </div><div class="line">可以通过array[k,k2]引用获得数组内容。 </div><div class="line">另一种方法： </div><div class="line">awk &apos;BEGIN&#123; </div><div class="line">   for(i=1;i&lt;=9;i++)&#123; </div><div class="line">       for(j=1;j&lt;=9;j++)&#123; </div><div class="line">           tarr[i,j]=i*j; </div><div class="line">   &#125; </div><div class="line">&#125; </div><div class="line">for(m in tarr)&#123; </div><div class="line">   split(m,tarr2,SUBSEP); print tarr2[1],&quot;*&quot;,tarr2[2],&quot;=&quot;,tarr[m]; </div><div class="line">&#125; </div><div class="line">&#125;&apos;</div></pre></td></tr></table></figure>
+<h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3><p>awk内置函数，主要分以下3种类似：算数函数、字符串函数、其它一般函数、时间函数。 </p>
+<h4 id="算术函数"><a href="#算术函数" class="headerlink" title="算术函数"></a>算术函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">|格式| 描述| </div><div class="line">|atan2( y, x )| 返回 y/x 的反正切。| </div><div class="line">|cos( x )| 返回 x 的余弦；x 是弧度。| </div><div class="line">|sin( x )| 返回 x 的正弦；x 是弧度。 |</div><div class="line">|exp( x )| 返回 x 幂函数。 |</div><div class="line">|log( x )| 返回 x 的自然对数。| </div><div class="line">|sqrt( x )| 返回 x 平方根。 |</div><div class="line">|int( x )| 返回 x 的截断至整数的值。 |</div><div class="line">|rand( )| 返回任意数字 n，其中 0 &lt;= n &lt; 1。| </div><div class="line">|srand( [expr] )| 将 rand 函数的种子值设置为 Expr 参数的值，或如果省略 Expr 参数则使用某天的时间。返回先前的种子值。 |</div></pre></td></tr></table></figure>
+<h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">|格式| 描述| </div><div class="line">|gsub( Ere, Repl, [ In ] ) |除了正则表达式所有具体值被替代这点，它和 sub 函数完全一样地执行。 |</div><div class="line">|sub( Ere, Repl, [ In ] ) |用 Repl 参数指定的字符串替换 In 参数指定的字符串中的由 Ere 参数指定的扩展正则表达式的第一个具体值。sub 函数返回替换的数量。出现在 Repl 参数指定的字符串中的 &amp;（和符号）由 In 参数指定的与 Ere 参数的指定的扩展正则表达式匹配的字符串替换。如果未指定 In 参数，缺省值是整个记录（$0 记录变量）。 |</div><div class="line">|index( String1, String2 ) |在由 String1 参数指定的字符串（其中有出现 String2 指定的参数）中，返回位置，从 1 开始编号。如果 String2 参数不在 String1 参数中出现，则返回 0（零）。 |</div><div class="line">|length [(String)] |返回 String 参数指定的字符串的长度（字符形式）。如果未给出 String 参数，则返回整个记录的长度（$0 记录变量）。 |</div><div class="line">|blength [(String)] |返回 String 参数指定的字符串的长度（以字节为单位）。如果未给出 String 参数，则返回整个记录的长度（$0 记录变量）。 |</div><div class="line">|substr( String, M, [ N ] ) |返回具有 N 参数指定的字符数量子串。子串从 String 参数指定的字符串取得，其字符以 M 参数指定的位置开始。M 参数指定为将 String 参数中的第一个字符作为编号 1。如果未指定 N 参数，则子串的长度将是 M 参数指定的位置到 String 参数的末尾 的长度。| </div><div class="line">|match( String, Ere ) |在 String 参数指定的字符串（Ere 参数指定的扩展正则表达式出现在其中）中返回位置（字符形式），从 1 开始编号，或如果 Ere 参数不出现，则返回 0（零）。RSTART 特殊变量设置为返回值。RLENGTH 特殊变量设置为匹配的字符串的长度，或如果未找到任何匹配，则设置为 -1（负一）。 |</div><div class="line">|split( String, A, [Ere] ) |将 String 参数指定的参数分割为数组元素 A[1], A[2], . . ., A[n]，并返回 n 变量的值。此分隔可以通过 Ere 参数指定的扩展正则表达式进行，或用当前字段分隔符（FS 特殊变量）来进行（如果没有给出 Ere 参数）。除非上下文指明特定的元素还应具有一个数字值，否则 A 数组中的元素用字符串值来创建。| </div><div class="line">|tolower( String ) |返回 String 参数指定的字符串，字符串中每个大写字符将更改为小写。大写和小写的映射由当前语言环境的 LC_CTYPE 范畴定义。 |</div><div class="line">|toupper( String ) |返回 String 参数指定的字符串，字符串中每个小写字符将更改为大写。大写和小写的映射由当前语言环境的 LC_CTYPE 范畴定义。 |</div><div class="line">|sprintf(Format, Expr, Expr, . . . ) |根据 Format 参数指定的 printf 子例程格式字符串来格式化 Expr 参数指定的表达式并返回最后生成的字符串。|</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注：Ere都可以是正则表达式。 </p>
+</blockquote>
+<h3 id="格式化字符串输出（sprintf使用）"><a href="#格式化字符串输出（sprintf使用）" class="headerlink" title="格式化字符串输出（sprintf使用）"></a>格式化字符串输出（sprintf使用）</h3><p>格式化字符串格式：<br>其中格式化字符串包括两部分内容：一部分是正常字符，这些字符将按原样输出; 另一部分是格式化规定字符，以”%”开始，后跟一个或几个规定字符,用来确定输出内容格式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">| 格式 | 描述                          |</div><div class="line">| %d   | 十进制有符号整数              |</div><div class="line">| %u   | 十进制无符号整数              |</div><div class="line">| %f   | 浮点数                        |</div><div class="line">| %s   | 字符串                        |</div><div class="line">| %c   | 单个字符                      |</div><div class="line">| %p   | 指针的值                      |</div><div class="line">| %e   | 指数形式的浮点数              |</div><div class="line">| %x   | %X 无符号以十六进制表示的整数 |</div><div class="line">| %o   | 无符号以八进制表示的整数      |</div><div class="line">| %g   | 自动选择合适的表示法          |</div></pre></td></tr></table></figure></p>
+<h3 id="strftime日期和时间格式说明符"><a href="#strftime日期和时间格式说明符" class="headerlink" title="strftime日期和时间格式说明符"></a>strftime日期和时间格式说明符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">| 格式 | 描述                                                     |</div><div class="line">| %a   | 星期几的缩写(Sun)                                        |</div><div class="line">| %A   | 星期几的完整写法(Sunday)                                 |</div><div class="line">| %b   | 月名的缩写(Oct)                                          |</div><div class="line">| %B   | 月名的完整写法(October)                                  |</div><div class="line">| %c   | 本地日期和时间                                           |</div><div class="line">| %d   | 十进制日期                                               |</div><div class="line">| %D   | 日期 08/20/99                                            |</div><div class="line">| %e   | 日期，如果只有一位会补上一个空格                         |</div><div class="line">| %H   | 用十进制表示24小时格式的小时                             |</div><div class="line">| %I   | 用十进制表示12小时格式的小时                             |</div><div class="line">| %j   | 从1月1日起一年中的第几天                                 |</div><div class="line">| %m   | 十进制表示的月份                                         |</div><div class="line">| %M   | 十进制表示的分钟                                         |</div><div class="line">| %p   | 12小时表示法(AM/PM)                                      |</div><div class="line">| %S   | 十进制表示的秒                                           |</div><div class="line">| %U   | 十进制表示的一年中的第几个星期(星期天作为一个星期的开始) |</div><div class="line">| %w   | 十进制表示的星期几(星期天是0)                            |</div><div class="line">| %W   | 十进制表示的一年中的第几个星期(星期一作为一个星期的开始) |</div><div class="line">| %x   | 重新设置本地日期(08/20/99)                               |</div><div class="line">| %X   | 重新设置本地时间(12：00：00)                             |</div><div class="line">| %y   | 两位数字表示的年(99)                                     |</div><div class="line">| %Y   | 当前月份                                                 |</div><div class="line">| %Z   | 时区(PDT)                                                |</div><div class="line">| %%   | 百分号(%)                                                |</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh_08c2f53d4101_430.jpg" alt="By Kebyn wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我记得我还有微信公众号,已经基本不更新了</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>觉得有用的话,给我来上一杯咖啡,或者一顿大餐,或许我会更有动力!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/tencent.jpg" alt="By Kebyn WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="By Kebyn Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/awk/" rel="tag"># awk</a>
+          
+            <a href="/tags/command/" rel="tag"># command</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/03/20/grep/" rel="prev" title="grep">
+                grep <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/03/20/awk/"
+           data-title="awk" data-url="https://code.kebyn.cc/2014/03/20/awk/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.webp"
+               alt="By Kebyn" />
+          <p class="site-author-name" itemprop="name">By Kebyn</p>
+           
+              <p class="site-description motion-element" itemprop="description">觅我心中方向</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kebyn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kebuyuni" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3083159625" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#awk是一种编程语言，用于在linux-unix下对文本和数据进行处理。"><span class="nav-number">1.</span> <span class="nav-text">awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk命令格式和选项"><span class="nav-number">2.</span> <span class="nav-text">awk命令格式和选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法形式"><span class="nav-number">2.1.</span> <span class="nav-text">语法形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用命令选项"><span class="nav-number">2.2.</span> <span class="nav-text">常用命令选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#awk模式和操作"><span class="nav-number">2.3.</span> <span class="nav-text">awk模式和操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模式可以是以下任意一个："><span class="nav-number">2.3.1.</span> <span class="nav-text">模式可以是以下任意一个：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作由一个或多个命令、函数、表达式组成，之间由换行符或分号隔开，并位于大括号内，主要部分是："><span class="nav-number">3.</span> <span class="nav-text">操作由一个或多个命令、函数、表达式组成，之间由换行符或分号隔开，并位于大括号内，主要部分是：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#awk脚本基本结构"><span class="nav-number">3.1.</span> <span class="nav-text">awk脚本基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如："><span class="nav-number">3.1.1.</span> <span class="nav-text">一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#awk的工作原理"><span class="nav-number">3.2.</span> <span class="nav-text">awk的工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BEGIN语句块"><span class="nav-number">3.3.</span> <span class="nav-text">BEGIN语句块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#END语句块"><span class="nav-number">3.4.</span> <span class="nav-text">END语句块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例"><span class="nav-number">3.4.1.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#当使用不带参数的print时，它就打印当前行，当print的参数是以逗号进行分隔时，打印时则以空格作为定界符。在awk的print语句块中双引号是被当作拼接符使用，例如："><span class="nav-number">3.4.1.1.</span> <span class="nav-text">当使用不带参数的print时，它就打印当前行，当print的参数是以逗号进行分隔时，打印时则以空格作为定界符。在awk的print语句块中双引号是被当作拼接符使用，例如：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双引号拼接使用："><span class="nav-number">3.5.</span> <span class="nav-text">双引号拼接使用：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk内置变量（预定义变量）"><span class="nav-number">4.</span> <span class="nav-text">awk内置变量（预定义变量）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#n-当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">$n 当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#0-这个变量包含执行过程中当前行的文本内容。"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">$0 这个变量包含执行过程中当前行的文本内容。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-1"><span class="nav-number">4.0.1.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用print-NF可以打印出一行中的最后一个字段，使用-NF-1-则是打印倒数第二个字段，其他以此类推："><span class="nav-number">4.0.1.1.</span> <span class="nav-text">使用print $NF可以打印出一行中的最后一个字段，使用$(NF-1)则是打印倒数第二个字段，其他以此类推：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#打印每一行的第二和第三个字段："><span class="nav-number">4.0.2.</span> <span class="nav-text">打印每一行的第二和第三个字段：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#统计文件中的行数："><span class="nav-number">4.0.3.</span> <span class="nav-text">统计文件中的行数：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#一个每一行中第一个字段值累加的例子："><span class="nav-number">4.0.3.1.</span> <span class="nav-text">一个每一行中第一个字段值累加的例子：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#将外部变量值传递给awk"><span class="nav-number">4.0.4.</span> <span class="nav-text">将外部变量值传递给awk</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#借助-v选项，可以将外部值（并非来自stdin）传递给awk："><span class="nav-number">4.0.4.1.</span> <span class="nav-text">借助-v选项，可以将外部值（并非来自stdin）传递给awk：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#另一种传递外部变量方法："><span class="nav-number">4.0.4.2.</span> <span class="nav-text">另一种传递外部变量方法：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#当输入来自于文件时使用："><span class="nav-number">4.0.4.3.</span> <span class="nav-text">当输入来自于文件时使用：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk运算与判断"><span class="nav-number">5.</span> <span class="nav-text">awk运算与判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算术运算符"><span class="nav-number">5.1.</span> <span class="nav-text">算术运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例："><span class="nav-number">5.1.1.</span> <span class="nav-text">例：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符"><span class="nav-number">5.2.</span> <span class="nav-text">赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例：-1"><span class="nav-number">5.3.</span> <span class="nav-text">例：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑运算符"><span class="nav-number">5.4.</span> <span class="nav-text">逻辑运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例：-2"><span class="nav-number">5.4.1.</span> <span class="nav-text">例：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则运算符"><span class="nav-number">5.5.</span> <span class="nav-text">正则运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例：-3"><span class="nav-number">5.5.1.</span> <span class="nav-text">例：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关系运算符"><span class="nav-number">5.6.</span> <span class="nav-text">关系运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例：-4"><span class="nav-number">5.6.1.</span> <span class="nav-text">例：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其它运算符"><span class="nav-number">5.7.</span> <span class="nav-text">其它运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例：-5"><span class="nav-number">5.7.1.</span> <span class="nav-text">例：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运算级优先级表"><span class="nav-number">5.8.</span> <span class="nav-text">运算级优先级表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#awk高级输入输出"><span class="nav-number">5.9.</span> <span class="nav-text">awk高级输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#读取下一条记录"><span class="nav-number">5.9.1.</span> <span class="nav-text">读取下一条记录</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getline语法："><span class="nav-number">5.10.</span> <span class="nav-text">getline语法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#awk-getline从整体上来说，用法说明："><span class="nav-number">5.10.1.</span> <span class="nav-text">awk getline从整体上来说，用法说明：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例："><span class="nav-number">5.10.2.</span> <span class="nav-text">示例：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#执行linux的date命令，并通过管道输出给getline，然后再把输出赋值给自定义变量out，并打印它："><span class="nav-number">5.10.2.1.</span> <span class="nav-text">执行linux的date命令，并通过管道输出给getline，然后再把输出赋值给自定义变量out，并打印它：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素："><span class="nav-number">5.10.2.2.</span> <span class="nav-text">执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#命令ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。"><span class="nav-number">5.10.2.3.</span> <span class="nav-text">命令ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#关闭文件"><span class="nav-number">5.10.2.4.</span> <span class="nav-text">关闭文件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输出到一个文件"><span class="nav-number">5.10.3.</span> <span class="nav-text">输出到一个文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置字段定界符"><span class="nav-number">5.10.4.</span> <span class="nav-text">设置字段定界符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程控制语句"><span class="nav-number">5.11.</span> <span class="nav-text">流程控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#条件判断语句"><span class="nav-number">5.11.1.</span> <span class="nav-text">条件判断语句</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#格式中语句1可以是多个语句，为了方便判断和阅读，最好将多个语句用-括起来。"><span class="nav-number">5.11.1.1.</span> <span class="nav-text">格式中语句1可以是多个语句，为了方便判断和阅读，最好将多个语句用{}括起来。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#示例：-1"><span class="nav-number">5.11.1.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环语句"><span class="nav-number">5.11.2.</span> <span class="nav-text">循环语句</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#while语句"><span class="nav-number">5.11.2.1.</span> <span class="nav-text">while语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例：-2"><span class="nav-number">5.12.</span> <span class="nav-text">示例：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for循环"><span class="nav-number">5.13.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组应用"><span class="nav-number">5.14.</span> <span class="nav-text">数组应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数组的定义"><span class="nav-number">5.14.1.</span> <span class="nav-text">数组的定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置函数"><span class="nav-number">6.</span> <span class="nav-text">内置函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算术函数"><span class="nav-number">6.1.</span> <span class="nav-text">算术函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串函数"><span class="nav-number">7.</span> <span class="nav-text">字符串函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化字符串输出（sprintf使用）"><span class="nav-number">8.</span> <span class="nav-text">格式化字符串输出（sprintf使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strftime日期和时间格式说明符"><span class="nav-number">9.</span> <span class="nav-text">strftime日期和时间格式说明符</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kebyn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

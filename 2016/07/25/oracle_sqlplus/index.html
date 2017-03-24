@@ -1,0 +1,1083 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="command,database,oracle,sqlplus,install," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="待回首" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Oracle数据库软件十分庞大，数据库引擎有好几个G。通常情况下，我们的使用方式是安装一个Oracle数据库在服务器机器上，在客户端通过PL/SQL Developer、sqlplus等工具操作服务器上的数据，当然Oracle 10g后，OEM(企业管理器)已经是WEB版了，在浏览器中也可以同样操作数据库。
+Windows 下Oracle Instant Client 的安装Windows下客户端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlplus 安装">
+<meta property="og:url" content="https://code.kebyn.cc/2016/07/25/oracle_sqlplus/index.html">
+<meta property="og:site_name" content="待回首">
+<meta property="og:description" content="Oracle数据库软件十分庞大，数据库引擎有好几个G。通常情况下，我们的使用方式是安装一个Oracle数据库在服务器机器上，在客户端通过PL/SQL Developer、sqlplus等工具操作服务器上的数据，当然Oracle 10g后，OEM(企业管理器)已经是WEB版了，在浏览器中也可以同样操作数据库。
+Windows 下Oracle Instant Client 的安装Windows下客户端">
+<meta property="og:updated_time" content="2017-03-13T08:38:14.012Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sqlplus 安装">
+<meta name="twitter:description" content="Oracle数据库软件十分庞大，数据库引擎有好几个G。通常情况下，我们的使用方式是安装一个Oracle数据库在服务器机器上，在客户端通过PL/SQL Developer、sqlplus等工具操作服务器上的数据，当然Oracle 10g后，OEM(企业管理器)已经是WEB版了，在浏览器中也可以同样操作数据库。
+Windows 下Oracle Instant Client 的安装Windows下客户端">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6396258217105556000',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://code.kebyn.cc/2016/07/25/oracle_sqlplus/"/>
+
+
+
+
+
+  <title> sqlplus 安装 | 待回首 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">待回首</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://code.kebyn.cc/2016/07/25/oracle_sqlplus/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="By Kebyn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/avatar.webp">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="待回首">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                sqlplus 安装
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-25T04:34:52-04:00">
+                2016-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/07/25/oracle_sqlplus/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/oracle_sqlplus/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Oracle数据库软件十分庞大，数据库引擎有好几个G。通常情况下，我们的使用方式是安装一个Oracle数据库在服务器机器上，在客户端通过PL/SQL Developer、sqlplus等工具操作服务器上的数据，当然Oracle 10g后，OEM(企业管理器)已经是WEB版了，在浏览器中也可以同样操作数据库。</p>
+<h3 id="Windows-下Oracle-Instant-Client-的安装"><a href="#Windows-下Oracle-Instant-Client-的安装" class="headerlink" title="Windows 下Oracle Instant Client 的安装"></a>Windows 下Oracle Instant Client 的安装</h3><p>Windows下客户端工具 PL/SQL Developer 使用得最多，Linux下，我喜欢直接使用sqlplus。不论使用哪种工具，都需要在客户端机器上安装Oracle客户端工具，安装以下三种软件均可连接Oracle服务器：</p>
+<ul>
+<li>(a) Oracle 数据库引擎  </li>
+<li>(b) Oracle Client  </li>
+<li>(c) Oracle Instant Client</li>
+</ul>
+<p>其中前两种占硬盘空间大，并且安装也相对繁琐，我一般喜欢采用第三种方式，因此，下面介绍 Oracle Instant Client 的安装：</p>
+<ol>
+<li><p>Windows 下Oracle Instant Client 的安装</p>
+</li>
+<li><p>Oracle Instant Client 下载</p>
+<ul>
+<li>进入<a href="http://www.oracle.com" target="_blank" rel="external">Oracle官网首页</a>，单击首页中的downloads链接，在新页面中选择 Database —&gt; Instant Client，进入 Instant Client Downloads 页，选择相应版本下载。</li>
+<li><a href="http://www.oracle.com/cn/index.html" target="_blank" rel="external">Oracle 中文网站</a></li>
+<li>我下载的软件包是：basic、sqlplus.</li>
+<li>注意，必须下载basic或者basiclite其中之一，若需要做 OCI / OCCI 开发，还需下载 sdk.<a id="more"></a>
+</li>
+</ul>
+</li>
+<li><p>Oracle Instant Client 安装</p>
+<ul>
+<li>安装很简单，只需直接解压两个包即可，将两个包解压到同一目录下</li>
+<li>例如解压到目录 D:\instantclient-10.2.0.3-win32\下。</li>
+<li>最后目录结构是：D:\instantclient-10.2.0.3-win32\instantclient_10_2，instantclient_10_2目录下就是解压后的 basic 和 sqlplus.</li>
+</ul>
+</li>
+<li><p>创建数据库连接文件<br>在 D:\instantclient-10.2.0.3-win32\instantclient_10_2 目录下创建文件夹 admin，在 admin 目录下创建文件  tnsnames.ora，根据数据库连接输入以下类似内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># tnsnames.ora Network Configuration File: /opt/oracle_11g_R2_x64/product/11.2.0.1.0/db_1/network/admin/tnsnames.ora </div><div class="line"># Generated by Oracle configuration tools.  </div><div class="line">  </div><div class="line">ORCL =  </div><div class="line">  (DESCRIPTION =  </div><div class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.232.133)(PORT = 1521))  </div><div class="line">    (CONNECT_DATA =  </div><div class="line">      (SERVER = DEDICATED)  </div><div class="line">      (SERVICE_NAME = orcl)  </div><div class="line">    )  </div><div class="line">  )</div></pre></td></tr></table></figure>
+<p> 该文件和数据库服务器中的文件内容类似，其作用是配置 sqlplus 和 PL/SQL Developer 中连接时的连接字符串。大家都知道该文件的作用，不必赘述。</p>
+</li>
+<li><p>配置Windows环境变量</p>
+<p> ORACLE_HOME=D:\instantclient-10.2.0.3-win32\instantclient_10_2</p>
+<p> Path=%ORACLE_HOME%; xxxxxx    ===&gt; 作用是在命令行中可以找到 sqlplus 等命令，在运行sqlplus时加载相关库<br> TNS_ADMIN=%ORACLE_HOME%\admin  ===&gt; 作用是在sqlplus等工具中连接数据库时能找到 tnsnames.ora中的连接符<br> NLS_lANG=SIMPLIFIED CHINESE_CHINA.ZHS16GBK  ===&gt;    设置客户端的字符集</p>
+</li>
+<li><p>完成，测试!</p>
+<p> 经过以上步骤后，Oracle Instant Client 安装完毕，在命令行中可以使用命令连接服务器.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">C:\Users\kebyn&gt;sqlplus /nolog</div><div class="line"></div><div class="line">  SQL*Plus: Release 10.2.0.3.0 - Production on 星期二 1月 10 10:52:53 2012</div><div class="line">  </div><div class="line">  Copyright (c) 1982, 2006, Oracle.  All Rights Reserved.</div><div class="line">  </div><div class="line">  SQL&gt; conn scott/tiger@orcl    ===&gt; 使用到 %TNS_ADMIN% 下 tnsnames.ora中的连接符ORCL</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Linux-下-Oracle-Instant-Client-的安装"><a href="#Linux-下-Oracle-Instant-Client-的安装" class="headerlink" title="Linux 下 Oracle Instant Client 的安装"></a>Linux 下 Oracle Instant Client 的安装</h3><ol>
+<li>下载</li>
+</ol>
+<p>Linux 下的 Oracle Instant Client有rpm包和zip包两种，下载任意一种即可，这里以下载的 zip包为例</p>
+<p>   oracle-instantclient11.2-basic-11.2.0.1.0-1.x86_64.zip  </p>
+<p>   oracle-instantclient11.2-sqlplus-11.2.0.1.0-1.x86_64.zip</p>
+<p>   oracle-instantclient11.2-sdk-11.2.0.1.0-1.x86_64.zip</p>
+<ol>
+<li>解压安装<br>文件被解压到目录  instantclient_11_2 下</li>
+<li>创建数据库连接文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd instantclient_11_2</div><div class="line">mkdir network/admin</div><div class="line">vim network/admin/tnsnames.ora</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># tnsnames.ora Network Configuration File: /sdb1/oracle/11gR2_database_X64/product/11.2.0.1.0/db_1/network/admin/tnsnames.ora  </div><div class="line"># Generated by Oracle configuration tools.  </div><div class="line">  </div><div class="line">ZKL =  </div><div class="line">  (DESCRIPTION =  </div><div class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = glnode04)(PORT = 1521))  </div><div class="line">    (CONNECT_DATA =  </div><div class="line">      (SERVER = DEDICATED)  </div><div class="line">      (SERVICE_NAME = zkl)  </div><div class="line">    )  </div><div class="line">  )</div></pre></td></tr></table></figure>
+<ol>
+<li>配置环境变量<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim ~/.bashrc</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export ORACLE_HOME=/root/linux-11.2.0.1.0-1.x86_64/instantclient_11_2</div><div class="line">export PATH=$ORACLE_HOME:$PATH  </div><div class="line">export TNS_ADMIN=$ORACLE_HOME/network/admin  </div><div class="line">export LD_LIBRARY_PATH=$ORACLE_HOME:$LD_LIBRARY_PATH   </div><div class="line">export NLS_LANG=&apos;simplified chinese_china.ZHS16GBK&apos;</div></pre></td></tr></table></figure>
+<p>注意要配置LD_LIBRARY_PATH 变量，sqlplus等程序运行时需要加载相应库，若不配置，则运行时会出现如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Error 6 initializing SQL*Plus</div><div class="line">SP2-0667: Message file sp1&lt;lang&gt;.msb not found</div><div class="line">SP2-0750: You may need to set ORACLE_HOME to your Oracle software directory</div></pre></td></tr></table></figure></p>
+<p>配置完毕后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source  ~/.bashrc</div></pre></td></tr></table></figure></p>
+<ol>
+<li>完成，测试!<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@kebyn instantclient_11_2]# sqlplus /nolog</div><div class="line"></div><div class="line">SQL*Plus: Release 11.2.0.1.0 Production on 星期二 1月 10 11:14:31 2012</div><div class="line"></div><div class="line">Copyright (c) 1982, 2009, Oracle.  All rights reserved.</div><div class="line"></div><div class="line">SQL&gt; conn zkl/zkl@zkl</div><div class="line">已连接。</div><div class="line">SQL&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在Oracle中，我们会遇到下面一系列的十分重要的参数。同时他们的含义也常常让我们混淆。这些参数有：<br><code>ORACLE_SID, SID, INSTANCE_NAME, SERVICE_NAME, SERVICES_NAMES, DB_NAME, GLOBAL_DBNAME, SID_NAME，以及网络服务名(net service name)，实例服务名(instance service name)等。</code></p>
+<ol>
+<li>ORACLE_SID 与 SID 和 INSTANCE_NAME 以及 SID_NAME<br>ORACLE_SID：即ORACLE System IDentifier,它是一个环境变量。<br>我们一般在oracle用户的home目录中的.bash_profile中进行定义，一般该文件包含下面一行：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    grep ORACLE_SID .bash_profile</div><div class="line">export ORACLE_SID=orcl</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其作用就是：<br>在我们使用在sqlplus工具中startup启动数据库时，OS就是利用这个环境变量来fork创建构成Oracle实例的各个进程，以及来命名一些文件的名字。</p>
+<p>下面的命令的执行必须要有环境变量ORACLE_SID:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SQL&gt; startup</div></pre></td></tr></table></figure></p>
+<p>那么我们的环境变量ORACLE_SID应该设置成什么值呢？<br>应该是：我们想要startup哪个Oracle实例，就应该将ORACLE_SID设置成哪个实例的SID：<br>    Oracle server由Oracle实例和Oracle数据库两者共同组成。</p>
+<ol>
+<li>很显然地，我们想要startup哪个Oracle实例，就应该将环境变量ORACLE_SID设置成哪个SID。</li>
+<li>SID唯一地标识一个Oracle实例，而ORACLE_SID启动该实例，启动之后我们得到一个Oracle实例，这个实例有一个名字：INSTANCE_NAME。SID==&gt;&gt;ORACLE_SID==&gt;&gt;INSTANCE_NAME这三者是一致的，是完全相同的。</li>
+<li>同时这个实例向外提供服务，所以又有一个SERVICE_NAME。</li>
+</ol>
+<p>而SID_NAME出现在lisnter.ora文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">[oracle@localhost oracle]$ cat listener.ora</div><div class="line"># listener.ora Network Configuration File: /u01/app/oracle/product/10.2.0/db_1/network/admin/listener.ora</div><div class="line"># Generated by Oracle configuration tools.</div><div class="line"></div><div class="line">SID_LIST_LISTENER =</div><div class="line">  (SID_LIST =</div><div class="line">    (SID_DESC =</div><div class="line">      (SID_NAME = PL***tProc)</div><div class="line">      (ORACLE_HOME = /u01/app/oracle/product/10.2.0/db_1)</div><div class="line">      (PROGRAM = extproc)</div><div class="line">    )</div><div class="line">    (SID_DESC =</div><div class="line">      (SID_NAME = orcl)</div><div class="line">      (ORACLE_HOME = /u01/app/oracle/product/10.2.0/db_1)</div><div class="line">      (GLOBAL_DBNAME = orcl)</div><div class="line">    )</div><div class="line">  )</div><div class="line"></div><div class="line">LISTENER =</div><div class="line">  (DESCRIPTION_LIST =</div><div class="line">    (DESCRIPTION =</div><div class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))</div><div class="line">      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))</div><div class="line">    )</div><div class="line">  )</div></pre></td></tr></table></figure></p>
+<p>lisnter.ora中的SID_NAME的值必须与SID的值一致。通过lisnter.ora中的SID_NAME和GLOBAL_DBNAME两个参数以及客户端的tnsnames.ora中的SERVICE_NAME，这三个参数一起作用，可以实现ORACLE客户端与服务端的隔离。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[oracle@localhost oracle]$ cat tnsnames.ora</div><div class="line"># tnsnames.ora Network Configuration File: /u01/app/oracle/product/10.2.0/db_1/network/admin/tnsnames.ora</div><div class="line"># Generated by Oracle configuration tools.</div><div class="line"></div><div class="line">JIAGULUN =</div><div class="line">  (DESCRIPTION =</div><div class="line">    (ADDRESS_LIST =</div><div class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))</div><div class="line">    )</div><div class="line">    (CONNECT_DATA =</div><div class="line">      (SERVICE_NAME = orcl)</div><div class="line">    )</div><div class="line">  )</div><div class="line"></div><div class="line">EXTPROC_CONNECTION_DATA =</div><div class="line">  (DESCRIPTION =</div><div class="line">    (ADDRESS_LIST =</div><div class="line">      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))</div><div class="line">    )</div><div class="line">    (CONNECT_DATA =</div><div class="line">      (SID = PL***tProc)</div><div class="line">      (PRESENTATION = RO)</div><div class="line">    )</div><div class="line">  )</div></pre></td></tr></table></figure></p>
+<p>客户端根据tnsname.ora中的SERVICE_NAME和地址(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))，到这个地址去访问监听器。然后监听器根据文件lisnter.ora文件中的GLOBAL_NAME来判断是否有一个 GLOBAL_DBNAME 和 SERVICE_NAME 相等。如果相等，则建立客户端到SID标识的服务端实例的连接。(有一个例外：tnsnames.ora中可以用参数SID来取代SERVICE_NAME，这时比较的是tnsnames.ora中的SID和lisnter.ora中的SID_NAME，但是从oracle9i开始不推荐使用SID。因为SID无法隔离客户端和服务端)</p>
+<p>tnsnames.ora中的地址(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))是监听器监听的地址。监听器进程一直在这个地址上监听，等待客户端的连接。</p>
+<p>总结一下：</p>
+<ol>
+<li>客户端和服务端的隔离是通过lisnter.ora中的GLOBAL_DBNAME来实现的，GLOBAL_DBNAME是一个连接客户端和服务端的桥梁：<br>a&gt;client端tnsnames.ora中的SERVICE_NAME和server端lisnter.ora中的GLOBAL_DBNAME相等；<br>b&gt;server端的lisnter.ora中的SID_NAME与系统的SID相等；</li>
+<li>SID==&gt;&gt;SID_NAME==&gt;&gt;ORACLE_SID==&gt;&gt;INSTANCE_NAME 四者是一致的，相等的；</li>
+<li>可以在lisnter.ora中配置多个不同的GLOBAL_NAME来供不同的客户端SERVICE_NAME来对应，从而实现不同的客户端使用不同的SERVICE_NAME来访问同一个SID实例使用，配置如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">lisnter.ora:</div><div class="line">    (SID_DESC =</div><div class="line">      (SID_NAME = jiagulun)</div><div class="line">      (ORACLE_HOME = /u01/app/oracle/product/10.2.0/db_1)</div><div class="line">      (GLOBAL_DBNAME = jiagulun)</div><div class="line">    )</div><div class="line">    (SID_DESC =</div><div class="line">      (SID_NAME = jiagulun)</div><div class="line">      (ORACLE_HOME = /u01/app/oracle/product/10.2.0/db_1)</div><div class="line">      (GLOBAL_DBNAME = jgl)</div><div class="line">    )</div><div class="line"></div><div class="line">tnsnames.ora:</div><div class="line">JIAGULUN =</div><div class="line">  (DESCRIPTION =</div><div class="line">    (ADDRESS_LIST =</div><div class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))</div><div class="line">    )</div><div class="line">    (CONNECT_DATA =</div><div class="line">      (SERVICE_NAME = jiagulun)</div><div class="line">    )</div><div class="line">  )</div><div class="line"></div><div class="line">JGL =</div><div class="line">  (DESCRIPTION =</div><div class="line">     (ADDRESS_LIST =</div><div class="line">        (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521)）</div><div class="line">     )</div><div class="line">     (CONNECT_DATA =</div><div class="line">        (SERVICE_NAME = jgl)</div><div class="line">     )</div><div class="line">  )</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>同时设置一下参数service_names(不进行该项设置似乎也可以，无关紧要)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">SQL&gt; show parameter service</div><div class="line">NAME                                 TYPE        VALUE</div><div class="line">------------------------------------ ----------- ------------------------------</div><div class="line">service_names                        string      jiagulun</div><div class="line">SQL&gt; alter system set service_names = &apos;jiagulun,jgl&apos; scope=both;</div><div class="line">System altered.</div><div class="line">SQL&gt; show parameter service</div><div class="line">NAME                                 TYPE        VALUE</div><div class="line">------------------------------------ ----------- ------------------------------</div><div class="line">service_names                        string      jiagulun,jgl</div><div class="line">SQL&gt;</div></pre></td></tr></table></figure></p>
+<p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[oracle@redhat4 admin]$ tnsping jiagulun</div><div class="line">TNS Ping Utility for Linux: Version 10.2.0.1.0 - Production on 01-NOV-2012 20:12:22</div><div class="line">Copyright (c) 1997, 2005, Oracle.  All rights reserved.</div><div class="line">Used parameter files:</div><div class="line">Used TNSNAMES adapter to resolve the alias</div><div class="line">Attempting to contact (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))) (CONNECT_DATA = (SERVICE_NAME = jiagulun)))</div><div class="line">OK (0 msec)</div><div class="line"></div><div class="line">[oracle@redhat4 admin]$ tnsping jgl</div><div class="line">TNS Ping Utility for Linux: Version 10.2.0.1.0 - Production on 01-NOV-2012 20:12:27</div><div class="line">Copyright (c) 1997, 2005, Oracle.  All rights reserved.</div><div class="line">Used parameter files:</div><div class="line">Used TNSNAMES adapter to resolve the alias</div><div class="line">Attempting to contact (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))) (CONNECT_DATA = (SERVICE_NAME = jgl)))</div><div class="line">OK (10 msec)</div><div class="line">[oracle@redhat4 admin]$</div></pre></td></tr></table></figure></p>
+<p>现在我们在客户端既可以使用SERVICE_NAME=jiagulun来访问服务端，也可以使用SERVICE_NAME=jgl来访问。使用plsql develop用jgl和jiagulun都可以正常登陆。</p>
+<ol>
+<li>SID 与 DB_NAME<br>显然，DB_NAME唯一性地标识了 oracle database，与数据库物理文件相关；而SID唯一性地标识了oracle instance，与所有进程相关。而oracle database和oracle instance一起组成了oracle server. SID和DB_NAME在非RAC环境默认是相等的。但是二者相等与否，无关紧要。在RAC环境，因为一个DB_NAME对应多个SID，所以不可能相等了。</li>
+</ol>
+<p>DB_NAME是最重要的一个参数，在dbca中填写的DB_NAME，应该与启动参数文件pfile/spfile中的一致。在dbca中创建数据库时填写DB_NAME被写入到了多个地方：启动参数文件、控制文件、数据文件、日志文件等。<br>所以我们不能随便地修改启动参数文件中的DB_NAME参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sys@JIAGULUN&gt; create pfile from spfile;</div><div class="line">File created.</div><div class="line"></div><div class="line">sys@JIAGULUN&gt; exit</div><div class="line">Disconnected from Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production</div><div class="line">With the Partitioning, OLAP and Data Mining options</div><div class="line">[oracle@redhat4 oradata]$ grep db_name /u01/app/oracle/product/10.2.0/db_1/dbs/initjiagulun.ora</div><div class="line">*.db_name=&apos;jiagulun&apos;</div><div class="line">[oracle@redhat4 oradata]$</div></pre></td></tr></table></figure></p>
+<p>如果启动参数文件中的DB_NAME与控制文件中的不一致，则在mount阶段会报错。</p>
+<ol>
+<li>SERVICE_NAME 与 SERVICE_NAMES<br>SERVICE_NAME是Oracle实例提供的服务名。它隔离了Oracle实例，客户端仅仅需要知道SERVICE_NAME就可以访问实例。而不需要知道实例的SID。更不需要知道DB_NAME等信息。<br>SERVICE_NAMES为实例定义一个或多个SERVICE_NAME，这样可以通过多个SERVICE_NAME将不同的用户连接区分开来。</li>
+</ol>
+<p>service name似乎应该分为两种，一种是实例服务名 instance service name，一种是网络服务名 net service name，如下tnsnames.ora所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">net_service_name =</div><div class="line">  (DESCRIPTION =</div><div class="line">     (ADDRESS_LIST =</div><div class="line">        (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))</div><div class="line">     )</div><div class="line">     (CONNECT_DATA =</div><div class="line">        (SERVICE_NAME = instance_service_name)</div><div class="line">     )</div><div class="line">  )</div></pre></td></tr></table></figure></p>
+<p>而plsql develop登陆使用的是net_service_name，而不是instance_service_name。<br>而tnsping 测试的也是net_service_name，而不是instance_service_name。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">[oracle@redhat4 admin]$ cat tnsnames.ora</div><div class="line"># tnsnames.ora Network Configuration File: /u01/app/oracle/product/10.2.0/db_1/network/admin/tnsnames.ora</div><div class="line"># Generated by Oracle configuration tools.</div><div class="line"></div><div class="line">JIAGULUN =</div><div class="line">  (DESCRIPTION =</div><div class="line">    (ADDRESS_LIST =</div><div class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))</div><div class="line">    )</div><div class="line">    (CONNECT_DATA =</div><div class="line">      (SERVICE_NAME = jiagulun)</div><div class="line">    )</div><div class="line">  )</div><div class="line"></div><div class="line">net_jgl =</div><div class="line">  (DESCRIPTION =</div><div class="line">     (ADDRESS_LIST =</div><div class="line">        (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))</div><div class="line">     )</div><div class="line">     (CONNECT_DATA =</div><div class="line">        (SERVICE_NAME = jgl)</div><div class="line">     )</div><div class="line">  )</div><div class="line"></div><div class="line">EXTPROC_CONNECTION_DATA =</div><div class="line">  (DESCRIPTION =</div><div class="line">    (ADDRESS_LIST =</div><div class="line">      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC0))</div><div class="line">    )</div><div class="line">    (CONNECT_DATA =</div><div class="line">      (SID = PL***tProc)</div><div class="line">      (PRESENTATION = RO)</div><div class="line">    )</div><div class="line">  )</div><div class="line"></div><div class="line">[oracle@redhat4 admin]$ tnsping net_jgl</div><div class="line">TNS Ping Utility for Linux: Version 10.2.0.1.0 - Production on 02-NOV-2012 14:01:55</div><div class="line">Copyright (c) 1997, 2005, Oracle.  All rights reserved.</div><div class="line">Used parameter files:</div><div class="line"></div><div class="line">Used TNSNAMES adapter to resolve the alias</div><div class="line">Attempting to contact (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.100)(PORT = 1521))) (CONNECT_DATA = (SERVICE_NAME = jgl)))</div><div class="line">OK (10 msec)</div><div class="line">[oracle@redhat4 admin]$ tnsping jgl</div><div class="line">TNS Ping Utility for Linux: Version 10.2.0.1.0 - Production on 02-NOV-2012 14:01:59</div><div class="line">Copyright (c) 1997, 2005, Oracle.  All rights reserved.</div><div class="line">Used parameter files:</div><div class="line">TNS-03505: Failed to resolve name</div><div class="line">[oracle@redhat4 admin]$</div></pre></td></tr></table></figure></p>
+<p>如上所示：当我们使用 tnsping instance_service_name是失败了。<br>而 sqlplus scott/tiger@net_jgl 使用的也是net_service_name.</p>
+<p>所以 tnsping, sqlplus user/passwd@net_jgl, plsql develop使用的都是net_service_name，而不是instance_service_name.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[oracle@redhat4 admin]$ sqlplus scott/tiger@net_jgl</div><div class="line">SQL*Plus: Release 10.2.0.1.0 - Production on Thu Nov 1 21:08:48 2012</div><div class="line">Copyright (c) 1982, 2005, Oracle.  All rights reserved.</div><div class="line">Connected to:</div><div class="line">Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production</div><div class="line">With the Partitioning, OLAP and Data Mining options</div><div class="line"></div><div class="line">[oracle@redhat4 admin]$ sqlplus scott/tiger@jgl</div><div class="line">SQL*Plus: Release 10.2.0.1.0 - Production on Fri Nov 2 14:05:57 2012</div><div class="line">Copyright (c) 1982, 2005, Oracle.  All rights reserved.</div><div class="line">ERROR:</div><div class="line">ORA-12154: TNS:could not resolve the connect identifier specified</div></pre></td></tr></table></figure></p>
+<p>所以这里提供了多层的隔离：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">net_service_name ==&gt;&gt; instance_service_name ==&gt;&gt; global_dbname ==&gt;&gt; sid_name ==&gt;&gt; sid</div><div class="line">  (sid_name=sid=oracle_sid=instance_name)</div><div class="line">1&gt; tnsnames.ora中定义了net_service_name和instance_service_name的对应，或者说隔离。</div><div class="line">2&gt; lisnter.ora中定义了global_dbname和sid的对应，或者说隔离；</div><div class="line">3&gt; 而tnsnames.ora中的instance_service_name(SERVICE_NAME)又和lisnter.ora中的GLOBAL_DBNAME相等。将两层隔离连接起来。</div></pre></td></tr></table></figure></p>
+<p>环境设置文件oracle\product\10.1.0\db_1\sqlplus\admin\glogin</p>
+<blockquote>
+<p>参见<a href="http://blog.chinaunix.net/uid-25909722-id-3395064.html" target="_blank" rel="external">Oracle的启动和关闭剖析</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/qrcode_for_gh_08c2f53d4101_430.jpg" alt="By Kebyn wechat" style="width: 200px; max-width: 100%;"/>
+    <div>我记得我还有微信公众号,已经基本不更新了</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>觉得有用的话,给我来上一杯咖啡,或者一顿大餐,或许我会更有动力!</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/tencent.jpg" alt="By Kebyn WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="By Kebyn Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/command/" rel="tag"># command</a>
+          
+            <a href="/tags/database/" rel="tag"># database</a>
+          
+            <a href="/tags/oracle/" rel="tag"># oracle</a>
+          
+            <a href="/tags/sqlplus/" rel="tag"># sqlplus</a>
+          
+            <a href="/tags/install/" rel="tag"># install</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/20/tcpdump_ping/" rel="next" title="tcpdump详细介绍">
+                <i class="fa fa-chevron-left"></i> tcpdump详细介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/06/db2/" rel="prev" title="DB2常用命令">
+                DB2常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/25/oracle_sqlplus/"
+           data-title="sqlplus 安装" data-url="https://code.kebyn.cc/2016/07/25/oracle_sqlplus/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/avatar.webp"
+               alt="By Kebyn" />
+          <p class="site-author-name" itemprop="name">By Kebyn</p>
+           
+              <p class="site-description motion-element" itemprop="description">觅我心中方向</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kebyn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kebuyuni" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3083159625" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-下Oracle-Instant-Client-的安装"><span class="nav-number">1.</span> <span class="nav-text">Windows 下Oracle Instant Client 的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-下-Oracle-Instant-Client-的安装"><span class="nav-number">2.</span> <span class="nav-text">Linux 下 Oracle Instant Client 的安装</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"kebyn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
