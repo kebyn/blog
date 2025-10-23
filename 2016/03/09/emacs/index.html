@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="emacs里所有操作都是LISP指令，包括上下左右移动光标，这意味着什么？ “emacs是一个伪装成编辑器的操作系统”这句话应该就是这么理解吧，所有的操作都是指令，emacs就像操作系统一样，平时不用关注，实际上打交道的都是操作系统上运行的各种程序。emacs也是这样，执行LISP函数就行了，增加各种插件就是增加LISP的函数让你调用而已，各人的配置就是把各种指令绑定快捷键，方便自己使用。emac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="emacs">
+<meta property="og:url" content="https://kebyn.cc/2016/03/09/emacs/index.html">
+<meta property="og:site_name" content="觅回首">
+<meta property="og:description" content="emacs里所有操作都是LISP指令，包括上下左右移动光标，这意味着什么？ “emacs是一个伪装成编辑器的操作系统”这句话应该就是这么理解吧，所有的操作都是指令，emacs就像操作系统一样，平时不用关注，实际上打交道的都是操作系统上运行的各种程序。emacs也是这样，执行LISP函数就行了，增加各种插件就是增加LISP的函数让你调用而已，各人的配置就是把各种指令绑定快捷键，方便自己使用。emac">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-03-09T13:59:16.000Z">
+<meta property="article:modified_time" content="2024-09-26T01:37:12.654Z">
+<meta property="article:author" content="By Kebyn">
+<meta property="article:tag" content="emacs">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://kebyn.cc/2016/03/09/emacs/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2016/03/09/emacs/","path":"2016/03/09/emacs/","title":"emacs"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>emacs | 觅回首</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">觅回首</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%BB%98%E8%AE%A4%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.</span> <span class="nav-text">一些默认快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%85%88%E8%A6%81%E8%AE%B0%E4%BD%8F%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">最先要记住的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%8F%92%E5%85%A5%E7%82%B9%EF%BC%88%E5%85%89%E6%A0%87%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">移动插入点（光标）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91"><span class="nav-number">4.</span> <span class="nav-text">编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">5.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2"><span class="nav-number">6.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0"><span class="nav-number">7.</span> <span class="nav-text">标记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">8.</span> <span class="nav-text">文件操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%A7%A3%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="nav-number"></span> <span class="nav-text">理解一些概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EMACS-%E6%89%80%E6%8F%90%E4%BE%9B%E7%9A%84-undo%EF%BC%8C%E5%8F%AF%E4%BB%A5%E8%BF%9E%E7%BB%AD%E6%81%A2%E5%A4%8D%E6%9C%80%E8%BF%91%E4%BD%BF%E7%94%A8%E8%BF%87%E7%9A%84%E6%8C%87%E4%BB%A4%E3%80%82"><span class="nav-number"></span> <span class="nav-text">EMACS 所提供的 undo，可以连续恢复最近使用过的指令。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E4%BD%BF%E7%94%A8%E4%BA%86-undo-%E4%B9%8B%E5%90%8E%EF%BC%8C%E8%BF%98%E6%83%B3%E8%A6%81%E5%9C%A8-redo-%E8%BF%99%E4%B8%AA%E5%B7%B2%E8%A2%AB-undo-%E7%9A%84%E5%8A%A8%E4%BD%9C%E6%97%B6%EF%BC%8C-%E6%9C%89%E4%B8%80%E4%B8%AA%E6%8A%80%E5%B7%A7%E5%8F%AF%E4%BB%A5%E8%BE%BE%E6%88%90%E5%A6%82%E6%AD%A4%E7%9A%84%E6%95%88%E6%9E%9C%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">当使用了 undo 之后，还想要在 redo 这个已被 undo 的动作时， 有一个技巧可以达成如此的效果。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undo%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%BE%88%E9%9A%BE%E6%8F%8F%E8%BF%B0%EF%BC%8C%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">undo的行为很难描述，示例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emacs%E7%9A%84undo%E4%B8%8D%E4%BC%9A%E4%B8%A2%E5%A4%B1%E4%BB%BB%E4%BD%95%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%BD%A0%E5%85%88%E5%81%9A%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%EF%BC%8Cundo%EF%BC%8C%E5%86%8D%E5%81%9A%E5%8F%A6%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%98%AF%E5%85%B6%E5%AE%83%E7%BC%96%E8%BE%91%E5%99%A8%EF%BC%8C%E7%AC%AC%E4%B8%80%E6%AC%A1undo%E7%9A%84%E5%8A%A8%E4%BD%9C%E5%B0%B1%E5%A4%B1%E8%B8%AA%E4%BA%86%EF%BC%8Cemacs%E9%87%8C%E5%8D%B4%E4%B8%80%E7%9B%B4%E5%AD%98%E5%9C%A8%E7%9D%80%EF%BC%8C%E5%8E%9F%E5%9B%A0%E5%90%8C%E4%B8%8A%E3%80%82%E5%A4%9A%E8%AF%95%E5%87%A0%E6%AC%A1%E5%B0%B1%E6%98%8E%E7%99%BD%E4%BA%86%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">emacs的undo不会丢失任何操作，你先做一些操作，undo，再做另一些操作，如果是其它编辑器，第一次undo的动作就失踪了，emacs里却一直存在着，原因同上。多试几次就明白了。</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">By Kebyn</p>
+  <div class="site-description" itemprop="description">碎碎念</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/03/09/emacs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="emacs | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          emacs
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-03-09 21:59:16" itemprop="dateCreated datePublished" datetime="2016-03-09T21:59:16+08:00">2016-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-09-26 09:37:12" itemprop="dateModified" datetime="2024-09-26T09:37:12+08:00">2024-09-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>emacs里所有操作都是LISP指令，包括上下左右移动光标，这意味着什么？ “emacs是一个伪装成编辑器的操作系统”这句话应该就是这么理解吧，所有的操作都是指令，emacs就像操作系统一样，平时不用关注，实际上打交道的都是操作系统上运行的各种程序。emacs也是这样，执行LISP函数就行了，增加各种插件就是增加LISP的函数让你调用而已，各人的配置就是把各种指令绑定快捷键，方便自己使用。emacs的插件功能有执行shell命令，telnet，ftp，文件管理器，收邮件，浏览网页，煮咖啡，擦皮鞋，等等。前段时间又受到黑客与画家书的鼓吹，买了本CLISP的书看，对emacs用的LISP也是越看越顺眼了。</p>
+<span id="more"></span>
+
+<p>忘掉网上其它的那些教程、手册吧，也忘掉emacs有几百种几千种命令吧。</p>
+<p>emacs最简单入门：只要记住一个按键就行了： M-x . 按住Alt键再按x，在窗口最底下出现M-x的提示，在这里输入left-几个字符，按Tab键，出现两行提示 left-char, left-word，再输入一个c，再按Tab键，这时自动补全为left-char，按回车，如果有内容的话，当前的光标点向左移动，就像按了一个向左的方向键一样。  就这样？就这样！</p>
+<p>就这样，发挥你的想象力，想象你现在需要做什么，把它翻译成英文单词，按 M-x，先输入几个字母，按Tab，看是否存在你想象中的指令。要取消当前操作的指令，多按几次ESC键或Ctrl-g键就取消了。</p>
+<p>现在假设下emacs有100条指令吧，你如果想做什么事都去执行指令的话，虽然也可以，但是总比不上为常用的指令设置一个快捷键方便。现在看下默认的各种快捷键：</p>
+<p>先来看几个简单的 forward-char  backward-char  previous-line  next-line , 很直白的命令，向前后移一个字符或向上下移一行，对应4个方向键。默认绑定的快捷键就是Ctrl加指令首字母 C-f&#x2F;b&#x2F;p&#x2F;n。简洁直白合理极致吧。 复制一些内容到窗口上去，多按几次按键，多按几次手指上的肌肉就不会忘记了。就像用了十多年的五笔输入法一样，看着键盘时一个字也打不也来了，字根键码早忘光了。只有两只手都放在键盘上时，看着汉字，手指自然就打出来了。</p>
+<p>再看下 forward-word  backward-word ，向前后一个单词，默认绑定快捷键为Alt加指令首字母 M-f&#x2F;b。也很合理吧。</p>
+<p>如果要快速移动到当前行首行尾，或者是一句话的首尾部呢？ move-beginning-of-line move-end-of-line  backward-sentence  forward-sentence ，默认绑定的快捷键是 C-a&#x2F;e  M-a&#x2F;e，好像也还算合理吧。</p>
+<p>好了，只要理解了emacs里做任何操作都是执行LISP函数，就算是入门了。emacs被称为复杂难学是因为默认设置了很多快捷键，不容易一下记住。现在只要记住用M-x来执行命令，快捷键一律忽视，等熟悉了LISP指令及对应的功能，想为它设置一个快捷键时，再看看默认设置的快捷键是否合你的胃口，改或不改你决定。<br>对emacs感兴趣或者不感兴趣现在就可以决定了。什么学emacs需要很强的耐心那些都是胡扯，我敢打赌只要有好奇心的人就会继续往下看。<br>现在可以打开帮助菜单下的教程，跟着操作一遍，学习一些最常用的快捷键了。多动手，肌肉记忆比大脑记忆好用。</p>
+<p>想象一下你使用其它编辑器时使用到的各种功能快捷键，把它和emacs默认设置的快捷键比较一下，哪种设置比较合理。<br>emacs里的各种快捷键设置都是无害的，意思就是你改掉一个快捷键对应的功能，命令却还在，永远可以用M-x来直接执行。如果是其它编辑器就比较麻烦，可能这个操作的功能就找不回来了。</p>
+<h3 id="一些默认快捷键"><a href="#一些默认快捷键" class="headerlink" title="一些默认快捷键"></a>一些默认快捷键</h3><pre><code>C-代表按住Ctrl键
+M-代表按住Alt键，也可以用按一下ESC放开代替
+</code></pre>
+<h3 id="最先要记住的"><a href="#最先要记住的" class="headerlink" title="最先要记住的"></a>最先要记住的</h3><pre><code>M-x &lt;cmd&gt;      输入指令执行，在输入时用Tab可以自动补全或列出项目
+C-g            取消当前操作指令
+C-h k &lt;key&gt;    查看当前按键绑定的指令及介绍
+</code></pre>
+<h3 id="移动插入点（光标）"><a href="#移动插入点（光标）" class="headerlink" title="移动插入点（光标）"></a>移动插入点（光标）</h3><pre><code>C-n/p/b/f      到 下一行、上一行、前一字符、后一字符
+M-b/f          到 前、后一单词
+C-a/e          到 行首、末
+M-a/e          到 句首、末
+M-         到 文件首、末
+C-v/M-v        下、上翻屏
+C-l        循环 将当前光标行显示在窗口下、中、上位置
+
+C-u &lt;num&gt; &lt;xx&gt; 重复执行之后的 xx 命令 num 次，不输入num默认为4
+C-u C-v        向下滚动4行
+</code></pre>
+<h3 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h3><pre><code>Back/C-d       删除 前、后字符
+M-Back/M-d     移除 前、后单词
+C-k/M-k        移除到 行末、句末
+
+C-/            undo/redo
+C-x u          undo/redo
+
+C-w            剪切
+C-y        召回（粘贴）（粘贴移除的、复制、剪切的内容）
+C-c        复制（emacs一般也默认定制了与OS的剪切复制粘贴相同的快捷键）
+</code></pre>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><pre><code>C-s
+  C-s 查找下一个
+  C-r 查找上一下
+  C-g 一次返回，二次结束查找
+  回车    停止到当前查找到的内容
+</code></pre>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><pre><code>M-%
+</code></pre>
+<h3 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h3><pre><code>M-@
+</code></pre>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><pre><code>C-x C-c        退出emacs
+
+C-x C-f        打开文件
+C-x C-s        保存文件
+C-x C-v        在当前缓冲区重新打开一个文件，可以用于清除undo历史!!
+
+C-x 1          最大化当前缓冲，关闭其它
+C-x 2/3        垂直、水平创建新缓冲区
+C-x o          切换到其它缓冲区
+
+C-x C-b        列出缓冲区
+C-x b          提示输入缓冲区名称，切换当前窗口的缓冲区
+C-x k          删除当前缓冲区
+
+C-j        换行回车，有些模式下比较直接回车好用，有增加缩进之类的功能
+</code></pre>
+<hr>
+<h2 id="理解一些概念"><a href="#理解一些概念" class="headerlink" title="理解一些概念"></a>理解一些概念</h2><pre><code>buffer
+  缓冲区，内存中的数据，打开文件时读入内容到内存，修改后保存才会修改到磁盘上的文件。
+
+window
+  窗口，缓冲区的一个展示区域
+
+frame
+  OS上的一个emacs程序窗口
+
+mode 模式
+  mode有主模式，辅助模式，主模式就像vim中设置当前filetype一样，当前编辑的是ruby或者python源代码，根据不同文件类型，设置按Tab缩进时缩进不同的字符数，把不同的词当作关键字时行语法高亮等等，同一时间只能选一个主模式。试着多开几个窗口，执行text-mode ruby-mode python-mode试下。emacs打开文件时会自动根据文件扩展名或内容检查并设置主模式。
+  辅助模式就是窗口是否要自动换行，是否显示行号等，辅助模式可以多个同时启用。
+
+undo
+  在 EMACS 中想要将已经做过的动作放弃，以恢复原状。
+</code></pre>
+<h2 id="EMACS-所提供的-undo，可以连续恢复最近使用过的指令。"><a href="#EMACS-所提供的-undo，可以连续恢复最近使用过的指令。" class="headerlink" title="EMACS 所提供的 undo，可以连续恢复最近使用过的指令。"></a>EMACS 所提供的 undo，可以连续恢复最近使用过的指令。</h2><p>  undo 的顺序是最新使用过的指令最先被 undo ，第二次使用 undo 则恢复第二新的指令，任何指令的输入（除了 undo 本身之外） 都会使指令输入的顺序重整， 这也同时影响 undo 的顺序。<br>  使用 undo 有一个限制，就是 undo 只能 undo 对缓冲区内容造成改变的指令。对于只是改变游标动作的指令，是无法以 undo 来恢复旧观。若所有修改过内容的指令，都以 undo 恢复原状后， 再一次使用 undo 的指令，echo area 会出现如下的讯息：No further undo information.</p>
+<h3 id="当使用了-undo-之后，还想要在-redo-这个已被-undo-的动作时，-有一个技巧可以达成如此的效果。"><a href="#当使用了-undo-之后，还想要在-redo-这个已被-undo-的动作时，-有一个技巧可以达成如此的效果。" class="headerlink" title="当使用了 undo 之后，还想要在 redo 这个已被 undo 的动作时， 有一个技巧可以达成如此的效果。"></a>当使用了 undo 之后，还想要在 redo 这个已被 undo 的动作时， 有一个技巧可以达成如此的效果。</h3><p> 1.首先键入一个不会改变缓冲区内容的指令（如光标移动的指令），使原来<br> 2.存放指令的顺序因新指令的加入而改变。<br> 3.再使用一次 undo 的指令，就可以达到 redo 的效果了。</p>
+<h3 id="undo的行为很难描述，示例："><a href="#undo的行为很难描述，示例：" class="headerlink" title="undo的行为很难描述，示例："></a>undo的行为很难描述，示例：</h3><p> 新建一个文件<br> 执行几个修改内容的指令 &lt;1回车2回车3回车&gt;， 这时undo历史里有6条记录<br> undo顺序为654321, 继续undo则提示No further undo information<br> 按下左右方向键（虽然移不动光标），这时undo历史里有12条记录了，前6条undo就变成redo了，顺序123456654321<br> 再按下方向键，undo历史记录数量再翻倍</p>
+<h3 id="emacs的undo不会丢失任何操作，你先做一些操作，undo，再做另一些操作，如果是其它编辑器，第一次undo的动作就失踪了，emacs里却一直存在着，原因同上。多试几次就明白了。"><a href="#emacs的undo不会丢失任何操作，你先做一些操作，undo，再做另一些操作，如果是其它编辑器，第一次undo的动作就失踪了，emacs里却一直存在着，原因同上。多试几次就明白了。" class="headerlink" title="emacs的undo不会丢失任何操作，你先做一些操作，undo，再做另一些操作，如果是其它编辑器，第一次undo的动作就失踪了，emacs里却一直存在着，原因同上。多试几次就明白了。"></a>emacs的undo不会丢失任何操作，你先做一些操作，undo，再做另一些操作，如果是其它编辑器，第一次undo的动作就失踪了，emacs里却一直存在着，原因同上。多试几次就明白了。</h3>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/emacs/" rel="tag"># emacs</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/02/16/my.cnf/" rel="prev" title="my.cnf">
+                  <i class="fa fa-angle-left"></i> my.cnf
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/06/20/JAR_WAR_EAR/" rel="next" title="JAR_WAR_EAR">
+                  JAR_WAR_EAR <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="2016-11-25：  *默认情况下禁用SSH; 可以通过在引导分区中创建名为“ssh”的文件来启用  *启用默认密码时启用SSH时提示密码更改  官方文档  1234567891011121314151617181920212223242526272829303132333435362017-04-10：  * Wolfram Mathematica更新到11.0.1版本  * Adobe F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rsapberry ssh 连接不上问题 (raspberry ssh connection failed)">
+<meta property="og:url" content="https://kebyn.cc/2017/04/16/raspberry_ssh/index.html">
+<meta property="og:site_name" content="觅回首">
+<meta property="og:description" content="2016-11-25：  *默认情况下禁用SSH; 可以通过在引导分区中创建名为“ssh”的文件来启用  *启用默认密码时启用SSH时提示密码更改  官方文档  1234567891011121314151617181920212223242526272829303132333435362017-04-10：  * Wolfram Mathematica更新到11.0.1版本  * Adobe F">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-16T14:36:17.000Z">
+<meta property="article:modified_time" content="2024-09-26T01:37:02.854Z">
+<meta property="article:author" content="By Kebyn">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="raspberry">
+<meta property="article:tag" content="release">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://kebyn.cc/2017/04/16/raspberry_ssh/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2017/04/16/raspberry_ssh/","path":"2017/04/16/raspberry_ssh/","title":"rsapberry ssh 连接不上问题 (raspberry ssh connection failed)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>rsapberry ssh 连接不上问题 (raspberry ssh connection failed) | 觅回首</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">觅回首</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#2016-11-25%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">2016-11-25：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">By Kebyn</p>
+  <div class="site-description" itemprop="description">碎碎念</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/04/16/raspberry_ssh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="rsapberry ssh 连接不上问题 (raspberry ssh connection failed) | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          rsapberry ssh 连接不上问题 (raspberry ssh connection failed)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-16 22:36:17" itemprop="dateCreated datePublished" datetime="2017-04-16T22:36:17+08:00">2017-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-09-26 09:37:02" itemprop="dateModified" datetime="2024-09-26T09:37:02+08:00">2024-09-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h5 id="2016-11-25："><a href="#2016-11-25：" class="headerlink" title="2016-11-25："></a>2016-11-25：</h5><p>  <em><strong>*默认情况下禁用SSH; 可以通过在引导分区中创建名为“ssh”的文件来启用</strong></em><br>  <em><strong>*启用默认密码时启用SSH时提示密码更改</strong></em></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://downloads.raspberrypi.org/raspbian/release_notes.txt">官方文档</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">2017-04-10：</span><br><span class="line">  * Wolfram Mathematica更新到11.0.1版本</span><br><span class="line">  * Adobe Flash Player已更新至版本25.0.0.127</span><br><span class="line">  *使用PARTUUID来支持USB启动</span><br><span class="line">2017-03-02：</span><br><span class="line">  *更新内核和固件（最终的Pi Zero W支持）</span><br><span class="line">  * Wolfram Mathematica更新到版本11</span><br><span class="line">  * NOOBS安装现在检查在NOOBS分区上是否存在&#x27;ssh&#x27;文件。</span><br><span class="line">2017-02-16：</span><br><span class="line">  * Chromium浏览器更新到版本56</span><br><span class="line">  * Adobe Flash Player已更新至24.0.0.221版</span><br><span class="line">  * RealVNC Server和Viewer更新到6.0.2版（RealVNC Connect）</span><br><span class="line">  * Sonic Pi更新到2.11版本</span><br><span class="line">  * Node-RED更新到版本0.15.3</span><br><span class="line">  * Scratch更新到120117版本</span><br><span class="line">  *使用默认密码检测启用的SSH已移至PAM</span><br><span class="line">  *更新桌面GL驱动程序，以支持使用假KMS选项</span><br><span class="line">  * Raspberry Pi配置和raspi-config允许设置固定的HDMI分辨率</span><br><span class="line">  * raspi-config允许串行硬件独立于串行终端</span><br><span class="line">  *更新内核和固件</span><br><span class="line">  *各种小错误修复和可用性和外观调整</span><br><span class="line">2017-01-11：</span><br><span class="line">  *使用FAT32格式的引导分区重新发布2016-11-25图像</span><br><span class="line">2016-11-25：</span><br><span class="line">  *默认情况下禁用SSH; 可以通过在引导分区中创建名为“ssh”的文件来启用</span><br><span class="line">  *启用默认密码时启用SSH时提示密码更改</span><br><span class="line">  *包括Adobe Flash Player</span><br><span class="line">  *更新Chromium浏览器中的硬件视频加速</span><br><span class="line">  * Greeter现在使用外观设置中最后一个设置的背景图像，而不是pi用户</span><br><span class="line">  *更新版本的Scratch</span><br><span class="line">  *从raspi-config和Raspberry Pi Configuration中删除Rastrack选项</span><br><span class="line">  *能够禁用图形启动启动屏幕添加到raspi-config和Raspberry Pi配置</span><br><span class="line">  *外观设置对话框标签为在小屏幕上更好地工作</span><br><span class="line">  * Raspberry Pi配置现在需要当前密码才能更改密码</span><br><span class="line">  *各种小错误修复</span><br><span class="line">  *更新固件和内核</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line">2016-09-23：</span><br><span class="line">  *新的PIXEL桌面环境 - 新的图标集，窗口设计，桌面图像，启动屏幕和恭喜</span><br><span class="line">  *包含Chromium网络浏览器</span><br><span class="line">  *包含Infinality字体渲染补丁</span><br><span class="line">  *包括RealVNC服务器和查看器</span><br><span class="line">  *包含SenseHAT仿真器</span><br><span class="line">  * RFkill条目添加到Wifi和蓝牙面板插件</span><br><span class="line">  *更新各种标准应用程序，包括Scratch和NodeRED</span><br><span class="line">  *各种错误修复，调整和翻译更新</span><br><span class="line">  *更新固件和内核（https://github.com/raspberrypi/firmware/commit/ad8608c08b122b2c228dba0ff5070d6e9519faf5）</span><br><span class="line">至于27：</span><br><span class="line">  *当D-bus不可访问时，修复了lxpanel的崩溃</span><br><span class="line">  *固定D-bus蓝牙访问权限</span><br><span class="line">  *从关闭选项中删除sudo</span><br><span class="line">  *主题更新的工具提示的外观</span><br><span class="line">  *固定弹出插件抓取焦点</span><br><span class="line">  * raspi-config命令行和GUI应用程序整理; 删除不必要的重启</span><br><span class="line">  *在piclone中更多错误检测; 复制添加的卷名称和ID</span><br><span class="line">  *更新翻译文件</span><br><span class="line">2016-05 -10：</span><br><span class="line">  *新版Scratch，不再需要sudo</span><br><span class="line">  *新版BlueJ</span><br><span class="line">  *新版本的NodeRED</span><br><span class="line">  *新版Pypy</span><br><span class="line">  *包括pigpio</span><br><span class="line">  *包括geany编辑器</span><br><span class="line">  * SD卡复印机添加（可用于复制或备份Pi）</span><br><span class="line">  *蓝牙插件添加到任务栏</span><br><span class="line">  *任务栏上的音量控制现在与蓝牙设备兼容</span><br><span class="line">  *新的关机助手应用程序</span><br><span class="line">  *鼠标双击速度设置添加到鼠标和键盘首选项应用程序</span><br><span class="line">  *选项启用/禁用1线接口和远程访问添加到Raspberry Pi配置应用程序的pigpio</span><br><span class="line">  *文件系统在首次启动时自动扩展</span><br><span class="line">  *添加空的废纸篓选项到右键菜单</span><br><span class="line">  * Ctrl-Alt-T可用于打开终端窗口</span><br><span class="line">  *各种小错误修复和外观调整</span><br><span class="line">  *更新固件和内核（https://github.com/raspberrypi/firmware/commit/cc6d7bf8b4c03a2a660ff9fdf4083fc165620866）</span><br><span class="line">2016-03-18：</span><br><span class="line">  *更新固件和内核（https://github.com/raspberrypi/firmware/commit/951799bbcd795ddf27769d14acf4813fdcbe53dc）</span><br><span class="line">  *在cmdline.txt中使用serial0</span><br><span class="line">  * wpa_supplicant.conf国家默认为GB（允许使用通道12和13）</span><br><span class="line">2016-02-26：</span><br><span class="line">  *支持添加Pi 3，包括Wifi和蓝牙</span><br><span class="line">  *将WiFi国家代码设置为raspi-config的选项</span><br><span class="line">2016-02-09：</span><br><span class="line">  * dtb使用mmc sdcard驱动程序（修复某些SD卡遇到的问题）</span><br><span class="line">2016-02-03：</span><br><span class="line">  *新版本的Sonic Pi（2.9）</span><br><span class="line">  *新版Scratch（15/1/16）</span><br><span class="line">  *新版本的Node-Red（2.5）</span><br><span class="line">  *新版Wolfram（10.3）</span><br><span class="line">  *可选实验GL桌面驱动程序（可以使用命令行raspi-config中的高级选项启用）</span><br><span class="line">  *新版本的Java（1.8.0_65）</span><br><span class="line">  *新版本的WiringPi</span><br><span class="line">  *包含raspi-gpio</span><br><span class="line">  * ping不再需要sudo（NOOBS安装除外）</span><br><span class="line">  *支持lxpanel中的更多USB音频设备</span><br><span class="line">  *在Alacarte中创建新菜单的错误修复</span><br><span class="line">  *对raspi-config和GUI进行各种更改，以整理板支持和修复错误以及更新的翻译</span><br><span class="line">  *小调整主题以支持GL驱动</span><br><span class="line">2015-11-21：</span><br><span class="line">  *包括IBM Node-RED IoT应用程序</span><br><span class="line">  *包括图形包管理器</span><br><span class="line">  *包含加速的pixman库</span><br><span class="line">  *更新了Epiphany浏览器，以提高视频兼容性</span><br><span class="line">  *更新Scratch与性能改进和错误修复</span><br><span class="line">  *更新了Raspberry Pi配置，以允许启动暂停</span><br><span class="line">    网络建立</span><br><span class="line">  *各种小错误修复</span><br><span class="line">2015-09-25：</span><br><span class="line">  *基于Debian Jessie</span><br><span class="line">  *升级应用程序 - 主显节浏览器，Scratch和Sonic Pi</span><br><span class="line">  *包含的应用程序 -  LibreOffice，Claws Mail，Greenfoot，BlueJ</span><br><span class="line">  *包含的实用程序 -  Alacarte菜单编辑器，Lxkeymap，scrot，tree，pip</span><br><span class="line">  *新的基于GUI的Raspberry Pi配置应用程序</span><br><span class="line">  * GPIO控制现在可以不需要sudo</span><br><span class="line">  *包含Magpi杂志的网页链接</span><br><span class="line">  *新的任务栏插件来弹出安装的USB驱动器</span><br><span class="line">  *默认启动现在是GUI不是桌面</span><br><span class="line">  *现在看起来基于GTK + 3默认主题</span><br><span class="line">  *打印屏幕键启动scrot以产生截图</span><br><span class="line">  *由GUI和驱动程序自动检测的通用键盘相应地加载</span><br><span class="line">  *许多小的调整和错误修复</span><br><span class="line">2015-05-05：</span><br><span class="line">  *更新UI更改</span><br><span class="line">  *更新固件</span><br><span class="line">  *安装raspberrypi-net-mods</span><br><span class="line">  *安装avahi-daemon</span><br><span class="line">  *将用户pi添加到新的i2c和spi组</span><br><span class="line">  * i2c和spi设备修改的udev规则</span><br><span class="line">2015-02-16：</span><br><span class="line">  *较新的固件与各种修复</span><br><span class="line">  *新的Sonic Pi发行</span><br><span class="line">  * Pi2兼容RPi.GPIO</span><br><span class="line">  Wolfram数学更新</span><br><span class="line">2015-01-31：</span><br><span class="line">  *支持Pi2</span><br><span class="line">  *较新的固件</span><br><span class="line">  *新的Sonic Pi发行</span><br><span class="line">  *更新划痕</span><br><span class="line">  *新的Wolfram数学发行</span><br><span class="line">  *更新主显节</span><br><span class="line">2014-12-24：</span><br><span class="line">  *通过省略python-pygame来修复回归</span><br><span class="line">2014-12-22：</span><br><span class="line">  *新固件与variosu修复和改进</span><br><span class="line">  * lxde的新UI配置</span><br><span class="line">  *各种包更新</span><br><span class="line">  * python3-pygame预装</span><br><span class="line">  *&#x27;nuscratch&#x27;，在Cog StackVM上运行</span><br><span class="line">  *其他更改</span><br><span class="line">2014-09-09：</span><br><span class="line">  *具有各种修复和改进的新固件</span><br><span class="line">  * Minecraft Pi预装</span><br><span class="line">  * Sonic Pi升级到2.0</span><br><span class="line">  *包括Collabora中的主显式浏览器工作</span><br><span class="line">  *从Java 7切换到Java 8</span><br><span class="line">  *更新数学</span><br><span class="line">  *其他次要配置更改</span><br><span class="line">2014-06-20：</span><br><span class="line">  *具有各种修复的新固件和内核错误修复</span><br><span class="line">2014-06-02：</span><br><span class="line">  *许多固件更新与主要的USB改进</span><br><span class="line">  * pyserial默认安装</span><br><span class="line">  * picamera默认安装</span><br><span class="line">2014-01-07：</span><br><span class="line">  *固件更新</span><br><span class="line">  *保存在根文件系统上的一些空间</span><br><span class="line">2013-12-20：</span><br><span class="line">  *固件更新，包括V4L2修复</span><br><span class="line">  *更新omxplayer</span><br><span class="line">2013-12-18：</span><br><span class="line">  *固件更新，现在使用内核3.10。许多改进</span><br><span class="line">  * fbturbo XOrg驱动程序默认包含并启用。谢谢</span><br><span class="line">    ssvb https://github.com/ssvb/xf86-video-fbturbo</span><br><span class="line">  *更新Scratch图像与进一步的错误修复</span><br><span class="line">  *包括Wolfram Mathematica</span><br><span class="line">  *更新到PyPy 2.2</span><br><span class="line">  *更新omxplayer</span><br><span class="line">  *包含v4l-utils用于实验V4L2 Raspberry Pi相机驱动程序</span><br><span class="line">  *更新squeak-vm以解决加载JPEG的问题</span><br><span class="line">2013-09-25：</span><br><span class="line">  *更新Scratch图像以进一步提高性能</span><br><span class="line">  *包括Oracle JDK</span><br><span class="line">  *至少需要4GiB SD卡（见上文）</span><br><span class="line">  *包含PyPy 2.1</span><br><span class="line">  *包含基本的piface包</span><br><span class="line">  *更新raspi-config以包含用于继承语言设置的错误修复</span><br><span class="line">    来自NOOBS</span><br><span class="line">2013-09-10：</span><br><span class="line">  *更新到当前顶部的树固件</span><br><span class="line">  *更新squeak-vm，包括针对Raspbery Pi优化的fastblit</span><br><span class="line">  *包括Sonic Pi和固定的jackd2包</span><br><span class="line">  *支持启动到Scratch</span><br><span class="line">  *从NOOBS继承键盘和语言设置</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ssh/" rel="tag"># ssh</a>
+              <a href="/tags/raspberry/" rel="tag"># raspberry</a>
+              <a href="/tags/release/" rel="tag"># release</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/03/16/mysql_nopassword/" rel="prev" title="MySQL无密码登陆（MySQL_config_editor用法）">
+                  <i class="fa fa-angle-left"></i> MySQL无密码登陆（MySQL_config_editor用法）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/06/03/autossh_instructions/" rel="next" title="ssh_tunnel">
+                  ssh_tunnel <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
