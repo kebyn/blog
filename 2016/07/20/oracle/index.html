@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="环境设置123export ORACLE_SID&#x3D;orclexport ORACLE_BASE&#x3D;oracle_install_direxport ORACLE_HOME&#x3D;oracle_install_dir&#x2F;oracle12c 启动12oracle&gt; startup openbash# lsnrctl start  startup nomount 非安装启动，这种方式启动下可执行：重建控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle">
+<meta property="og:url" content="https://kebyn.cc/2016/07/20/oracle/index.html">
+<meta property="og:site_name" content="觅回首">
+<meta property="og:description" content="环境设置123export ORACLE_SID&#x3D;orclexport ORACLE_BASE&#x3D;oracle_install_direxport ORACLE_HOME&#x3D;oracle_install_dir&#x2F;oracle12c 启动12oracle&gt; startup openbash# lsnrctl start  startup nomount 非安装启动，这种方式启动下可执行：重建控制">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-07-20T09:12:52.000Z">
+<meta property="article:modified_time" content="2024-09-26T01:50:57.455Z">
+<meta property="article:author" content="By Kebyn">
+<meta property="article:tag" content="command">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="oracle">
+<meta property="article:tag" content="sqlplus">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://kebyn.cc/2016/07/20/oracle/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2016/07/20/oracle/","path":"2016/07/20/oracle/","title":"Oracle"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Oracle | 觅回首</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">觅回首</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#sqlplus%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%85%B6%E4%BB%96%E5%B8%90%E6%88%B7%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">sqlplus中使用其他帐户连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">2.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sqlplus%E4%B8%AD%E5%AF%B9%E4%BA%8E%E8%A1%A8%E7%9A%84%E4%BF%A1%E6%81%AF%E7%9A%84%E6%9F%A5%E7%9C%8B"><span class="nav-number">3.</span> <span class="nav-text">sqlplus中对于表的信息的查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">5.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8F%B7"><span class="nav-number">6.</span> <span class="nav-text">序列号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number">7.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E4%B9%89%E8%AF%8D"><span class="nav-number">8.</span> <span class="nav-text">同义词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">9.</span> <span class="nav-text">约束条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%87%BD%E6%95%B0%E5%92%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">10.</span> <span class="nav-text">存储函数和过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A1%A8"><span class="nav-number"></span> <span class="nav-text">系统表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8%E8%A7%86%E5%9B%BE"><span class="nav-number"></span> <span class="nav-text">数据字典视图</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">By Kebyn</p>
+  <div class="site-description" itemprop="description">碎碎念</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/07/20/oracle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Oracle | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Oracle
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-07-20 17:12:52" itemprop="dateCreated datePublished" datetime="2016-07-20T17:12:52+08:00">2016-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-09-26 09:50:57" itemprop="dateModified" datetime="2024-09-26T09:50:57+08:00">2024-09-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><ol>
+<li>环境设置<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_BASE=oracle_install_dir</span><br><span class="line">export ORACLE_HOME=oracle_install_dir/oracle12c</span><br></pre></td></tr></table></figure></li>
+<li>启动<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">oracle&gt; startup open</span><br><span class="line">bash# lsnrctl start</span><br></pre></td></tr></table></figure>
+<ol>
+<li>startup nomount<br> 非安装启动，这种方式启动下可执行：重建控制文件、重建数据库,启动instance，即启动SGA和后台进程，这种启动只需要init.ora文件。</li>
+<li>startup mount dbname<br> 安装启动，这种方式启动下可执行：数据库日志归档、数据库恢复、重新命名一些数据库文件<br> 如：系统表空间或日志文件。<br> 执行“nomount”，然后打开控制文件</li>
+<li>startup open dbname<br> 先执行“nomount”，然后执行“mount”，再打开包括Redo log文件在内的所有数据库文件， 这种方式下可访问数据库中的数据。</li>
+<li>startup，等于以下三个命令<br> startup nomount<br> alter database mount<br> alter database open</li>
+<li>startup restrict<br> 约束方式启动<br> 这种方式能够启动数据库，但只允许具有一定特权的用户访问<br> 非特权用户访问时，会出现以下提示：<br> ERROR：<br> ORA-01035: ORACLE 只允许具有 RESTRICTED SESSION 权限的用户使用</li>
+<li>startup force<br> 强制启动方式<br> 当不能关闭数据库时，可以用startup force来完成数据库的关闭<br> 先关闭数据库，再执行正常启动数据库命令</li>
+<li>startup pfile&#x3D;参数文件名<br> 带初始化参数文件的启动方式<br> 先读取参数文件，再按参数文件中的设置启动数据库<br> 例：startup pfile&#x3D;E:\Oracle\admin\oradb\pfile\init.ora</li>
+<li>startup EXCLUSIVE</li>
+</ol>
+</li>
+<li>关闭<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash# lsnrctl stop</span><br><span class="line">oracle&gt; shutdown immediate</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<ol>
+<li>Normal 需要等待所有的用户断开连接<br> normal需要在所有连接用户断开后才执行关闭数据库任务，所以有的时候看起来好象命令没有运行一样！在执行这个命令后不允许新的连接</li>
+<li>Immediate 等待用户完成当前的语句<br> immediate在用户执行完正在执行的语句后就断开用户连接，并不允许新用户连接。数据库并不立即关闭，而是在Oracle执行某些清除工作后才关闭（终止会话、释放会话资源)。</li>
+<li>Transactional 等待用户完成当前的事务<br> transactional 在用户执行完当前事物后断开连接，并不允许新的用户连接数据库。</li>
+<li>Abort 不做任何等待，直接关闭数据库<br> abort 执行强行断开连接并直接关闭数据库。直接关闭数据库，正在访问数据库的会话会被突然终止，如果数据库中有大量操作正在执行，这时执行shutdown abort后，重新启动数据库需要很长时间。</li>
+</ol>
+</li>
+</ol>
+<h4 id="sqlplus中使用其他帐户连接"><a href="#sqlplus中使用其他帐户连接" class="headerlink" title="sqlplus中使用其他帐户连接"></a>sqlplus中使用其他帐户连接</h4><ol>
+<li>conn system&#x2F;manager;</li>
+<li>conn sys&#x2F;change_on_install as sysdba;</li>
+<li>show user 显示此时连接的是哪个帐户</li>
+</ol>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><ul>
+<li><p>grant dba to USER;</p>
+</li>
+<li><p>grant connect,resource to USER;</p>
+<blockquote>
+<p>用户成功创建，但是还不能正常的登录Oracle数据库系统，因为该用户还没有任何权限。如果用户能够正常登录，至少需要CREATE SESSION系统权限。<br>介绍几个常用角色：<br>  CONNECT角色，主要应用在临时用户，特别是那些不需要建表的用户，通常只赋予他们CONNECT role。CONNECT是使用Oracle的简单权限，拥有CONNECT角色的用户，可以与服务器建立连接会话（session，客户端对服务器连接，称为会话）。<br>  RESOURCE角色，更可靠和正式的数据库用户可以授予RESOURCE role。RESOURCE提供给用户另外的权限以创建他们自己的表、序列、过程（procedure）、触发器（trigger）、索引（index）等。<br>  DBA角色，DBA role拥有所有的系统权限—-包括无限制的空间限额和给其他用户授予各种权限的能力。用户SYSTEM拥有DBA角色。<br>一般情况下，一个普通的用户（如SCOTT），拥有CONNECT和RESOURCE两个角色即可进行常规的数据库开发工作。</p>
+</blockquote>
+</li>
+<li><p>drop user user_name USER;</p>
+</li>
+<li><blockquote>
+<p>在以超级管理员sys登陆时必须加 as sysdba 否则连接不上<br>如果以system 或 sys登陆时 输入 select * from emp;会出错 因为system和 sys没有emp这张表<br>如果此时想在不同用户下访问emp表 则需加上该表所在的用户名 例如 select * from scott.emp;</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="sqlplus中对于表的信息的查看"><a href="#sqlplus中对于表的信息的查看" class="headerlink" title="sqlplus中对于表的信息的查看"></a>sqlplus中对于表的信息的查看</h4><ol>
+<li>查看所有表名,会列出该帐户权限下的所有的表名<br><code> select   table_name    from   cat;  select  table_name   from  tab;  select  table_name   from  user_tables;  select owner,table_name from dba_tables;</code></li>
+<li>查看表的结构<br><code> describe 表名;</code><br>3．&#x2F; 要想继续使用上一次的正确的指令 可以直接 &#x2F; 即可重复执行上一条指令</li>
+<li>查看当前用户的缺省表空间<br> <code>select username,default_tablespace from user_users;</code></li>
+<li>查看当前用户的角色<br><code>select * from user_role_privs;</code></li>
+<li>查看当前用户的系统权限和表级权限<br><code> select * from user_sys_privs;  select * from user_tab_privs;</code></li>
+<li>查看用户下所有的表的列属性<br><code>select * from USER_TAB_COLUMNS where table_name=:table_Name;</code></li>
+<li>显示用户信息(所属表空间)<br><code> select default_tablespace,temporary_tablespace  from dba_users where username=&#39;GAME&#39;;</code></li>
+<li>查看当前用户的系统权限和表级权限<br><code> select * from user_sys_privs;  select * from user_tab_privs;</code></li>
+<li>显示当前会话所具有的权限<br><code>select * from session_privs;</code></li>
+<li>显示指定用户所具有的系统权限<br><code>select * from dba_sys_privs where grantee=&#39;GAME&#39;;</code></li>
+<li>显示特权用户<br><code>select * from v$pwfile_users;</code></li>
+<li>显示用户信息(所属表空间)<br><code>select default_tablespace,temporary_tablespace  from dba_users where username=&#39;GAME&#39;;</code></li>
+<li>显示用户的PROFILE<br>select profile from dba_users where username&#x3D;’GAME’;</li>
+</ol>
+<h4 id="表"><a href="#表" class="headerlink" title="表"></a>表</h4><ol>
+<li>查看用户下所有的表<br><code> select   *   from   cat;  select   *   from   tab;  select   table_name   from   user_tables;</code></li>
+<li>查看名称包含log字符的表<br><code> select object_name,object_id from user_objects  where instr(object_name,&#39;LOG&#39;)&gt;0;</code></li>
+<li>查看某表的创建时间<br><code> select object_name,created from user_objects where   object_name=upper(&#39;&amp;table_name&#39;);</code></li>
+<li>查看某表的大小<br><code> select sum(bytes)/(1024*1024) as &quot;size(M)&quot; from user_segments   where segment_name=upper(&#39;&amp;table_name&#39;);</code></li>
+<li>查看放在Oracle的内存区里的表<br><code> select table_name,cache from user_tables where instr(cache,&#39;Y&#39;)&gt;0;</code></li>
+</ol>
+<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><ol>
+<li>查看索引<br><code> select   index_name,table_owner,table_name,tablespace_name,status   from   user_indexes   order   by   table_name;</code></li>
+<li>查看索引个数和类别<br><code> select index_name,index_type,table_name from user_indexes order by table_name;</code></li>
+<li>查看索引被索引的字段<br><code> select * from user_ind_columns where index_name=upper(&#39;&amp;index_name&#39;);</code></li>
+<li>查看索引的大小<br><code> select sum(bytes)/(1024*1024) as &quot;size(M)&quot; from user_segmentswhere segment_name=upper(&#39;&amp;index_name&#39;);</code></li>
+</ol>
+<h4 id="序列号"><a href="#序列号" class="headerlink" title="序列号"></a>序列号</h4><ol>
+<li>查看序列号，last_number是当前值<br><code> select * from user_sequences;</code></li>
+</ol>
+<h4 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h4><ol>
+<li>查看视图的名称<br><code> select   text   from   user_views   where   view_name=upper(&#39;&amp;view_name&#39;);  select view_name from user_views;</code></li>
+<li>查看创建视图的select语句<br><code> set view_name,text_length from user_views;  set long 2000; 说明：可以根据视图的text_length值设定set long 的大小  select text from user_views where view_name=upper(&#39;&amp;view_name&#39;);</code></li>
+</ol>
+<h4 id="同义词"><a href="#同义词" class="headerlink" title="同义词"></a>同义词</h4><ol>
+<li>查看同义词的名称<br><code> select * from user_synonyms;</code></li>
+</ol>
+<h4 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h4><ol>
+<li><p>查看某表的约束条件<br>&#96;<br> select constraint_name, constraint_type,search_condition, r_constraint_name<br> from user_constraints where table_name &#x3D; upper(‘&amp;table_name’);</p>
+<p> select c.constraint_name,c.constraint_type,cc.column_name<br> from user_constraints c,user_cons_columns cc<br> where c.owner &#x3D; upper(‘&amp;table_owner’) and c.table_name &#x3D; upper(‘&amp;table_name’)<br> and c.owner &#x3D; cc.owner and c.constraint_name &#x3D; cc.constraint_name<br> order by cc.position;</p>
+</li>
+</ol>
+<p>&#96;</p>
+<h4 id="存储函数和过程"><a href="#存储函数和过程" class="headerlink" title="存储函数和过程"></a>存储函数和过程</h4><ol>
+<li>查看函数和过程的状态<br><code> select object_name,status from user_objects where object_type=&#39;FUNCTION&#39;;  select object_name,status from user_objects where object_type=&#39;PROCEDURE&#39;;</code></li>
+<li>查看函数和过程的源代码<br><code> select text from all_source where owner=user and name=upper(&#39;&amp;plsql_name&#39;);</code></li>
+</ol>
+<h3 id="系统表"><a href="#系统表" class="headerlink" title="系统表"></a>系统表</h3><p>ORACLE数据库的系统参数都存储在数据库中，可以通过SQLPLUS，以用户SYSYTEM进行查询。几个重要的表或者视图如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">v$controlfile：控制文件的信息；</span><br><span class="line">v$datafile：数据文件的信息；</span><br><span class="line">v$log：日志文件的信息；</span><br><span class="line">v$process：处理器的信息；</span><br><span class="line">v$session：会话信息；</span><br><span class="line">v$transaction：事务信息；</span><br><span class="line">v$resource：资源信息；</span><br><span class="line">v$sga：系统全局区的信息。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的视图名中的‘v$’,只是视图名字中的字符。类似于上面的视图或表还有很多，位于： $ORACLE_HOME&#x2F;RDBMS&#x2F;ADMIN&#x2F;CATALOG.SQL文件中。<br>这些视图或表可以在SQLPLUS中用SELECT语句进行查询。</p>
+</blockquote>
+<h3 id="数据字典视图"><a href="#数据字典视图" class="headerlink" title="数据字典视图"></a>数据字典视图</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">动态字典</span><br><span class="line">select  distinct    object_name from    dba_objects where   object_name like    &#x27;V$_%&#x27;  ;</span><br><span class="line">系统用户字典:</span><br><span class="line">select  distinct    object_name from    dba_objects where   object_name like    &#x27;DBA_%&#x27; ;</span><br><span class="line">本用户的字典:</span><br><span class="line">select  distinct    object_name from    dba_objects where   object_name like    &#x27;USER_%&#x27;    ;</span><br><span class="line">表和列</span><br><span class="line">DBA_TABLES、ALL_TABLES和USER_TABLES显示了有关数据库表的一般信息。</span><br><span class="line"></span><br><span class="line">DBA_TAB_COLUMNS、ALL_TAB_COLUMNS和USER_TAB_COLUMNS显示了每个数据库表的列的信息。</span><br><span class="line"></span><br><span class="line">注意：DBA_OBJECTS、ALL_OBJECTS和USER_OBJECTS显示了模式对象的信息，包括表。</span><br><span class="line"></span><br><span class="line">完整性约束</span><br><span class="line">DBA_CONSTRAINTS、ALL_CONSTRAINTS和USER_CONSTRAINST显示有关约束的一般信息。</span><br><span class="line"></span><br><span class="line">DBA_CONS_COLUMNS、ALL_CONS_COLUMNS和USER_CONS_COLUMNS显示有关列的相关约束的一般信息。</span><br><span class="line"></span><br><span class="line">视图</span><br><span class="line">DBA_VIEWS、ALL_VIEWS和USER_VIEWS。</span><br><span class="line"></span><br><span class="line">注意：DBA_OBJECTS、ALL_OBJECTS和USER_OBJECTS显示了模式对象的信息，包括视图。</span><br><span class="line"></span><br><span class="line">序列</span><br><span class="line">DBA_SEQUENCES、ALL_SEQUENCES和USER_SEQUENCES。</span><br><span class="line"></span><br><span class="line">注意：DBA_OBJECTS、ALL_OBJECTS和USER_OBJECTS显示了模式对象的信息，包括序列。</span><br><span class="line"></span><br><span class="line">同义词</span><br><span class="line">DBA_SYNONYMS、ALL_SYNONYMS和USER_SYNONYMS。</span><br><span class="line"></span><br><span class="line">注意：DBA_OBJECTS、ALL_OBJECTS和USER_OBJECTS显示了模式对象的信息，包括同义词。</span><br><span class="line"></span><br><span class="line">索引</span><br><span class="line">DBA_INDEXS、ALL_INDEXS、USER_INDEXS、DBA_IND_COLUMNS、ALL_IND_COLUMNS和USER_IND_COLUMNS。</span><br><span class="line"></span><br><span class="line">用户</span><br><span class="line">DBA_USERS。</span><br><span class="line"></span><br><span class="line">角色</span><br><span class="line">DBA_ROLES。</span><br><span class="line"></span><br><span class="line">表空间定额</span><br><span class="line">DBA_TS_QUOTAS。</span><br><span class="line"></span><br><span class="line">配置表</span><br><span class="line">DBA_PROFILES。</span><br><span class="line"></span><br><span class="line">表空间</span><br><span class="line">DBA_TABLESPACES。</span><br><span class="line"></span><br><span class="line">数据文件</span><br><span class="line">DBA_DATA_FILES。</span><br><span class="line"></span><br><span class="line">段</span><br><span class="line">DBA_SEGMENTS、USER_SEGMENT。</span><br><span class="line"></span><br><span class="line">回滚段</span><br><span class="line">DBA_ROLLBACK_SEGS、V$ROLLNAME、V$ROLLSTAT。</span><br><span class="line"></span><br><span class="line">触发器：　　select   trigger_name,trigger_type,table_owner,table_name,status   from   user_triggers;</span><br><span class="line">快照：　　select   owner,name,master,table_name,last_refresh,next   from   user_snapshots   order   by   owner,next;</span><br><span class="line">同义词：　　select   *   from   syn;序列：　　select   *   from   seq;</span><br><span class="line">数据库链路：　　select   *   from   user_db_links;</span><br><span class="line">约束限制：　　select   TABLE_NAME,CONSTRAINT_NAME,SEARCH_CONDITION,STATUS   from   user_constraints;</span><br><span class="line">本用户读取其它用户对象的权限：　　select   *   from   user_tab_privs;</span><br><span class="line">本用户所拥有的系统权限：　　select   *   from   user_sys_privs;</span><br><span class="line">用户：　　select   *   from   all_users   order   by   user_id;</span><br><span class="line">表空间剩余自由空间情况：　　select   tablespace_name,sum(bytes),max(bytes),count(*)   from   dba_free_space   group   by   tablespace_name;</span><br><span class="line">数据字典：　　select   table_name   from   dict   order   by   table_name;</span><br><span class="line">锁及资源信息：　　select   *   from   v$lock;</span><br><span class="line">不包括DDL锁数据库字符集：　　select   name,value$   from   props$   where   name=&#x27;NLS_CHARACTERSET&#x27;;</span><br><span class="line">inin.ora参数：　　select   name,value   from   v$parameter   order   by   name;</span><br><span class="line">SQL共享池：　　select   sql_text   from   v$sqlarea;</span><br><span class="line">数据库：　　select   *   from   v$database</span><br><span class="line">控制文件：　　select   *   from   V$controlfile;</span><br><span class="line">重做日志文件信息：　　select   *   from   V$logfile;</span><br><span class="line">来自控制文件中的日志文件信息：　　select   *   from   V$log;</span><br><span class="line">来自控制文件中的数据文件信息：　　select   *   from   V$datafile;</span><br><span class="line">NLS参数当前值：　　select   *   from   V$nls_parameters;</span><br><span class="line">ORACLE版本信息：　　select   *   from   v$version;</span><br><span class="line">描述后台进程：　　select   *   from   v$bgprocess;</span><br><span class="line">查看版本信息：　　select   *   from   product_component_version;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">SET AUTOTRACE OFF 此为默认值，即关闭Autotrace</span><br><span class="line">SET AUTOTRACE ON EXPLAIN 只显示执行计划</span><br><span class="line">SET AUTOTRACE ON STATISTICS 只显示执行的统计信息</span><br><span class="line">SET AUTOTRACE ON 包含2,3两项内容</span><br><span class="line">SET AUTOTRACE TRACEONLY STAT</span><br><span class="line">SET AUTOTRACE TRACEONLY 与ON相似，但不显示语句的执行结果</span><br><span class="line"></span><br><span class="line">1. set linesize 设置每行显示的长度</span><br><span class="line"></span><br><span class="line">2. set pagesize 设置每页显示的长度 oracle中的数据是采用一页页显示的方式输出的</span><br><span class="line"></span><br><span class="line">--定义缓冲编辑器为vi</span><br><span class="line">define_editor=vi</span><br><span class="line">--使DBMS_OUTPUT有效,并设置成最大buffer,并防止&quot;吃掉&quot;最前面的空格</span><br><span class="line">set serveroutput on size 1000000 format wrapped</span><br><span class="line">--设置一行可以容纳的字符数</span><br><span class="line">set linesize 256</span><br><span class="line">--设置一页有多少行数</span><br><span class="line">set pagesize 50</span><br><span class="line">--设置来回数据显示量,这个值会影响autotrace时一致性读等数据</span><br><span class="line">set arraysize 5000</span><br><span class="line">--页和页之间不设任何间隔</span><br><span class="line">set newpage none</span><br><span class="line">--LONG或CLOB显示的长度</span><br><span class="line">set long 5000</span><br><span class="line">--将SPOOL输出中每行后面多余的空格去掉</span><br><span class="line">set trimspool on</span><br><span class="line">--设置查询耗时</span><br><span class="line">set timing on</span><br><span class="line">--autotrace后explain plan output的格式</span><br><span class="line">col plan_plus_exp format a120</span><br><span class="line">--在屏幕上暂不显示输出的内容,为下面的设置sql做准备</span><br><span class="line">set termout off</span><br><span class="line">--设置时间格式</span><br><span class="line">alter session set nls_date_format=&#x27;yyyy-mm-dd hh24:mi:ss&#x27;;</span><br><span class="line">--获得用户名和global_name</span><br><span class="line">col login_info_temp new_value login_info</span><br><span class="line">select user||&#x27;@&#x27;||global_name login_info_temp from global_name;</span><br><span class="line">--设置sql提示为&quot;user@global_name&quot;</span><br><span class="line">set sqlprompt &#x27;&amp;login_info SQL&gt; &#x27;</span><br><span class="line">--在屏幕上显示输出的内容</span><br><span class="line">set termout on</span><br><span class="line">--列格式控制</span><br><span class="line">主要格式化列的显示形式。</span><br><span class="line">col c1 format a1</span><br><span class="line">col cc1 format a1</span><br><span class="line">col c2 format a2</span><br><span class="line">col cc2 format a2</span><br><span class="line">col c3 format a3</span><br><span class="line">col cc3 format a3</span><br><span class="line">col c4 format a4</span><br><span class="line">col cc4 format a4</span><br><span class="line">col c5 format a5</span><br><span class="line">col cc5 format a5</span><br><span class="line">col c6 format a6</span><br><span class="line">col cc6 format a6</span><br><span class="line">col c7 format a7</span><br><span class="line">col cc7 format a7</span><br><span class="line">col c8 format a8</span><br><span class="line">col cc8 format a8</span><br><span class="line">col c9 format a9</span><br><span class="line">col cc9 format a9</span><br><span class="line">col c10 format a10</span><br><span class="line">col cc10 format a10</span><br><span class="line">col c15 format a15</span><br><span class="line">col cc15 format a15</span><br><span class="line">col c20 format a20</span><br><span class="line">col cc20 format a20</span><br><span class="line">col c30 format a30</span><br><span class="line">col cc30 format a30</span><br><span class="line">col c40 format a40</span><br><span class="line">col cc40 format a40</span><br><span class="line">col c50 format a50</span><br><span class="line">col cc50 format a50</span><br><span class="line">col c60 format a60</span><br><span class="line">col cc60 format a60</span><br><span class="line">col c70 format a70</span><br><span class="line">col cc70 format a70</span><br><span class="line">col c80 format a80</span><br><span class="line">col cc80 format a80</span><br><span class="line">col c90 format a90</span><br><span class="line">col cc90 format a90</span><br><span class="line">col c100 format a100</span><br><span class="line">col cc100 format a100</span><br><span class="line">col c150 format a150</span><br><span class="line">col cc150 format a150</span><br><span class="line">col c200 format a200</span><br><span class="line">col cc200 format a200</span><br><span class="line">col c255 format a255</span><br><span class="line">col cc255 format a255</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/command/" rel="tag"># command</a>
+              <a href="/tags/database/" rel="tag"># database</a>
+              <a href="/tags/oracle/" rel="tag"># oracle</a>
+              <a href="/tags/sqlplus/" rel="tag"># sqlplus</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/07/20/tcpdump_ping/" rel="prev" title="tcpdump常用方法">
+                  <i class="fa fa-angle-left"></i> tcpdump常用方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/07/25/oracle_sqlplus/" rel="next" title="sqlplus 安装">
+                  sqlplus 安装 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
