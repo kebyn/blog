@@ -145,12 +145,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">73</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -167,6 +167,279 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/07/13/openssl_generate_certificate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/07/13/openssl_generate_certificate/" class="post-title-link" itemprop="url">openssl生成cert</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-13 16:14:43" itemprop="dateCreated datePublished" datetime="2017-07-13T16:14:43+08:00">2017-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-09-25 15:19:10" itemprop="dateModified" datetime="2024-09-25T15:19:10+08:00">2024-09-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -des3 -out server.key 2048</span><br><span class="line">openssl rsa -in server.key -out server.key</span><br><span class="line">openssl req -sha256 -new -key server.key -out server.csr -subj &#x27;/CN=localhost&#x27;</span><br><span class="line">openssl x509 -req -sha256 -days 36500 -in server.csr -signkey server.key -out server.crt</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl">https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ cat cert.pem</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIDJDCCAgwCCQDIHbBXyn2dyDANBgkqhkiG9w0BAQsFADBTMQswCQYDVQQGEwJD</span><br><span class="line">TjERMA8GA1UEBwwIc2hhbmdoYWkxEDAOBgNVBAoMB3F6c3RlY2gxHzAdBgNVBAMM</span><br><span class="line">FmdpdGxhYi5pbmMucXpzdGVjaC5uZXQwIBcNMTcwODAxMDk1OTA0WhgPMjExNzA3</span><br><span class="line">MDgwOTU5MDRaMFMxCzAJBgNVBAYTAkNOMREwDwYDVQQHDAhzaGFuZ2hhaTEQMA4G</span><br><span class="line">A1UECgwHcXpzdGVjaDEfMB0GA1UEAwwWZ2l0bGFiLmluYy5xenN0ZWNoLm5ldDCC</span><br><span class="line">ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKaAZnlgevlhWR3djmFxZgcX</span><br><span class="line">Pwy2PiWpgr4kXQGAbCMTS2ouiTYvSW6rr9ofRv39G7yxSc7Rah6N1f9y6y9/itR7</span><br><span class="line">C2vMSM/GHMX8zvLt49PFNjhIYv1Nd38VBoXSxz72yp+iagCKooYC9Zn+mEQlmAbJ</span><br><span class="line">/zv9T8UiYTeV9FMHYO3HoTlet/tYeBmWr5ukEncBt5fxfM3yGuipR721qUCD0Hub</span><br><span class="line">mXx3r/YJ5LerSjS6SBug2i8lusSkF6mRJUNyF58ouNAqnj4RFGgmwdwuRZn0TVF7</span><br><span class="line">SWL9kDIB9dxi/pu1AFPBpxq/T7fgxuR6EdCO5Gu/QTZdGDpWoKqN5UgfWQwvzcEC</span><br><span class="line">AwEAATANBgkqhkiG9w0BAQsFAAOCAQEAKivEQXuW3KfxeucuCE2ovCuHgzd5RP6k</span><br><span class="line">RRUTDpufPmD8JH3b1vn0r4lq+u2WppwkFhlx99O89zygzuT19UtefUQ5Fgll0dbQ</span><br><span class="line">vfgICiRvQFoYw427QWUS29Z4wNZM384TkCkWPoh7zzsIz8EBzAbv8a/OcTIcsYYu</span><br><span class="line">QCrozqhqMnetHqhz7D9ShWAxP7rKGgf3lTC0ehpax8b6P24Q1Yuk3BsB6ErrAMCD</span><br><span class="line">FXoIW/a9jy9lgm1oIeBvGSWZCaoVE+4x3JYhtozpx1WlapdRxEYvNxzpcF7o35MS</span><br><span class="line">Ff9AHyLdYUqN4Q4IdwYOmpQnfN/dZhx5aAGjvcs/iQms/Ed92CKs4g==</span><br><span class="line">-----END CERTIFICATE-----</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local http.sslCAInfo /path/cert.pem</span><br><span class="line">$ git config --local --unset http.sslCAInfo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local http.sslVerify false #NO NEED TO USE THIS</span><br><span class="line">$ git config --local --unset http.sslverify</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Copy CA cert to &#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-ca-certificates</span><br><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/07/09/openvpn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/07/09/openvpn/" class="post-title-link" itemprop="url">openvpn  设置备忘</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-09 13:23:57" itemprop="dateCreated datePublished" datetime="2017-07-09T13:23:57+08:00">2017-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-09-26 09:37:02" itemprop="dateModified" datetime="2024-09-26T09:37:02+08:00">2024-09-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ol>
+<li>opevpn 服务器开启<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">port 1194</span><br><span class="line">proto udp</span><br><span class="line">dev tun</span><br><span class="line">ca ca.crt</span><br><span class="line">cert xxx.crt</span><br><span class="line">dh dh2048.pem</span><br><span class="line">server 10.8.0.0 255.255.255.0  //openvpnIP段</span><br><span class="line">ifconfig-pool-persist ipp.txt  //分配的地址记录在ipp.txt</span><br><span class="line">client-config-dir ccd  //个人单独配置文件</span><br><span class="line"></span><br><span class="line">client-to-client  //客户端可以互相连接</span><br><span class="line">keepalive 10 120</span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line">user nobody</span><br><span class="line">group nogroup</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">status /tmp/openvpn-status.log</span><br><span class="line">log         /tmp/openvpn.log</span><br><span class="line">verb 4</span><br><span class="line"></span><br><span class="line">mode server  //运行模式</span><br><span class="line">tls-server  //tls加密</span><br><span class="line">topology subnet  //使用服务端子网</span><br><span class="line">push &quot;topology subnet&quot;  //通知客户端使用子网</span><br><span class="line"></span><br><span class="line">auth-user-pass-verify /etc/openvpn/checkpsw.js via-env  //密码认证</span><br><span class="line">client-cert-not-required  //不认证证书</span><br><span class="line">username-as-common-name  //使用用户名区别不同用户</span><br><span class="line">script-security 3</span><br><span class="line"></span><br><span class="line">route 192.168.2.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.2.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br><span class="line">route 10.8.0.0 255.255.255.0 10.8.0.1  //使用这个子网</span><br><span class="line">push &quot;route 10.8.0.0 255.255.255.0&quot;  //通知客户端使用子网</span><br><span class="line">route 192.168.3.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.3.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br></pre></td></tr></table></figure></li>
+<li>连接到openvpn服务器</li>
+</ol>
+<ul>
+<li>开启路由转发<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sudo iptables -A FORWARD -i eth0 -j ACCEPT</span><br><span class="line">sudo iptables -A FORWARD -i eth1 -j ACCEPT</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li>配置路由<ul>
+<li>可以在路由器上配置全局路由</li>
+<li>下面是需要连接 openvpn 的单独配置<ul>
+<li>Windows 需要cmd 管理员窗口执行:<br>  <code>route add  10.8.0.0 mask 255.255.255.0 10.0.0.1</code></li>
+<li>Linux 需要sudo 权限执行:<br>  <code>ip route add 10.8.0.0/24 via 10.0.0.1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>可以在各个网络出入口使用 tcpdump 抓包判断网络情况</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/06/13/redmine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/06/13/redmine/" class="post-title-link" itemprop="url">redmine</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-13 12:06:37" itemprop="dateCreated datePublished" datetime="2017-06-13T12:06:37+08:00">2017-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-11 12:55:44" itemprop="dateModified" datetime="2025-11-11T12:55:44+08:00">2025-11-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ol>
+<li>##<strong>403</strong></li>
+</ol>
+<p><strong>There are no projects with trackers for which you can create an issue!</strong></p>
+<ol>
+<li><p>Issue statuses问题状态<br> - 设置问题状态</p>
+</li>
+<li><p>Trackers跟踪标签<br> - 设置跟踪标签,跟踪标签中需要设置问题状态</p>
+</li>
+<li><p>Roles and permissions角色和权限<br> - 设置跟踪标签的权限，给予new issue权限</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/06/13/redmine/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -212,7 +485,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-25 17:47:17" itemprop="dateModified" datetime="2024-09-25T17:47:17+08:00">2024-09-25</time>
+      <time title="修改时间：2025-11-11 09:48:56" itemprop="dateModified" datetime="2025-11-11T09:48:56+08:00">2025-11-11</time>
     </span>
 
   
@@ -229,27 +502,50 @@
 <li>docker engine安装</li>
 </ol>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/#supported-platforms">docker install</a></li>
-<li><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-server-debian">debian install</a></li>
-<li><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-server-centos">centos install</a></li>
-<li><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-desktop-windows">windows install</a></li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/#supported-platforms">docker install</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-server-debian">debian install</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-server-centos">centos install</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-desktop-windows">windows install</a></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  curl -fsSL https://get.docker.com | bash</span><br><span class="line"></span><br><span class="line">  dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">  curl -s https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo</span><br><span class="line">  yum install -y docker-ce</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. docker官方文档</span><br><span class="line">  - [docker administrator guide](https://docs.docker.com/engine/admin/start-containers-automatically/#restart-policy-details)</span><br><span class="line">  - [docker user guide](https://docs.docker.com/engine/userguide/)</span><br><span class="line">  - [docker proxy](https://stackoverflow.com/questions/23111631/cannot-download-docker-images-behind-a-proxy)</span><br></pre></td></tr></table></figure>
+<pre><code>  $ cat /etc/docker/daemon.json
+    &#123;
+      &quot;registry-mirrors&quot;: [&quot;https://www.example.cc&quot;],
+      &quot;data-root&quot;: &quot;/data/docker&quot;,
+      &quot;proxies&quot;: &#123;
+        &quot;http-proxy&quot;: &quot;http://proxy.example.com:8080&quot;,
+        &quot;https-proxy&quot;: &quot;http://proxy.example.com:8080&quot;,
+        &quot;no-proxy&quot;: &quot;localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16&quot;
+      &#125;,
+      &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
+      &quot;log-driver&quot;: &quot;json-file&quot;,
+      &quot;log-opts&quot;: &#123;
+        &quot;max-size&quot;: &quot;100m&quot;,
+        &quot;max-file&quot;: &quot;3&quot;,
+        &quot;tag&quot;: &quot;&#123;&#123;.ImageName&#125;&#125;|&#123;&#123;.Name&#125;&#125;|&#123;&#123;.ImageFullID&#125;&#125;|&#123;&#123;.FullID&#125;&#125;&quot;
+      &#125;,
+      &quot;storage-driver&quot;: &quot;overlay2&quot;
+    &#125;
+  $ cat /etc/systemd/system/docker.service.d
+    Environment=&quot;HTTP_PROXY=http://proxy.example.com:8080&quot;
+    Environment=&quot;HTTPS_PROXY=http://proxy.example.com:8080&quot;
+    Environment=&quot;NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16&quot;
+  $ systemctl daemon-reload &amp;&amp; systemctl restart docker
+  $ systemctl show --property Environment docker
+    Environment=HTTP_PROXY=http://proxy.example.com:8080
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- more--&gt;</span><br><span class="line">  - [docker command](https://docs.docker.com/engine/reference/run/)</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>docker version&#x2F;info&#x2F;login<br>docker run<br>docker run -i -t<br>docker pull&#x2F;search&#x2F;commit&#x2F;push<br>docker start&#x2F;stop&#x2F;kill&#x2F;restart<br>docker ps       正在运行的docker<br>docker ps -a    所有的docker<br>docker ps -l    最近运行的docker<br>docker rm       删除docker<br>docker images   列出image<br>docker rmi     删除image<br>docker rmi <code>docker images -f dangling=true -q</code><br>docker save&#x2F;load</p>
+<p>docker network inspect bridge<br>docker inspect ID&#x2F;Name</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3. ~~docker-compose~~`docker compose` `v3`版本是`docker`的子命令</span><br><span class="line">  - [docker-compose command](https://docs.docker.com/compose/reference/overview/)</span><br><span class="line">  - [docker-compose install](https://github.com/docker/compose/releases)</span><br></pre></td></tr></table></figure>
+<p>curl -L <a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases/download/1.14.0-rc2/docker-compose-%60uname">https://github.com/docker/compose/releases/download/1.14.0-rc2/docker-compose-`uname</a> -s<code>-</code>uname -m&#96; &gt; &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose<br>chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</p>
+<pre><code>
+</code></pre>
+</li>
 </ul>
-<ol start="2">
-<li>docker官方文档</li>
-</ol>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/admin/start-containers-automatically/#restart-policy-details">docker administrator guide</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/userguide/">docker user guide</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23111631/cannot-download-docker-images-behind-a-proxy">docker proxy</a><br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/systemd/system/docker.service.d/http-proxy.conf</span><br><span class="line">  Environment=&quot;HTTP_PROXY=http://proxy.example.com:80/&quot; HTTPS_PROXY=http://proxy.example.com:80/</span><br><span class="line">  Environment=&quot;NO_PROXY=localhost,127.0.0.0/8,docker-registry.somecorporation.com&quot;</span><br><span class="line">$ systemctl daemon-reload</span><br><span class="line">$ systemctl show --property Environment docker</span><br><span class="line">  Environment=HTTP_PROXY=http://proxy.example.com:80/</span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure></li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/06/08/docker_instructions/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+
       
     </div>
 
@@ -311,7 +607,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:37:12" itemprop="dateModified" datetime="2024-09-26T09:37:12+08:00">2024-09-26</time>
+      <time title="修改时间：2025-11-11 09:41:55" itemprop="dateModified" datetime="2025-11-11T09:41:55+08:00">2025-11-11</time>
     </span>
 
   
@@ -511,7 +807,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:37:02" itemprop="dateModified" datetime="2024-09-26T09:37:02+08:00">2024-09-26</time>
+      <time title="修改时间：2025-11-11 09:51:25" itemprop="dateModified" datetime="2025-11-11T09:51:25+08:00">2025-11-11</time>
     </span>
 
   
@@ -701,7 +997,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:37:02" itemprop="dateModified" datetime="2024-09-26T09:37:02+08:00">2024-09-26</time>
+      <time title="修改时间：2025-11-11 09:41:51" itemprop="dateModified" datetime="2025-11-11T09:41:51+08:00">2025-11-11</time>
     </span>
 
   
@@ -804,285 +1100,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2016/11/11/minecraft/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/11/02/openssl_CVE-2016-8858/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="By Kebyn">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="觅回首">
-      <meta itemprop="description" content="碎碎念">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 觅回首">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/11/02/openssl_CVE-2016-8858/" class="post-title-link" itemprop="url">OpenSSH拒绝服务漏洞_CVE-2016-8858</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-11-02 10:30:52" itemprop="dateCreated datePublished" datetime="2016-11-02T10:30:52+08:00">2016-11-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:37:12" itemprop="dateModified" datetime="2024-09-26T09:37:12+08:00">2024-09-26</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li>相关依赖<br> You will need working installations of Zlib and libcrypto (LibreSSL &#x2F; OpenSSL)</li>
-<li>下载相应源码<ol>
-<li>Dropbear临时替代SSH<ul>
-<li>Dropbear <a target="_blank" rel="noopener" href="https://matt.ucc.asn.au/dropbear/releases/">https://matt.ucc.asn.au/dropbear/releases/</a></li>
-</ul>
-</li>
-<li>Zlib 1.1.4 or 1.2.1.2 or greater (earlier 1.2.x versions have problems)<ul>
-<li>Zlib <a target="_blank" rel="noopener" href="http://www.zlib.net/">http://www.zlib.net/</a></li>
-</ul>
-</li>
-<li>libcrypto (LibreSSL or OpenSSL &gt;&#x3D; 0.9.8f &lt; 1.1.0)<ul>
-<li>OpenSSL <a target="_blank" rel="noopener" href="https://www.openssl.org/source/">https://www.openssl.org/source/</a><blockquote>
-<p>Note that because of API changes, OpenSSL 1.1.x is not currently supported.(2017&#x2F;03&#x2F;16更新)</p>
-</blockquote>
-</li>
-<li>LibreSSL <a target="_blank" rel="noopener" href="https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/">https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/</a></li>
-</ul>
-</li>
-<li>OpenSSH<ul>
-<li><a target="_blank" rel="noopener" href="https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/">https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/</a></li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/11/02/openssl_CVE-2016-8858/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/10/06/oracle_11gr2_silent_install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="By Kebyn">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="觅回首">
-      <meta itemprop="description" content="碎碎念">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 觅回首">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/10/06/oracle_11gr2_silent_install/" class="post-title-link" itemprop="url">ORACLE 11G R2静默安装，配置</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-10-06 11:17:43" itemprop="dateCreated datePublished" datetime="2016-10-06T11:17:43+08:00">2016-10-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:47:50" itemprop="dateModified" datetime="2024-09-26T09:47:50+08:00">2024-09-26</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="ORACLE-11G-R2静默安装，配置"><a href="#ORACLE-11G-R2静默安装，配置" class="headerlink" title="ORACLE 11G R2静默安装，配置"></a>ORACLE 11G R2静默安装，配置</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>1.依赖性准备</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install make gcc binutils gcc-c++ compat-libstdc++ elfutils-libelf-devel elfutils-libelf-devel-static ksh libaio libaio-devel numactl-devel sysstat unixODBC unixODBC-devel pcre-devel glibc.i686</span><br></pre></td></tr></table></figure>
-
-<p>2.用户和组准备</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># groupadd oinstall</span><br><span class="line"># groupadd dba</span><br><span class="line"># useradd -g oinstall -G dba -d /home/oracle oracle</span><br><span class="line"># passwd oracle          //设置oracle密码</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/10/06/oracle_11gr2_silent_install/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/09/12/oracle_error/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="By Kebyn">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="觅回首">
-      <meta itemprop="description" content="碎碎念">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 觅回首">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/09/12/oracle_error/" class="post-title-link" itemprop="url">oracle error</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-09-12 10:22:17" itemprop="dateCreated datePublished" datetime="2016-09-12T10:22:17+08:00">2016-09-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:37:12" itemprop="dateModified" datetime="2024-09-26T09:37:12+08:00">2024-09-26</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>In this Document<br>Purpose<br>Troubleshooting Steps<br>     Section I: Steps to approach ORA-12518&#x2F;TNS-12518 Error:</p>
-<h3 id="Section-II-Commonly-Known-Errors"><a href="#Section-II-Commonly-Known-Errors" class="headerlink" title="Section II: Commonly Known Errors:"></a>Section II: Commonly Known Errors:</h3><h4 id="Error-32-Broken-pipe"><a href="#Error-32-Broken-pipe" class="headerlink" title="Error: 32: Broken pipe"></a>Error: 32: Broken pipe</h4><h4 id="Error-11-Resource-temporarily-unavailable"><a href="#Error-11-Resource-temporarily-unavailable" class="headerlink" title="Error: 11: Resource temporarily unavailable"></a>Error: 11: Resource temporarily unavailable</h4><h4 id="Error-12-Not-enough-space"><a href="#Error-12-Not-enough-space" class="headerlink" title="Error: 12: Not enough space"></a>Error: 12: Not enough space</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/09/12/oracle_error/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
