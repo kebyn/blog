@@ -1,11 +1,17 @@
 ---
-title: grep
-date: 2015-02-06 23:20:43
+title: HuggingFace 模型下载
+date: 2025-11-11 09:31:23
 tags:
-- grep
-- command
-
+- huggingface
+- model
+- download
+- docker
+- vllm
 ---
+使用 `huggingface-cli`、镜像站和 Docker 下载模型。
+
+<!-- more -->
+
 # huggingface-cli
 ```
 
