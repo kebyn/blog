@@ -8,6 +8,8 @@ tags:
 ---
 # 科学估算服务器资源需求
 > 参考来源 https://mp.weixin.qq.com/s/zklAxdcU6j78QaYwM7CLYA
+<!-- more -->
+
 
 # CPU 资源估算公式和方法
 

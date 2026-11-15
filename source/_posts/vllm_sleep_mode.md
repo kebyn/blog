@@ -10,6 +10,8 @@ tags:
 
 可以在不停止vLLM服务的情况下，通过接口睡眠、唤醒来切换不同的模型
 
+<!-- more -->
+
 ### 需要手动指定--gpu-memory-utilization，否则多vLLM显存会冲突
 
 ```

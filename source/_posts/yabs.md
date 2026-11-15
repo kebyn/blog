@@ -7,6 +7,8 @@ tags:
 ---
 # TYO
 ## Geekbench 6
+<!-- more -->
+
 ```
 # ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
 #              Yet-Another-Bench-Script              #

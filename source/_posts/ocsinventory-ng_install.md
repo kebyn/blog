@@ -10,6 +10,8 @@ tags:
 tar –xvzf Ocsinventory-Agent-2.0.x.tar.gz
 cd Ocsinventory-Agent-2.0.x
 ```
+<!-- more -->
+
 2. Check perl configuration with the script Makefile.PL. Its looks at the configuration of Perl, machine, libraries ... and it generates the Makefile. During this step, we will create a temporary environment variable to install agent non-interactively.
 ```
         env PERL_AUTOINSTALL=1 perl Makefile.PL

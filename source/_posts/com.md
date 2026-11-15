@@ -7,6 +7,8 @@ tags:
 - common
 ---
 ### Linux下调试串口服务器的命令
+<!-- more -->
+
 ```
 minicom -D /dev/ttyUSB0 -H -w -o
 

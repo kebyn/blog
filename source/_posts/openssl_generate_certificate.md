@@ -12,6 +12,8 @@ openssl req -sha256 -new -key server.key -out server.csr -subj '/CN=localhost'
 openssl x509 -req -sha256 -days 36500 -in server.csr -signkey server.key -out server.crt
 ```
 > [https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl](https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl)
+<!-- more -->
+
 
 ```
 $ cat cert.pem

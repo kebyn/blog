@@ -9,6 +9,8 @@ tags:
 $ ssh-add ~/.ssh/id_rsa.pub
 Could not open a connection to your authentication agent.
 ```
+<!-- more -->
+
 You might need to start ssh-agent before you run the ssh-add command:
 ```
 eval `ssh-agent -s`

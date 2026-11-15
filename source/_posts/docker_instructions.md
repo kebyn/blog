@@ -8,6 +8,10 @@ tags:
 - docker command
 - docker-compose
 ---
+Docker 安装、代理与常用命令备忘。
+
+<!-- more -->
+
 1. docker engine安装
   - [docker install](https://docs.docker.com/engine/installation/#supported-platforms)
   - [debian install](https://store.docker.com/editions/community/docker-ce-server-debian)

@@ -9,6 +9,8 @@ tags:
 
 # Harbor Docker 镜像加速器
 > https://github.com/goharbor/harbor/blob/main/contrib/Configure_mirror.md
+<!-- more -->
+
 ```
 storage:
   filesystem:
