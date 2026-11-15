@@ -5,6 +5,9 @@ tags:
 - linux
 - access control
 - posix capabilities
+categories:
+- Security
+
 ---
 # Linux 访问控制机制：利用 POSIX 功能提升权限
 > 参考来源 https://dfir.ch/posts/linux_capabilities/

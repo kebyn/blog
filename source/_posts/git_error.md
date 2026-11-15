@@ -4,6 +4,9 @@ date: 2017-07-13 16:14:43
 tags:
 - git
 - git key
+categories:
+- Programming
+
 ---
 ```
 $ ssh-add ~/.ssh/id_rsa.pub

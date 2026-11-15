@@ -6,6 +6,9 @@ tags:
 - database
 - mysql
 - sql
+categories:
+- Programming
+
 ---
 
 #### c语言连接数据库执行sql语句

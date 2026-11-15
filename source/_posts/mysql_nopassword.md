@@ -7,6 +7,9 @@ tags:
 - conf
 - password
 - script
+categories:
+- Database
+
 ---
 #### mysql_config_editor是MySQL5.6.6以后版本的工具。这个工具可以认证信息加密存储在`.mylogin.cnf`中，通常这个文件在Linux用户的`家目录`和Windows的`%APPDATA%\MySQL`目录中。
 

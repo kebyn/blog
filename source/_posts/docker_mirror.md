@@ -5,6 +5,9 @@ tags:
 - docker
 - docker-registry
 - docker-mirror
+categories:
+- Container
+
 ---
 
 # Harbor Docker 镜像加速器

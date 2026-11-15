@@ -6,6 +6,9 @@ tags:
 - game
 - games
 - conf
+categories:
+- Game
+
 ---
 
 

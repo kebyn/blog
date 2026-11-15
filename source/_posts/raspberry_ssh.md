@@ -5,6 +5,9 @@ tags:
 - raspberry
 - ssh
 - release
+categories:
+- Network
+
 ---
 
 ##### 2016-11-25：

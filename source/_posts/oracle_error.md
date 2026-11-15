@@ -4,6 +4,9 @@ date: 2016-09-12 10:22:17
 tags:
 - oracle
 - error
+categories:
+- Database
+
 ---
 
 In this Document

@@ -5,6 +5,9 @@ tags:
 - bash
 - script
 - java
+categories:
+- Programming
+
 ---
 
 #### 自动识别JAVA路径

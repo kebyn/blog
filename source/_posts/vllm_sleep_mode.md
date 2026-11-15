@@ -5,6 +5,9 @@ tags:
 - vLLM
 - features
 - sleep_mode
+categories:
+- AI
+
 ---
 > https://docs.vllm.ai/en/latest/features/sleep_mode/
 

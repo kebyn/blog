@@ -6,6 +6,9 @@ tags:
 - command
 - script
 - ping
+categories:
+- Network
+
 ---
 
 #### tcpdump的命令格式如下：

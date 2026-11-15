@@ -4,6 +4,9 @@ date: 2015-07-17 13:22:17
 tags:
 - openssh
 - conf
+categories:
+- Network
+
 ---
 
 ### /etc/ssh/ssh_config 文件

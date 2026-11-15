@@ -4,6 +4,9 @@ date: 2015-06-20 10:17:43
 tags:
 - find
 - command
+categories:
+- Linux
+
 ---
 
 ### find命令用来在指定目录下查找文件。

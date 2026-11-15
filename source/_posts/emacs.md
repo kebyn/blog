@@ -3,6 +3,9 @@ title: emacs
 date: 2016-03-09 21:59:16
 tags:
 - emacs
+categories:
+- Linux
+
 ---
 
 

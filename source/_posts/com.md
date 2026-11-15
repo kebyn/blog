@@ -5,6 +5,9 @@ tags:
 - com
 - minicom
 - common
+categories:
+- Linux
+
 ---
 ### Linux下调试串口服务器的命令
 <!-- more -->

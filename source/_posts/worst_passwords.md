@@ -3,6 +3,9 @@ title: worst-passwords
 date: 2016-05-17 08:23:33
 tags:
 - password
+categories:
+- Security
+
 ---
 
 1.  123456

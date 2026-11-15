@@ -4,6 +4,9 @@ date: 2017-07-20 14:35:43
 tags:
 - git
 - git key
+categories:
+- Web
+
 ---
 1. Unpack it.
 ```

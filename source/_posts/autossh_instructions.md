@@ -5,6 +5,9 @@ tags:
   - ssh
   - ssh_tunnel
   - autossh
+categories:
+- Network
+
 ---
 1. [ssh转发](http://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html)
   - `ssh -N -f -L 5000:localhost:3306 root@23.226.78.113`

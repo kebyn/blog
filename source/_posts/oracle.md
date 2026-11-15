@@ -6,6 +6,9 @@ tags:
 - oracle
 - sqlplus
 - command
+categories:
+- Database
+
 ---
 1. 环境设置
 ```

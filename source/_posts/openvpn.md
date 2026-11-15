@@ -3,6 +3,9 @@ title: openvpn  设置备忘
 date: 2017-07-09 13:23:57
 tags:
 - openvpn
+categories:
+- Network
+
 ---
 1. opevpn 服务器开启
 ```

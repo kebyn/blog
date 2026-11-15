@@ -4,6 +4,9 @@ date: 2017-09-29 17:37:43
 tags:
 - crash
 - SysRq
+categories:
+- Linux
+
 ---
 - 在一般 Linux 當機的狀況下，若要重新啟動系統，可以按住 Alt + SysRq 兩個鍵，然後依序按下以下幾個指令鍵：
 ```

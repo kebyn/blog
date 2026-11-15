@@ -5,6 +5,9 @@ tags:
 - password
 - random
 - command
+categories:
+- Security
+
 ---
 
 1. `</dev/urandom  tr -dc ' 0-9a-zA-Z-~!@#$%,./\|'  | head -c32; echo ""`

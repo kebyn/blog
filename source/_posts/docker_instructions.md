@@ -7,6 +7,9 @@ tags:
 - docker proxy
 - docker command
 - docker-compose
+categories:
+- Container
+
 ---
 Docker 安装、代理与常用命令备忘。
 

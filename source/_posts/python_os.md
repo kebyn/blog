@@ -6,6 +6,9 @@ tags:
 - 进度条
 - sys
 - os
+categories:
+- Programming
+
 ---
 
 ##### sys.stdout 加time可以写进度条百分百

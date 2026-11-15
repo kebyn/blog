@@ -7,6 +7,9 @@ tags:
 - sqlplus
 - command
 - install
+categories:
+- Database
+
 ---
 Oracle数据库软件十分庞大，数据库引擎有好几个G。通常情况下，我们的使用方式是安装一个Oracle数据库在服务器机器上，在客户端通过PL/SQL Developer、sqlplus等工具操作服务器上的数据，当然Oracle 10g后，OEM(企业管理器)已经是WEB版了，在浏览器中也可以同样操作数据库。
 

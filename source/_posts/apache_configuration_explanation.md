@@ -5,6 +5,9 @@ tags:
 - httpd
 - conf
 - apache
+categories:
+- Web
+
 ---
 1. 尽量安装新版本的Apache
 <!-- more -->

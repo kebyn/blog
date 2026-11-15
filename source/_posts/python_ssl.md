@@ -7,6 +7,9 @@ tags:
 - requests
 - urllib
 - urllib2
+categories:
+- Programming
+
 ---
 
 ### SSL: CERTIFICATE\_VERIFY\_FAILED

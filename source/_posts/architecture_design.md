@@ -3,6 +3,9 @@ title: 架构
 date: 2017-02-16 10:17:43
 tags:
 - note
+categories:
+- Notes
+
 ---
 
 1. DNS服务器

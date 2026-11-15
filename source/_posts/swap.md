@@ -5,6 +5,9 @@ tags:
 - command
 - cnf
 - swap
+categories:
+- Linux
+
 ---
 
 ### Swap 设置

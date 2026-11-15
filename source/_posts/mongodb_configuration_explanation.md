@@ -5,6 +5,9 @@ tags:
 - database
 - mongodb
 - conf
+categories:
+- Database
+
 ---
 
 

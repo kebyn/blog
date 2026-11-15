@@ -7,6 +7,9 @@ tags:
 - conf
 - silent install
 - install
+categories:
+- Database
+
 ---
 
 

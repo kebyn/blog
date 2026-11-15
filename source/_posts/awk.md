@@ -4,6 +4,9 @@ date: 2014-03-20 15:17:43
 tags:
 - awk
 - command
+categories:
+- Linux
+
 ---
 
 ### awk是一种编程语言，用于在linux/unix下对文本和数据进行处理。

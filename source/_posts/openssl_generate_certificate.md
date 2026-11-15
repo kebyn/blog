@@ -4,6 +4,9 @@ date: 2017-07-13 16:14:43
 tags:
 - openssl
 - cert
+categories:
+- Security
+
 ---
 ```
 openssl genrsa -des3 -out server.key 2048

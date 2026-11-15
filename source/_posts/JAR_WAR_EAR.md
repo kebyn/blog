@@ -6,6 +6,9 @@ tags:
 - war
 - ear
 - java
+categories:
+- Programming
+
 ---
 
 ##### 本篇探討 EAR、JAR、WAR 之間的異同，主要目的都是將 Java 封裝成檔案，便於存放管理，事實上三者皆採用 zip 或 jar 檔案文件壓縮，但使用目地有其差異：

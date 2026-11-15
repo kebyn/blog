@@ -5,6 +5,9 @@ tags:
 - database
 - mysql
 - cnf
+categories:
+- Database
+
 ---
 MySQL配置文件示例
 <!-- more -->

@@ -4,6 +4,9 @@ date: 2015-07-17 09:22:17
 tags:
 - command
 - parted
+categories:
+- Linux
+
 ---
 
 ### parted –help

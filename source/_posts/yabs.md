@@ -4,6 +4,9 @@ date: 2025-11-11 01:31:23
 tags:
 - script
 - yabs
+categories:
+- Benchmark
+
 ---
 # TYO
 ## Geekbench 6

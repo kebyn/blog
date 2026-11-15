@@ -6,6 +6,9 @@ tags:
 - DB2
 - sql
 - command
+categories:
+- Database
+
 ---
 
 ##### 启动实例(db2inst1)：实例相当于informix中的服务

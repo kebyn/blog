@@ -7,6 +7,9 @@ tags:
 - download
 - docker
 - vllm
+categories:
+- AI
+
 ---
 使用 `huggingface-cli`、镜像站和 Docker 下载模型。
 

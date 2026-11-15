@@ -4,6 +4,9 @@ date: 2015-06-09 11:22:17
 tags:
 - command
 - useradd
+categories:
+- Linux
+
 ---
 
 ## useradd –help

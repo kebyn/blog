@@ -4,6 +4,9 @@ date: 2014-03-20 15:17:43
 tags:
 - grep
 - command
+categories:
+- Linux
+
 ---
 
 ### grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）

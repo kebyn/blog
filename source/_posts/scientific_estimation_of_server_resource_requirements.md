@@ -5,6 +5,9 @@ tags:
 - estimate
 - server
 - resource
+categories:
+- Linux
+
 ---
 # 科学估算服务器资源需求
 > 参考来源 https://mp.weixin.qq.com/s/zklAxdcU6j78QaYwM7CLYA
