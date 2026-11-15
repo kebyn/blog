@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -14,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha256-4Lad8m4ZWW1Lgb9+sMVLYEfnIh7BjV1NQMEe79Pviks=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="In this DocumentPurposeTroubleshooting Steps     Section I: Steps to approach ORA-12518&#x2F;TNS-12518 Error: Section II: Commonly Known Errors:Error: 32: Broken pipeError: 11: Resource temporarily un">
 <meta property="og:type" content="article">
@@ -27,15 +28,14 @@
 <meta property="og:description" content="In this DocumentPurposeTroubleshooting Steps     Section I: Steps to approach ORA-12518&#x2F;TNS-12518 Error: Section II: Commonly Known Errors:Error: 32: Broken pipeError: 11: Resource temporarily un">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-09-12T02:22:17.000Z">
-<meta property="article:modified_time" content="2024-09-26T01:37:12.654Z">
+<meta property="article:modified_time" content="2026-11-15T08:08:16.000Z">
 <meta property="article:author" content="By Kebyn">
-<meta property="article:tag" content="oracle">
 <meta property="article:tag" content="error">
+<meta property="article:tag" content="oracle">
 <meta name="twitter:card" content="summary">
 
 
 <link rel="canonical" href="https://kebyn.cc/2016/09/12/oracle_error/">
-
 
 
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2016/09/12/oracle_error/","path":"2016/09/12/oracle_error/","title":"oracle error"}</script>
@@ -46,6 +46,24 @@
 
 
 
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
 
 
 
@@ -62,9 +80,8 @@
   <main class="main">
     <div class="column">
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-    </div>
+  <div class="site-nav-search popup-trigger" aria-label="搜索" role="button">
+      <i class="fa fa-search fa-fw fa-lg"></i>
   </div>
 
   <div class="site-meta">
@@ -76,10 +93,7 @@
     </a>
   </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
+  <div class="site-nav-toggle" aria-label="切换导航栏" role="button">
   </div>
 </div>
 
@@ -96,7 +110,8 @@
 
 
 
-  <div class="search-pop-overlay">
+  
+  <template id="search-popup-template"><div class="search-pop-overlay">
     <div class="popup search-popup">
       <div class="search-header">
         <span class="search-icon">
@@ -117,7 +132,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div></template>
 
 </header>
         
@@ -137,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-II-Commonly-Known-Errors"><span class="nav-number">1.</span> <span class="nav-text">Section II: Commonly Known Errors:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-32-Broken-pipe"><span class="nav-number">1.1.</span> <span class="nav-text">Error: 32: Broken pipe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-11-Resource-temporarily-unavailable"><span class="nav-number">1.2.</span> <span class="nav-text">Error: 11: Resource temporarily unavailable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-12-Not-enough-space"><span class="nav-number">1.3.</span> <span class="nav-text">Error: 12: Not enough space</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-Connection-Pooling-limit-reached"><span class="nav-number">2.</span> <span class="nav-text">Error: Connection Pooling limit reached</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-2-No-such-file-or-directory"><span class="nav-number">2.1.</span> <span class="nav-text">Error: 2: No such file or directory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-24-Too-many-open-files"><span class="nav-number">2.2.</span> <span class="nav-text">Error: 24: Too many open files</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-III-Errors-Specific-to-Windows"><span class="nav-number">3.</span> <span class="nav-text">Section III: Errors Specific to Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-233-Unknown-error"><span class="nav-number">3.1.</span> <span class="nav-text">Error: 233: Unknown error</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-54-Unknown-error"><span class="nav-number">3.2.</span> <span class="nav-text">Error: 54: Unknown error</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Is-listener-version-compatible-to-the-database"><span class="nav-number">4.</span> <span class="nav-text">Step 1. Is listener version compatible to the database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Gather-more-information-from-listener-log"><span class="nav-number">5.</span> <span class="nav-text">Step 2. Gather more information from listener log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-Is-service-handlers-in-blocked-state"><span class="nav-number">6.</span> <span class="nav-text">Step 3. Is service handlers in blocked state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-Is-local-BEQ-connection-successful"><span class="nav-number">7.</span> <span class="nav-text">Step 4. Is local BEQ connection successful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-5-Is-number-of-processes-reached-its-limit"><span class="nav-number">8.</span> <span class="nav-text">Step 5. Is number of processes reached its limit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-6-Is-OS-kernal-parameters-configured-for-optimum"><span class="nav-number">9.</span> <span class="nav-text">Step 6. Is OS kernal parameters configured for optimum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-7-Does-alert-log-have-any-errors"><span class="nav-number">10.</span> <span class="nav-text">Step 7. Does alert log have any errors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-32-Broken-pipe-1"><span class="nav-number">10.0.1.</span> <span class="nav-text">Error: 32: Broken pipe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-11-Resource-temporarily-unavailable-1"><span class="nav-number">10.0.2.</span> <span class="nav-text">Error: 11: Resource temporarily unavailable</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-12-Not-enough-space-1"><span class="nav-number">10.0.3.</span> <span class="nav-text">Error: 12: Not enough space</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-Connection-Pooling-limit-reached-1"><span class="nav-number">10.0.4.</span> <span class="nav-text">Error: Connection Pooling limit reached</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-2-No-such-file-or-directory-1"><span class="nav-number">10.0.5.</span> <span class="nav-text">Error: 2: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-24-Too-many-open-files-1"><span class="nav-number">10.0.6.</span> <span class="nav-text">Error: 24: Too many open files</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Section-III-Errors-Specific-to-Windows-1"><span class="nav-number">10.0.7.</span> <span class="nav-text">Section III: Errors Specific to Windows</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-233-Unknown-error-1"><span class="nav-number">10.0.8.</span> <span class="nav-text">Error: 233: Unknown error</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-54-Unknown-error-1"><span class="nav-number">10.0.9.</span> <span class="nav-text">Error: 54: Unknown error</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-II-Commonly-Known-Errors"><span class="nav-number">1.</span> <span class="nav-text">Section II: Commonly Known Errors:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-32-Broken-pipe"><span class="nav-number">1.1.</span> <span class="nav-text">Error: 32: Broken pipe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-11-Resource-temporarily-unavailable"><span class="nav-number">1.2.</span> <span class="nav-text">Error: 11: Resource temporarily unavailable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-12-Not-enough-space"><span class="nav-number">1.3.</span> <span class="nav-text">Error: 12: Not enough space</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-Connection-Pooling-limit-reached"><span class="nav-number">2.</span> <span class="nav-text">Error: Connection Pooling limit reached</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-2-No-such-file-or-directory"><span class="nav-number">2.1.</span> <span class="nav-text">Error: 2: No such file or directory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-24-Too-many-open-files"><span class="nav-number">2.2.</span> <span class="nav-text">Error: 24: Too many open files</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-III-Errors-Specific-to-Windows"><span class="nav-number">3.</span> <span class="nav-text">Section III: Errors Specific to Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-233-Unknown-error"><span class="nav-number">3.1.</span> <span class="nav-text">Error: 233: Unknown error</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-54-Unknown-error"><span class="nav-number">3.2.</span> <span class="nav-text">Error: 54: Unknown error</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Is-listener-version-compatible-to-the-database"><span class="nav-number">4.</span> <span class="nav-text">Step 1. Is listener version compatible to the database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Gather-more-information-from-listener-log"><span class="nav-number">5.</span> <span class="nav-text">Step 2. Gather more information from listener log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-Is-service-handlers-in-blocked-state"><span class="nav-number">6.</span> <span class="nav-text">Step 3. Is service handlers in blocked state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-Is-local-BEQ-connection-successful"><span class="nav-number">7.</span> <span class="nav-text">Step 4. Is local BEQ connection successful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-5-Is-number-of-processes-reached-its-limit"><span class="nav-number">8.</span> <span class="nav-text">Step 5. Is number of processes reached its limit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-6-Is-OS-kernal-parameters-configured-for-optimum"><span class="nav-number">9.</span> <span class="nav-text">Step 6. Is OS kernal parameters configured for optimum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-7-Does-alert-log-have-any-errors"><span class="nav-number">10.</span> <span class="nav-text">Step 7. Does alert log have any errors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-32-Broken-pipe-1"><span class="nav-number">10.1.</span> <span class="nav-text">Error: 32: Broken pipe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-11-Resource-temporarily-unavailable-1"><span class="nav-number">10.2.</span> <span class="nav-text">Error: 11: Resource temporarily unavailable</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-12-Not-enough-space-1"><span class="nav-number">10.3.</span> <span class="nav-text">Error: 12: Not enough space</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-Connection-Pooling-limit-reached-1"><span class="nav-number">10.4.</span> <span class="nav-text">Error: Connection Pooling limit reached</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-2-No-such-file-or-directory-1"><span class="nav-number">10.5.</span> <span class="nav-text">Error: 2: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-24-Too-many-open-files-1"><span class="nav-number">10.6.</span> <span class="nav-text">Error: 24: Too many open files</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Section-III-Errors-Specific-to-Windows-1"><span class="nav-number">10.7.</span> <span class="nav-text">Section III: Errors Specific to Windows</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-233-Unknown-error-1"><span class="nav-number">10.8.</span> <span class="nav-text">Error: 233: Unknown error</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-54-Unknown-error-1"><span class="nav-number">10.9.</span> <span class="nav-text">Error: 54: Unknown error</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -218,7 +233,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:37:12" itemprop="dateModified" datetime="2024-09-26T09:37:12+08:00">2024-09-26</time>
+      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
     </span>
 
   
@@ -332,7 +347,7 @@
 
   <div class="copyright">
     &copy; 2014 – 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -348,7 +363,6 @@
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
   </div>
-  <div class="sidebar-dimmer"></div>
   <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
@@ -357,26 +371,6 @@
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-
-
-
-
-
-
-  
-
-
-
-
 
 </body>
 </html>

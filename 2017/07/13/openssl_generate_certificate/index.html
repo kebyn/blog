@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -14,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha256-4Lad8m4ZWW1Lgb9+sMVLYEfnIh7BjV1NQMEe79Pviks=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="1234openssl genrsa -des3 -out server.key 2048openssl rsa -in server.key -out server.keyopenssl req -sha256 -new -key server.key -out server.csr -subj &#x27;&#x2F;CN&#x3D;localhost&#x27;openssl x509 -req -sha256">
 <meta property="og:type" content="article">
@@ -27,15 +28,14 @@
 <meta property="og:description" content="1234openssl genrsa -des3 -out server.key 2048openssl rsa -in server.key -out server.keyopenssl req -sha256 -new -key server.key -out server.csr -subj &#x27;&#x2F;CN&#x3D;localhost&#x27;openssl x509 -req -sha256">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-07-13T08:14:43.000Z">
-<meta property="article:modified_time" content="2024-09-25T07:19:10.618Z">
+<meta property="article:modified_time" content="2026-11-15T08:08:16.000Z">
 <meta property="article:author" content="By Kebyn">
-<meta property="article:tag" content="openssl">
 <meta property="article:tag" content="cert">
+<meta property="article:tag" content="openssl">
 <meta name="twitter:card" content="summary">
 
 
 <link rel="canonical" href="https://kebyn.cc/2017/07/13/openssl_generate_certificate/">
-
 
 
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2017/07/13/openssl_generate_certificate/","path":"2017/07/13/openssl_generate_certificate/","title":"openssl生成cert"}</script>
@@ -46,6 +46,24 @@
 
 
 
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
 
 
 
@@ -62,9 +80,8 @@
   <main class="main">
     <div class="column">
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-    </div>
+  <div class="site-nav-search popup-trigger" aria-label="搜索" role="button">
+      <i class="fa fa-search fa-fw fa-lg"></i>
   </div>
 
   <div class="site-meta">
@@ -76,10 +93,7 @@
     </a>
   </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
+  <div class="site-nav-toggle" aria-label="切换导航栏" role="button">
   </div>
 </div>
 
@@ -96,7 +110,8 @@
 
 
 
-  <div class="search-pop-overlay">
+  
+  <template id="search-popup-template"><div class="search-pop-overlay">
     <div class="popup search-popup">
       <div class="search-header">
         <span class="search-icon">
@@ -117,7 +132,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div></template>
 
 </header>
         
@@ -217,7 +232,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-25 15:19:10" itemprop="dateModified" datetime="2024-09-25T15:19:10+08:00">2024-09-25</time>
+      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
     </span>
 
   
@@ -233,31 +248,13 @@
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl">https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl</a></p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ cat cert.pem</span><br><span class="line">-----BEGIN CERTIFICATE-----
-MIIDUzCCAjugAwIBAgIUc9s+2e+ABxNDunYGckzbCz+q4xMwDQYJKoZIhvcNAQEL
-BQAwOTEUMBIGA1UEAwwLZXhhbXBsZS5jb20xFDASBgNVBAoMC0V4YW1wbGUgT3Jn
-MQswCQYDVQQGEwJVUzAeFw0yNjExMTUwODA1MzNaFw0zNjExMTIwODA1MzNaMDkx
-FDASBgNVBAMMC2V4YW1wbGUuY29tMRQwEgYDVQQKDAtFeGFtcGxlIE9yZzELMAkG
-A1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC0GV/qb354
-zxZ8VFua2Tyb/Ox8lZNJSsG0XX2c3YELydHtEJyfHd72o/w/palCr2Rq2VxSX7dI
-XlkuuWlfILgUVjfw/MIujmMIenlP4CUMQwDrMhnEE7U36r0xfXdHUdPTd47PR8cc
-s+aXYHBlXPRc2EVVVBHY7SNAjZ0m2b8jZ9Vj9tYNBcAvHChi2iP5OsulPWQVxT4a
-jgJURfMrYrw6K16ktYumASHKUs4t0XQzCfzadaHM0HW91GjdbzZ9axc9Ta2uizvv
-RDc9iQ8bI29FRQN9Vtzmd0AV/HXioYdP78MwL6PPKFarAhpXNPpfxsB+sfUToyOR
-QIJ6/IqDfOsDAgMBAAGjUzBRMB0GA1UdDgQWBBR1YsIR8Wcaz3RRugV7NW50b4zb
-iDAfBgNVHSMEGDAWgBR1YsIR8Wcaz3RRugV7NW50b4zbiDAPBgNVHRMBAf8EBTAD
-AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA4hzddmPOKy2dfrlFLgwdxYgGBmWGpWPkR
-cSKvzx7flQt8ujMVStXw9GeBu0ajETR1kV791kUtgq043ixKDxcy9lvgm6pB9KmG
-XzBwrlYl+XLUdvNe4reomVgej7455ozIyAsKf90Pfvhj1ZPyaP6EsU6Ce+tJm0ZQ
-W4PJjJhsfVQzAUEhG89XdE1dovO2bT78FP21WHb9exwoZ2iAU1WbpxFIozx272Eh
-cMa98IUND1sVjrbkqNC3FqdvkL7Fgy0ciV94/Jc103Rkc8YL1Z4VM5u92mIMm65r
-+MjkPW0Ng+8b1iGUYdE/fxR3KjGk2bRwvKZL2KuZiaL+4LBJozOU
------END CERTIFICATE-----</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ cat cert.pem</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIDUzCCAjugAwIBAgIUc9s+2e+ABxNDunYGckzbCz+q4xMwDQYJKoZIhvcNAQEL</span><br><span class="line">BQAwOTEUMBIGA1UEAwwLZXhhbXBsZS5jb20xFDASBgNVBAoMC0V4YW1wbGUgT3Jn</span><br><span class="line">MQswCQYDVQQGEwJVUzAeFw0yNjExMTUwODA1MzNaFw0zNjExMTIwODA1MzNaMDkx</span><br><span class="line">FDASBgNVBAMMC2V4YW1wbGUuY29tMRQwEgYDVQQKDAtFeGFtcGxlIE9yZzELMAkG</span><br><span class="line">A1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC0GV/qb354</span><br><span class="line">zxZ8VFua2Tyb/Ox8lZNJSsG0XX2c3YELydHtEJyfHd72o/w/palCr2Rq2VxSX7dI</span><br><span class="line">XlkuuWlfILgUVjfw/MIujmMIenlP4CUMQwDrMhnEE7U36r0xfXdHUdPTd47PR8cc</span><br><span class="line">s+aXYHBlXPRc2EVVVBHY7SNAjZ0m2b8jZ9Vj9tYNBcAvHChi2iP5OsulPWQVxT4a</span><br><span class="line">jgJURfMrYrw6K16ktYumASHKUs4t0XQzCfzadaHM0HW91GjdbzZ9axc9Ta2uizvv</span><br><span class="line">RDc9iQ8bI29FRQN9Vtzmd0AV/HXioYdP78MwL6PPKFarAhpXNPpfxsB+sfUToyOR</span><br><span class="line">QIJ6/IqDfOsDAgMBAAGjUzBRMB0GA1UdDgQWBBR1YsIR8Wcaz3RRugV7NW50b4zb</span><br><span class="line">iDAfBgNVHSMEGDAWgBR1YsIR8Wcaz3RRugV7NW50b4zbiDAPBgNVHRMBAf8EBTAD</span><br><span class="line">AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA4hzddmPOKy2dfrlFLgwdxYgGBmWGpWPkR</span><br><span class="line">cSKvzx7flQt8ujMVStXw9GeBu0ajETR1kV791kUtgq043ixKDxcy9lvgm6pB9KmG</span><br><span class="line">XzBwrlYl+XLUdvNe4reomVgej7455ozIyAsKf90Pfvhj1ZPyaP6EsU6Ce+tJm0ZQ</span><br><span class="line">W4PJjJhsfVQzAUEhG89XdE1dovO2bT78FP21WHb9exwoZ2iAU1WbpxFIozx272Eh</span><br><span class="line">cMa98IUND1sVjrbkqNC3FqdvkL7Fgy0ciV94/Jc103Rkc8YL1Z4VM5u92mIMm65r</span><br><span class="line">+MjkPW0Ng+8b1iGUYdE/fxR3KjGk2bRwvKZL2KuZiaL+4LBJozOU</span><br><span class="line">-----END CERTIFICATE-----</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local http.sslCAInfo /path/cert.pem</span><br><span class="line">$ git config --local --unset http.sslCAInfo</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local http.sslVerify false #NO NEED TO USE THIS</span><br><span class="line">$ git config --local --unset http.sslverify</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Copy CA cert to &#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-ca-certificates</span><br><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure></li>
+<li>Copy CA cert to &#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates.</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-ca-certificates</span><br><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -302,7 +299,7 @@ cMa98IUND1sVjrbkqNC3FqdvkL7Fgy0ciV94/Jc103Rkc8YL1Z4VM5u92mIMm65r
 
   <div class="copyright">
     &copy; 2014 – 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -318,7 +315,6 @@ cMa98IUND1sVjrbkqNC3FqdvkL7Fgy0ciV94/Jc103Rkc8YL1Z4VM5u92mIMm65r
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
   </div>
-  <div class="sidebar-dimmer"></div>
   <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
@@ -327,26 +323,6 @@ cMa98IUND1sVjrbkqNC3FqdvkL7Fgy0ciV94/Jc103Rkc8YL1Z4VM5u92mIMm65r
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-
-
-
-
-
-
-  
-
-
-
-
 
 </body>
 </html>

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -14,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha256-4Lad8m4ZWW1Lgb9+sMVLYEfnIh7BjV1NQMEe79Pviks=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。选项12345678910111213141516171819202122232425-a 不要忽略二进制数据。-A&lt;显示列数&gt; 除了显示符合范本样">
 <meta property="og:type" content="article">
@@ -27,7 +28,7 @@
 <meta property="og:description" content="grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。选项12345678910111213141516171819202122232425-a 不要忽略二进制数据。-A&lt;显示列数&gt; 除了显示符合范本样">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2014-03-20T07:17:43.000Z">
-<meta property="article:modified_time" content="2024-09-26T01:37:02.853Z">
+<meta property="article:modified_time" content="2026-11-15T08:08:16.000Z">
 <meta property="article:author" content="By Kebyn">
 <meta property="article:tag" content="command">
 <meta property="article:tag" content="grep">
@@ -35,7 +36,6 @@
 
 
 <link rel="canonical" href="https://kebyn.cc/2014/03/20/grep/">
-
 
 
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2014/03/20/grep/","path":"2014/03/20/grep/","title":"grep"}</script>
@@ -46,6 +46,24 @@
 
 
 
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
 
 
 
@@ -62,9 +80,8 @@
   <main class="main">
     <div class="column">
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-    </div>
+  <div class="site-nav-search popup-trigger" aria-label="搜索" role="button">
+      <i class="fa fa-search fa-fw fa-lg"></i>
   </div>
 
   <div class="site-meta">
@@ -76,10 +93,7 @@
     </a>
   </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
+  <div class="site-nav-toggle" aria-label="切换导航栏" role="button">
   </div>
 </div>
 
@@ -96,7 +110,8 @@
 
 
 
-  <div class="search-pop-overlay">
+  
+  <template id="search-popup-template"><div class="search-pop-overlay">
     <div class="popup search-popup">
       <div class="search-header">
         <span class="search-icon">
@@ -117,7 +132,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div></template>
 
 </header>
         
@@ -137,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#grep%EF%BC%88global-search-regular-expression-RE-and-print-out-the-line%EF%BC%8C%E5%85%A8%E9%9D%A2%E6%90%9C%E7%B4%A2%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%B9%B6%E6%8A%8A%E8%A1%8C%E6%89%93%E5%8D%B0%E5%87%BA%E6%9D%A5%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%B8%80%E7%A7%8D%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%96%87%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%AE%83%E8%83%BD%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%90%9C%E7%B4%A2%E6%96%87%E6%9C%AC%EF%BC%8C%E5%B9%B6%E6%8A%8A%E5%8C%B9%E9%85%8D%E7%9A%84%E8%A1%8C%E6%89%93%E5%8D%B0%E5%87%BA%E6%9D%A5%E3%80%82"><span class="nav-number">1.0.1.</span> <span class="nav-text">是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9"><span class="nav-number">1.1.</span> <span class="nav-text">选项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep%E5%91%BD%E4%BB%A4%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">grep命令常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%EF%BC%8C%E5%91%BD%E4%BB%A4%E4%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E5%8C%85%E5%90%AB%E2%80%9Cmatch-pattern%E2%80%9D%E7%9A%84%E6%96%87%E6%9C%AC%E8%A1%8C%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">在文件中搜索一个单词，命令会返回一个包含“match_pattern”的文本行：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%A5%E6%89%BE%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">在多个文件中查找：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E9%99%A4%E4%B9%8B%E5%A4%96%E7%9A%84%E6%89%80%E6%9C%89%E8%A1%8C-v-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">输出除之外的所有行 -v 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E5%8C%B9%E9%85%8D%E9%A2%9C%E8%89%B2-%E2%80%93color-auto-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">标记匹配颜色 –color&#x3D;auto 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-E-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.5.</span> <span class="nav-text">使用正则表达式 -E 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AA%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6%E4%B8%AD%E5%8C%B9%E9%85%8D%E5%88%B0%E7%9A%84%E9%83%A8%E5%88%86-o-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.6.</span> <span class="nav-text">只输出文件中匹配到的部分 -o 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E6%88%96%E8%80%85%E6%96%87%E6%9C%AC%E4%B8%AD%E5%8C%85%E5%90%AB%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A1%8C%E6%95%B0-c-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.7.</span> <span class="nav-text">统计文件或者文本中包含匹配字符串的行数 -c 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%8C%85%E5%90%AB%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A1%8C%E6%95%B0-n-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.8.</span> <span class="nav-text">输出包含匹配字符串的行数 -n 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="nav-number">2.9.</span> <span class="nav-text">多个文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E6%A0%B7%E5%BC%8F%E5%8C%B9%E9%85%8D%E6%89%80%E4%BD%8D%E4%BA%8E%E7%9A%84%E5%AD%97%E7%AC%A6%E6%88%96%E5%AD%97%E8%8A%82%E5%81%8F%E7%A7%BB%EF%BC%9A"><span class="nav-number">2.10.</span> <span class="nav-text">打印样式匹配所位于的字符或字节偏移：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%A1%8C%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%AD%97%E7%AC%A6%E4%BE%BF%E5%AE%9C%E6%98%AF%E4%BB%8E%E8%AF%A5%E8%A1%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%BC%80%E5%A7%8B%E8%AE%A1%E7%AE%97%EF%BC%8C%E8%B5%B7%E5%A7%8B%E5%80%BC%E4%B8%BA0%E3%80%82%E9%80%89%E9%A1%B9-b-o-%E4%B8%80%E8%88%AC%E6%80%BB%E6%98%AF%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%E3%80%82"><span class="nav-number">2.11.</span> <span class="nav-text">一行中字符串的字符便宜是从该行的第一个字符开始计算，起始值为0。选项 -b -o 一般总是配合使用。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E5%B9%B6%E6%9F%A5%E6%89%BE%E5%8C%B9%E9%85%8D%E6%96%87%E6%9C%AC%E5%9C%A8%E5%93%AA%E4%BA%9B%E6%96%87%E4%BB%B6%E4%B8%AD%EF%BC%9A"><span class="nav-number">2.12.</span> <span class="nav-text">搜索多个文件并查找匹配文本在哪些文件中：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grep%E9%80%92%E5%BD%92%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="nav-number">2.13.</span> <span class="nav-text">grep递归搜索文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%A4%9A%E7%BA%A7%E7%9B%AE%E5%BD%95%E4%B8%AD%E5%AF%B9%E6%96%87%E6%9C%AC%E8%BF%9B%E8%A1%8C%E9%80%92%E5%BD%92%E6%90%9C%E7%B4%A2%EF%BC%9A"><span class="nav-number">2.14.</span> <span class="nav-text">在多级目录中对文本进行递归搜索：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E3%80%82"><span class="nav-number">2.15.</span> <span class="nav-text">.表示当前目录。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E5%8C%B9%E9%85%8D%E6%A0%B7%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E5%A4%A7%E5%B0%8F%E5%86%99%EF%BC%9A"><span class="nav-number">2.16.</span> <span class="nav-text">忽略匹配样式中的字符大小写：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9-e-%E5%88%B6%E5%8A%A8%E5%A4%9A%E4%B8%AA%E5%8C%B9%E9%85%8D%E6%A0%B7%E5%BC%8F%EF%BC%9A"><span class="nav-number">2.17.</span> <span class="nav-text">选项 -e 制动多个匹配样式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%9F%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-f%E9%80%89%E9%A1%B9%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA%E6%A0%B7%E5%BC%8F%EF%BC%8C%E5%9C%A8%E6%A0%B7%E5%BC%8F%E6%96%87%E4%BB%B6%E4%B8%AD%E9%80%90%E8%A1%8C%E5%86%99%E5%87%BA%E9%9C%80%E8%A6%81%E5%8C%B9%E9%85%8D%E7%9A%84%E5%AD%97%E7%AC%A6%E3%80%82"><span class="nav-number">2.18.</span> <span class="nav-text">也可以使用-f选项来匹配多个样式，在样式文件中逐行写出需要匹配的字符。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8grep%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%AD%E5%8C%85%E6%8B%AC%E6%88%96%E8%80%85%E6%8E%92%E9%99%A4%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">2.19.</span> <span class="nav-text">在grep搜索结果中包括或者排除指定文件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AA%E5%9C%A8%E7%9B%AE%E5%BD%95%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84-php%E5%92%8C-html%E6%96%87%E4%BB%B6%E4%B8%AD%E9%80%92%E5%BD%92%E6%90%9C%E7%B4%A2%E5%AD%97%E7%AC%A6%E2%80%9Dmain-%E2%80%9D"><span class="nav-number">2.20.</span> <span class="nav-text">只在目录中所有的.php和.html文件中递归搜索字符”main()”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%8E%92%E9%99%A4%E6%89%80%E6%9C%89README%E6%96%87%E4%BB%B6"><span class="nav-number">2.21.</span> <span class="nav-text">在搜索结果中排除所有README文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%8E%92%E9%99%A4filelist%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8%E9%87%8C%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">2.22.</span> <span class="nav-text">在搜索结果中排除filelist文件列表里的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A80%E5%80%BC%E5%AD%97%E8%8A%82%E5%90%8E%E7%BC%80%E7%9A%84grep%E4%B8%8Exargs%EF%BC%9A"><span class="nav-number">2.23.</span> <span class="nav-text">使用0值字节后缀的grep与xargs：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">2.24.</span> <span class="nav-text">测试文件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%90%8E%E4%BC%9A%E5%88%A0%E9%99%A4file1%E5%92%8Cfile3%EF%BC%8Cgrep%E8%BE%93%E5%87%BA%E7%94%A8-Z%E9%80%89%E9%A1%B9%E6%9D%A5%E6%8C%87%E5%AE%9A%E4%BB%A50%E5%80%BC%E5%AD%97%E8%8A%82%E4%BD%9C%E4%B8%BA%E7%BB%88%E7%BB%93%E7%AC%A6%E6%96%87%E4%BB%B6%E5%90%8D%EF%BC%88-0%EF%BC%89%EF%BC%8Cxargs-0-%E8%AF%BB%E5%8F%96%E8%BE%93%E5%85%A5%E5%B9%B6%E7%94%A80%E5%80%BC%E5%AD%97%E8%8A%82%E7%BB%88%E7%BB%93%E7%AC%A6%E5%88%86%E9%9A%94%E6%96%87%E4%BB%B6%E5%90%8D%EF%BC%8C%E7%84%B6%E5%90%8E%E5%88%A0%E9%99%A4%E5%8C%B9%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%8C-Z%E9%80%9A%E5%B8%B8%E5%92%8C-l%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8%E3%80%82"><span class="nav-number">2.25.</span> <span class="nav-text">执行后会删除file1和file3，grep输出用-Z选项来指定以0值字节作为终结符文件名（\0），xargs -0 读取输入并用0值字节终结符分隔文件名，然后删除匹配文件，-Z通常和-l结合使用。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grep%E9%9D%99%E9%BB%98%E8%BE%93%E5%87%BA%EF%BC%9A"><span class="nav-number">2.26.</span> <span class="nav-text">grep静默输出：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E4%BC%9A%E8%BE%93%E5%87%BA%E4%BB%BB%E4%BD%95%E4%BF%A1%E6%81%AF%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%91%BD%E4%BB%A4%E8%BF%90%E8%A1%8C%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E0%EF%BC%8C%E5%A4%B1%E8%B4%A5%E5%88%99%E8%BF%94%E5%9B%9E%E9%9D%9E0%E5%80%BC%E3%80%82%E4%B8%80%E8%88%AC%E7%94%A8%E4%BA%8E%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95%E3%80%82"><span class="nav-number">2.27.</span> <span class="nav-text">不会输出任何信息，如果命令运行成功返回0，失败则返回非0值。一般用于条件测试。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E5%87%BA%E5%8C%B9%E9%85%8D%E6%96%87%E6%9C%AC%E4%B9%8B%E5%89%8D%E6%88%96%E8%80%85%E4%B9%8B%E5%90%8E%E7%9A%84%E8%A1%8C%EF%BC%9A"><span class="nav-number">2.28.</span> <span class="nav-text">打印出匹配文本之前或者之后的行：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%8C%B9%E9%85%8D%E6%9F%90%E4%B8%AA%E7%BB%93%E6%9E%9C%E4%B9%8B%E5%90%8E%E7%9A%843%E8%A1%8C%EF%BC%8C%E4%BD%BF%E7%94%A8-A-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.29.</span> <span class="nav-text">显示匹配某个结果之后的3行，使用 -A 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%8C%B9%E9%85%8D%E6%9F%90%E4%B8%AA%E7%BB%93%E6%9E%9C%E4%B9%8B%E5%89%8D%E7%9A%843%E8%A1%8C%EF%BC%8C%E4%BD%BF%E7%94%A8-B-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.30.</span> <span class="nav-text">显示匹配某个结果之前的3行，使用 -B 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%8C%B9%E9%85%8D%E6%9F%90%E4%B8%AA%E7%BB%93%E6%9E%9C%E7%9A%84%E5%89%8D%E4%B8%89%E8%A1%8C%E5%92%8C%E5%90%8E%E4%B8%89%E8%A1%8C%EF%BC%8C%E4%BD%BF%E7%94%A8-C-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.31.</span> <span class="nav-text">显示匹配某个结果的前三行和后三行，使用 -C 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%8C%B9%E9%85%8D%E7%BB%93%E6%9E%9C%E6%9C%89%E5%A4%9A%E4%B8%AA%EF%BC%8C%E4%BC%9A%E7%94%A8%E2%80%9C%E2%80%93%E2%80%9D%E4%BD%9C%E4%B8%BA%E5%90%84%E5%8C%B9%E9%85%8D%E7%BB%93%E6%9E%9C%E4%B9%8B%E9%97%B4%E7%9A%84%E5%88%86%E9%9A%94%E7%AC%A6%EF%BC%9A"><span class="nav-number">2.32.</span> <span class="nav-text">如果匹配结果有多个，会用“–”作为各匹配结果之间的分隔符：</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#grep%EF%BC%88global-search-regular-expression-RE-and-print-out-the-line%EF%BC%8C%E5%85%A8%E9%9D%A2%E6%90%9C%E7%B4%A2%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%B9%B6%E6%8A%8A%E8%A1%8C%E6%89%93%E5%8D%B0%E5%87%BA%E6%9D%A5%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%B8%80%E7%A7%8D%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%96%87%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%AE%83%E8%83%BD%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%90%9C%E7%B4%A2%E6%96%87%E6%9C%AC%EF%BC%8C%E5%B9%B6%E6%8A%8A%E5%8C%B9%E9%85%8D%E7%9A%84%E8%A1%8C%E6%89%93%E5%8D%B0%E5%87%BA%E6%9D%A5%E3%80%82"><span class="nav-number">1.1.</span> <span class="nav-text">是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9"><span class="nav-number">1.2.</span> <span class="nav-text">选项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep%E5%91%BD%E4%BB%A4%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">grep命令常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%EF%BC%8C%E5%91%BD%E4%BB%A4%E4%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E5%8C%85%E5%90%AB%E2%80%9Cmatch-pattern%E2%80%9D%E7%9A%84%E6%96%87%E6%9C%AC%E8%A1%8C%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">在文件中搜索一个单词，命令会返回一个包含“match_pattern”的文本行：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9F%A5%E6%89%BE%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">在多个文件中查找：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E9%99%A4%E4%B9%8B%E5%A4%96%E7%9A%84%E6%89%80%E6%9C%89%E8%A1%8C-v-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">输出除之外的所有行 -v 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E5%8C%B9%E9%85%8D%E9%A2%9C%E8%89%B2-%E2%80%93color-auto-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">标记匹配颜色 –color&#x3D;auto 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-E-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.5.</span> <span class="nav-text">使用正则表达式 -E 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AA%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6%E4%B8%AD%E5%8C%B9%E9%85%8D%E5%88%B0%E7%9A%84%E9%83%A8%E5%88%86-o-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.6.</span> <span class="nav-text">只输出文件中匹配到的部分 -o 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E6%88%96%E8%80%85%E6%96%87%E6%9C%AC%E4%B8%AD%E5%8C%85%E5%90%AB%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A1%8C%E6%95%B0-c-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.7.</span> <span class="nav-text">统计文件或者文本中包含匹配字符串的行数 -c 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%8C%85%E5%90%AB%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A1%8C%E6%95%B0-n-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.8.</span> <span class="nav-text">输出包含匹配字符串的行数 -n 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="nav-number">2.9.</span> <span class="nav-text">多个文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E6%A0%B7%E5%BC%8F%E5%8C%B9%E9%85%8D%E6%89%80%E4%BD%8D%E4%BA%8E%E7%9A%84%E5%AD%97%E7%AC%A6%E6%88%96%E5%AD%97%E8%8A%82%E5%81%8F%E7%A7%BB%EF%BC%9A"><span class="nav-number">2.10.</span> <span class="nav-text">打印样式匹配所位于的字符或字节偏移：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%A1%8C%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%AD%97%E7%AC%A6%E4%BE%BF%E5%AE%9C%E6%98%AF%E4%BB%8E%E8%AF%A5%E8%A1%8C%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%BC%80%E5%A7%8B%E8%AE%A1%E7%AE%97%EF%BC%8C%E8%B5%B7%E5%A7%8B%E5%80%BC%E4%B8%BA0%E3%80%82%E9%80%89%E9%A1%B9-b-o-%E4%B8%80%E8%88%AC%E6%80%BB%E6%98%AF%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8%E3%80%82"><span class="nav-number">2.11.</span> <span class="nav-text">一行中字符串的字符便宜是从该行的第一个字符开始计算，起始值为0。选项 -b -o 一般总是配合使用。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E5%B9%B6%E6%9F%A5%E6%89%BE%E5%8C%B9%E9%85%8D%E6%96%87%E6%9C%AC%E5%9C%A8%E5%93%AA%E4%BA%9B%E6%96%87%E4%BB%B6%E4%B8%AD%EF%BC%9A"><span class="nav-number">2.12.</span> <span class="nav-text">搜索多个文件并查找匹配文本在哪些文件中：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grep%E9%80%92%E5%BD%92%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6"><span class="nav-number">2.13.</span> <span class="nav-text">grep递归搜索文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%A4%9A%E7%BA%A7%E7%9B%AE%E5%BD%95%E4%B8%AD%E5%AF%B9%E6%96%87%E6%9C%AC%E8%BF%9B%E8%A1%8C%E9%80%92%E5%BD%92%E6%90%9C%E7%B4%A2%EF%BC%9A"><span class="nav-number">2.14.</span> <span class="nav-text">在多级目录中对文本进行递归搜索：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E3%80%82"><span class="nav-number">2.15.</span> <span class="nav-text">.表示当前目录。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E5%8C%B9%E9%85%8D%E6%A0%B7%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E5%A4%A7%E5%B0%8F%E5%86%99%EF%BC%9A"><span class="nav-number">2.16.</span> <span class="nav-text">忽略匹配样式中的字符大小写：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E9%A1%B9-e-%E5%88%B6%E5%8A%A8%E5%A4%9A%E4%B8%AA%E5%8C%B9%E9%85%8D%E6%A0%B7%E5%BC%8F%EF%BC%9A"><span class="nav-number">2.17.</span> <span class="nav-text">选项 -e 制动多个匹配样式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%9F%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-f%E9%80%89%E9%A1%B9%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA%E6%A0%B7%E5%BC%8F%EF%BC%8C%E5%9C%A8%E6%A0%B7%E5%BC%8F%E6%96%87%E4%BB%B6%E4%B8%AD%E9%80%90%E8%A1%8C%E5%86%99%E5%87%BA%E9%9C%80%E8%A6%81%E5%8C%B9%E9%85%8D%E7%9A%84%E5%AD%97%E7%AC%A6%E3%80%82"><span class="nav-number">2.18.</span> <span class="nav-text">也可以使用-f选项来匹配多个样式，在样式文件中逐行写出需要匹配的字符。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8grep%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%AD%E5%8C%85%E6%8B%AC%E6%88%96%E8%80%85%E6%8E%92%E9%99%A4%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">2.19.</span> <span class="nav-text">在grep搜索结果中包括或者排除指定文件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AA%E5%9C%A8%E7%9B%AE%E5%BD%95%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84-php%E5%92%8C-html%E6%96%87%E4%BB%B6%E4%B8%AD%E9%80%92%E5%BD%92%E6%90%9C%E7%B4%A2%E5%AD%97%E7%AC%A6%E2%80%9Dmain-%E2%80%9D"><span class="nav-number">2.20.</span> <span class="nav-text">只在目录中所有的.php和.html文件中递归搜索字符”main()”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%8E%92%E9%99%A4%E6%89%80%E6%9C%89README%E6%96%87%E4%BB%B6"><span class="nav-number">2.21.</span> <span class="nav-text">在搜索结果中排除所有README文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%8E%92%E9%99%A4filelist%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8%E9%87%8C%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">2.22.</span> <span class="nav-text">在搜索结果中排除filelist文件列表里的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A80%E5%80%BC%E5%AD%97%E8%8A%82%E5%90%8E%E7%BC%80%E7%9A%84grep%E4%B8%8Exargs%EF%BC%9A"><span class="nav-number">2.23.</span> <span class="nav-text">使用0值字节后缀的grep与xargs：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">2.24.</span> <span class="nav-text">测试文件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%90%8E%E4%BC%9A%E5%88%A0%E9%99%A4file1%E5%92%8Cfile3%EF%BC%8Cgrep%E8%BE%93%E5%87%BA%E7%94%A8-Z%E9%80%89%E9%A1%B9%E6%9D%A5%E6%8C%87%E5%AE%9A%E4%BB%A50%E5%80%BC%E5%AD%97%E8%8A%82%E4%BD%9C%E4%B8%BA%E7%BB%88%E7%BB%93%E7%AC%A6%E6%96%87%E4%BB%B6%E5%90%8D%EF%BC%88-0%EF%BC%89%EF%BC%8Cxargs-0-%E8%AF%BB%E5%8F%96%E8%BE%93%E5%85%A5%E5%B9%B6%E7%94%A80%E5%80%BC%E5%AD%97%E8%8A%82%E7%BB%88%E7%BB%93%E7%AC%A6%E5%88%86%E9%9A%94%E6%96%87%E4%BB%B6%E5%90%8D%EF%BC%8C%E7%84%B6%E5%90%8E%E5%88%A0%E9%99%A4%E5%8C%B9%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%8C-Z%E9%80%9A%E5%B8%B8%E5%92%8C-l%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8%E3%80%82"><span class="nav-number">2.25.</span> <span class="nav-text">执行后会删除file1和file3，grep输出用-Z选项来指定以0值字节作为终结符文件名（\0），xargs -0 读取输入并用0值字节终结符分隔文件名，然后删除匹配文件，-Z通常和-l结合使用。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grep%E9%9D%99%E9%BB%98%E8%BE%93%E5%87%BA%EF%BC%9A"><span class="nav-number">2.26.</span> <span class="nav-text">grep静默输出：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E4%BC%9A%E8%BE%93%E5%87%BA%E4%BB%BB%E4%BD%95%E4%BF%A1%E6%81%AF%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%91%BD%E4%BB%A4%E8%BF%90%E8%A1%8C%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E0%EF%BC%8C%E5%A4%B1%E8%B4%A5%E5%88%99%E8%BF%94%E5%9B%9E%E9%9D%9E0%E5%80%BC%E3%80%82%E4%B8%80%E8%88%AC%E7%94%A8%E4%BA%8E%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95%E3%80%82"><span class="nav-number">2.27.</span> <span class="nav-text">不会输出任何信息，如果命令运行成功返回0，失败则返回非0值。一般用于条件测试。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E5%87%BA%E5%8C%B9%E9%85%8D%E6%96%87%E6%9C%AC%E4%B9%8B%E5%89%8D%E6%88%96%E8%80%85%E4%B9%8B%E5%90%8E%E7%9A%84%E8%A1%8C%EF%BC%9A"><span class="nav-number">2.28.</span> <span class="nav-text">打印出匹配文本之前或者之后的行：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%8C%B9%E9%85%8D%E6%9F%90%E4%B8%AA%E7%BB%93%E6%9E%9C%E4%B9%8B%E5%90%8E%E7%9A%843%E8%A1%8C%EF%BC%8C%E4%BD%BF%E7%94%A8-A-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.29.</span> <span class="nav-text">显示匹配某个结果之后的3行，使用 -A 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%8C%B9%E9%85%8D%E6%9F%90%E4%B8%AA%E7%BB%93%E6%9E%9C%E4%B9%8B%E5%89%8D%E7%9A%843%E8%A1%8C%EF%BC%8C%E4%BD%BF%E7%94%A8-B-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.30.</span> <span class="nav-text">显示匹配某个结果之前的3行，使用 -B 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%8C%B9%E9%85%8D%E6%9F%90%E4%B8%AA%E7%BB%93%E6%9E%9C%E7%9A%84%E5%89%8D%E4%B8%89%E8%A1%8C%E5%92%8C%E5%90%8E%E4%B8%89%E8%A1%8C%EF%BC%8C%E4%BD%BF%E7%94%A8-C-%E9%80%89%E9%A1%B9%EF%BC%9A"><span class="nav-number">2.31.</span> <span class="nav-text">显示匹配某个结果的前三行和后三行，使用 -C 选项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%8C%B9%E9%85%8D%E7%BB%93%E6%9E%9C%E6%9C%89%E5%A4%9A%E4%B8%AA%EF%BC%8C%E4%BC%9A%E7%94%A8%E2%80%9C%E2%80%93%E2%80%9D%E4%BD%9C%E4%B8%BA%E5%90%84%E5%8C%B9%E9%85%8D%E7%BB%93%E6%9E%9C%E4%B9%8B%E9%97%B4%E7%9A%84%E5%88%86%E9%9A%94%E7%AC%A6%EF%BC%9A"><span class="nav-number">2.32.</span> <span class="nav-text">如果匹配结果有多个，会用“–”作为各匹配结果之间的分隔符：</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -218,7 +233,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-09-26 09:37:02" itemprop="dateModified" datetime="2024-09-26T09:37:02+08:00">2024-09-26</time>
+      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
     </span>
 
   
@@ -270,7 +285,7 @@ aaa
 bbb
 echo aaa bbb ccc ddd eee | grep -f patfile -o
 </code></pre>
-<h4 id="在grep搜索结果中包括或者排除指定文件："><a href="#在grep搜索结果中包括或者排除指定文件：" class="headerlink" title="在grep搜索结果中包括或者排除指定文件："></a>在grep搜索结果中包括或者排除指定文件：</h4><h4 id="只在目录中所有的-php和-html文件中递归搜索字符”main-”"><a href="#只在目录中所有的-php和-html文件中递归搜索字符”main-”" class="headerlink" title="只在目录中所有的.php和.html文件中递归搜索字符”main()”"></a>只在目录中所有的.php和.html文件中递归搜索字符”main()”</h4><pre><code>grep &quot;main()&quot; . -r --include *.&#123;php,html&#125;
+<h4 id="在grep搜索结果中包括或者排除指定文件："><a href="#在grep搜索结果中包括或者排除指定文件：" class="headerlink" title="在grep搜索结果中包括或者排除指定文件："></a>在grep搜索结果中包括或者排除指定文件：</h4><h4 id="只在目录中所有的-php和-html文件中递归搜索字符”main-”"><a href="#只在目录中所有的-php和-html文件中递归搜索字符”main-”" class="headerlink" title="只在目录中所有的.php和.html文件中递归搜索字符”main()”"></a>只在目录中所有的.php和.html文件中递归搜索字符”main()”</h4><pre><code>grep &quot;main()&quot; . -r --include *.{php,html}
 </code></pre>
 <h4 id="在搜索结果中排除所有README文件"><a href="#在搜索结果中排除所有README文件" class="headerlink" title="在搜索结果中排除所有README文件"></a>在搜索结果中排除所有README文件</h4><pre><code>grep &quot;main()&quot; . -r --exclude &quot;README&quot;
 </code></pre>
@@ -352,7 +367,7 @@ b
 
   <div class="copyright">
     &copy; 2014 – 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -368,7 +383,6 @@ b
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
   </div>
-  <div class="sidebar-dimmer"></div>
   <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
@@ -377,26 +391,6 @@ b
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-
-
-
-
-
-
-  
-
-
-
-
 
 </body>
 </html>
