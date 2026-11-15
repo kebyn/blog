@@ -442,6 +442,24 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://kebyn.cc/categories/index.html</loc>
+    
+    <lastmod>2026-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/tags/index.html</loc>
+    
+    <lastmod>2026-11-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>https://kebyn.cc/</loc>
@@ -543,7 +561,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/CVE/</loc>
+    <loc>https://kebyn.cc/tags/cve/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -592,7 +610,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/X-FORWARDED-FOR/</loc>
+    <loc>https://kebyn.cc/tags/x-forwarded-for/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -620,7 +638,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/DB2/</loc>
+    <loc>https://kebyn.cc/tags/db2/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -781,7 +799,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/games/</loc>
+    <loc>https://kebyn.cc/tags/game/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -795,7 +813,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/cnf/</loc>
+    <loc>https://kebyn.cc/tags/conf/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -984,7 +1002,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/issus/</loc>
+    <loc>https://kebyn.cc/tags/issues/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1026,7 +1044,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/SysRq/</loc>
+    <loc>https://kebyn.cc/tags/sysrq/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1047,7 +1065,7 @@
   </url>
   
   <url>
-    <loc>https://kebyn.cc/tags/vLLM/</loc>
+    <loc>https://kebyn.cc/tags/vllm/</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1075,5 +1093,82 @@
   </url>
   
 
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Programming/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Web/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Notes/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Network/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Linux/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Security/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Database/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Container/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/AI/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Game/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kebyn.cc/categories/Benchmark/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>
