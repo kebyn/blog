@@ -12,7 +12,6 @@ local_search:
 sidebar:
   position: left
   display: post
-  onmobile: false
 
 footer:
   since: 2014
