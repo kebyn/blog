@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha256-4Lad8m4ZWW1Lgb9+sMVLYEfnIh7BjV1NQMEe79Pviks=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="对比 Unbound 与 BIND9 的递归解析配置，整理 IPv6、DoT、DoH、http-notls-downstream、RHEL 打包差异与 acme.sh 证书自动化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unbound 与 BIND9：递归解析、DoT&#x2F;DoH 与 RHEL 打包差异">
+<meta property="og:url" content="https://kebyn.cc/2026/11/15/unbound-bind-dot-doh/index.html">
+<meta property="og:site_name" content="觅回首">
+<meta property="og:description" content="对比 Unbound 与 BIND9 的递归解析配置，整理 IPv6、DoT、DoH、http-notls-downstream、RHEL 打包差异与 acme.sh 证书自动化。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-15T02:10:00.000Z">
+<meta property="article:modified_time" content="2026-11-15T11:03:55.000Z">
+<meta property="article:author" content="By Kebyn">
+<meta property="article:tag" content="acme-sh">
+<meta property="article:tag" content="bind9">
+<meta property="article:tag" content="dns">
+<meta property="article:tag" content="doh">
+<meta property="article:tag" content="dot">
+<meta property="article:tag" content="rhel">
+<meta property="article:tag" content="unbound">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://kebyn.cc/2026/11/15/unbound-bind-dot-doh/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2026/11/15/unbound-bind-dot-doh/","path":"2026/11/15/unbound-bind-dot-doh/","title":"Unbound 与 BIND9：递归解析、DoT/DoH 与 RHEL 打包差异"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Unbound 与 BIND9：递归解析、DoT/DoH 与 RHEL 打包差异 | 觅回首</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="觅回首" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-search popup-trigger" aria-label="搜索" role="button">
+      <i class="fa fa-search fa-fw fa-lg"></i>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">觅回首</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-toggle" aria-label="切换导航栏" role="button">
+      <i class="fa fa-ellipsis fa-fw fa-lg"></i>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-layer-group fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  
+  <template id="search-popup-template"><div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div></template>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA%E4%B8%8E%E8%83%BD%E5%8A%9B%E9%80%9F%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">结论与能力速览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E8%A7%A3%E6%9E%90%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">递归解析的工作过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unbound-%E9%80%92%E5%BD%92%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">Unbound 递归配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIND9-%E9%80%92%E5%BD%92%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">BIND9 递归配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unbound-%E4%B8%8E-BIND9-%E5%AF%B9%E6%AF%94"><span class="nav-number">5.</span> <span class="nav-text">Unbound 与 BIND9 对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6%E3%80%81DoT%E3%80%81DoH-%E6%94%AF%E6%8C%81%E7%9F%A9%E9%98%B5"><span class="nav-number">6.</span> <span class="nav-text">IPv6、DoT、DoH 支持矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6"><span class="nav-number">6.1.</span> <span class="nav-text">IPv6</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DoT-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E4%B8%8A%E6%B8%B8%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">7.</span> <span class="nav-text">DoT 服务端与上游客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA-DoT-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">7.1.</span> <span class="nav-text">作为 DoT 服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA-DoT-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">7.2.</span> <span class="nav-text">作为 DoT 客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DoH-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">8.</span> <span class="nav-text">DoH 服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-notls-downstream-%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">9.</span> <span class="nav-text">http-notls-downstream 与反向代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RHEL-8-9-10-%E7%9A%84-DoT-DoH-%E6%89%93%E5%8C%85%E5%B7%AE%E5%BC%82"><span class="nav-number">10.</span> <span class="nav-text">RHEL 8&#x2F;9&#x2F;10 的 DoT&#x2F;DoH 打包差异</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA-1-16-2%EF%BC%8CRHEL-8-%E5%92%8C-RHEL-9-%E4%B8%8D%E5%90%8C"><span class="nav-number">10.1.</span> <span class="nav-text">同一个 1.16.2，RHEL 8 和 RHEL 9 不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%9C%BA%E5%99%A8%E4%B8%8A%E7%A1%AE%E8%AE%A4"><span class="nav-number">10.2.</span> <span class="nav-text">在机器上确认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RHEL-8-%E6%83%B3%E7%94%A8-DoH-%E7%9A%84%E4%B8%89%E6%9D%A1%E8%B7%AF"><span class="nav-number">10.3.</span> <span class="nav-text">RHEL 8 想用 DoH 的三条路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E6%98%93%E6%B7%B7%E6%B7%86%E7%9A%84%E7%82%B9"><span class="nav-number">10.4.</span> <span class="nav-text">容易混淆的点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8-acme-sh-%E7%AE%A1%E7%90%86-Unbound-%E8%AF%81%E4%B9%A6"><span class="nav-number">11.</span> <span class="nav-text">用 acme.sh 管理 Unbound 证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E9%AA%8C%E8%AF%81%E6%96%B9%E5%BC%8F"><span class="nav-number">11.1.</span> <span class="nav-text">选择验证方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%BE%E5%8F%91%E8%AF%81%E4%B9%A6"><span class="nav-number">11.2.</span> <span class="nav-text">签发证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0-Unbound"><span class="nav-number">11.3.</span> <span class="nav-text">部署到 Unbound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unbound-%E9%85%8D%E7%BD%AE"><span class="nav-number">11.4.</span> <span class="nav-text">Unbound 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F"><span class="nav-number">11.5.</span> <span class="nav-text">自动续期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E5%90%88%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">11.6.</span> <span class="nav-text">结合反向代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E4%B8%8E%E6%8E%92%E9%9A%9C"><span class="nav-number">12.</span> <span class="nav-text">验证与排障</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E6%9C%8D%E5%8A%A1%E4%B8%8E%E7%AB%AF%E5%8F%A3"><span class="nav-number">12.1.</span> <span class="nav-text">检查服务与端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6-1"><span class="nav-number">12.2.</span> <span class="nav-text">IPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DoT"><span class="nav-number">12.3.</span> <span class="nav-text">DoT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DoH"><span class="nav-number">12.4.</span> <span class="nav-text">DoH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E8%AF%81%E4%B9%A6"><span class="nav-number">12.5.</span> <span class="nav-text">检查证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">12.6.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%A1%BA%E5%BA%8F"><span class="nav-number">12.7.</span> <span class="nav-text">排查顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E4%B8%8E%E6%97%B6%E6%95%88"><span class="nav-number">13.</span> <span class="nav-text">参考与时效</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">By Kebyn</p>
+  <div class="site-description" itemprop="description">碎碎念</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">103</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2026/11/15/unbound-bind-dot-doh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Unbound 与 BIND9：递归解析、DoT&#x2F;DoH 与 RHEL 打包差异 | 觅回首">
+      <meta itemprop="description" content="对比 Unbound 与 BIND9 的递归解析配置，整理 IPv6、DoT、DoH、http-notls-downstream、RHEL 打包差异与 acme.sh 证书自动化。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unbound 与 BIND9：递归解析、DoT/DoH 与 RHEL 打包差异
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-15 10:10:00 / 修改时间：19:03:55" itemprop="dateCreated datePublished" datetime="2026-11-15T10:10:00+08:00">2026-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">对比 Unbound 与 BIND9 的递归解析配置，整理 IPv6、DoT、DoH、http-notls-downstream、RHEL 打包差异与 acme.sh 证书自动化。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Unbound 和 BIND9 都能做递归解析，也都支持 DNSSEC 验证。真正影响部署的是默认行为、配置方式、加密 DNS 能力和发行版打包差异。本文把递归配置、IPv6&#x2F;DoT&#x2F;DoH、<code>http-notls-downstream</code>、RHEL 8&#x2F;9&#x2F;10 的 DoH 支持，以及 acme.sh 证书自动化放在一起，方便按场景选型。</p>
+<span id="more"></span>
+
+<h2 id="结论与能力速览"><a href="#结论与能力速览" class="headerlink" title="结论与能力速览"></a>结论与能力速览</h2><ul>
+<li><strong>Unbound</strong> 是专用递归解析器，安装后默认开启递归，但默认只允许本机使用。</li>
+<li><strong>BIND9</strong> 的 <code>named</code> 同时承担权威和递归两种角色，需要显式开启 <code>recursion</code>、指定 <code>allow-recursion</code>，并提供根提示或转发上游。</li>
+<li>让递归真正可用，需要同时满足三件事：开启递归、提供根提示或转发器、用 ACL 限定允许使用递归的客户端。</li>
+<li>DoT 两个方向都支持：Unbound 可以作为 DoT 服务端，也可以作为 DoT 上游客户端。</li>
+<li>DoH 只支持服务端。Unbound 没有 DoH 上游客户端功能。</li>
+<li>RHEL 9&#x2F;10 的官方 <code>unbound</code> 包带 DoH；RHEL 8 的包没有带 nghttp2，需要重编 SRPM、容器或前置代理。</li>
+</ul>
+<h2 id="递归解析的工作过程"><a href="#递归解析的工作过程" class="headerlink" title="递归解析的工作过程"></a>递归解析的工作过程</h2><ol>
+<li>客户端发送 RD&#x3D;1（Recursion Desired）的查询。</li>
+<li>解析器先查缓存，命中则直接返回。</li>
+<li>未命中时，从根提示（<code>.</code> 的 NS 记录）开始，逐级向根、顶级域、权威服务器发送迭代查询，跟随 referral 和 glue 记录。</li>
+<li>得到答案后按 TTL 缓存并返回，响应中 <code>RA=1</code> 表示服务器支持递归。</li>
+<li>配置了转发器时，查询交给上游递归服务器完成迭代；<code>forward-first</code> 允许上游失败后回退到本地迭代，<code>forward-only</code> 则只走转发。</li>
+</ol>
+<p>DNSSEC 验证也在这条链上完成（RRSIG&#x2F;DS 信任链），所以递归解析器通常同时是验证器。</p>
+<h2 id="Unbound-递归配置"><a href="#Unbound-递归配置" class="headerlink" title="Unbound 递归配置"></a>Unbound 递归配置</h2><p>Unbound 的权威服务能力限于 <code>local-zone</code> &#x2F; <code>local-data</code> 提供的本地记录，主要角色是递归解析器。</p>
+<p><code>/etc/unbound/unbound.conf</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    interface: 0.0.0.0</span><br><span class="line">    interface: ::0</span><br><span class="line">    port: 53</span><br><span class="line">    do-ip4: yes</span><br><span class="line">    do-ip6: yes</span><br><span class="line">    do-udp: yes</span><br><span class="line">    do-tcp: yes</span><br><span class="line"></span><br><span class="line">    # 谁可以使用递归；默认仅 localhost</span><br><span class="line">    access-control: 127.0.0.0/8 allow</span><br><span class="line">    access-control: ::1 allow</span><br><span class="line">    access-control: 192.168.0.0/16 allow</span><br><span class="line">    access-control: 10.0.0.0/8 allow</span><br><span class="line"></span><br><span class="line">    # 完整迭代所需的根提示，也可使用内置根提示</span><br><span class="line">    root-hints: &quot;/var/lib/unbound/root.hints&quot;</span><br><span class="line"></span><br><span class="line">    # DNSSEC 信任锚，支持 RFC 5011 自动滚动</span><br><span class="line">    auto-trust-anchor-file: &quot;/var/lib/unbound/root.key&quot;</span><br><span class="line"></span><br><span class="line">    qname-minimisation: yes</span><br><span class="line">    harden-dnssec-stripped: yes</span><br><span class="line">    harden-referral-path: yes</span><br><span class="line">    prefetch: yes</span><br><span class="line"></span><br><span class="line">    num-threads: 4</span><br><span class="line">    msg-cache-size: 64m</span><br><span class="line">    rrset-cache-size: 128m</span><br><span class="line">    cache-min-ttl: 60</span><br><span class="line">    cache-max-ttl: 86400</span><br><span class="line"></span><br><span class="line">    hide-identity: yes</span><br><span class="line">    hide-version: yes</span><br><span class="line">    deny-any: yes</span><br></pre></td></tr></table></figure>
+
+<p>改为转发模式，由上游负责迭代：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">forward-zone:</span><br><span class="line">    name: &quot;.&quot;</span><br><span class="line">    forward-addr: 8.8.8.8</span><br><span class="line">    forward-addr: 1.1.1.1</span><br><span class="line">    # forward-first: yes   # 上游不可用时回退到本地迭代</span><br></pre></td></tr></table></figure>
+
+<p>验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">unbound-checkconf</span><br><span class="line">unbound-control status</span><br><span class="line">dig @127.0.0.1 example.com A</span><br><span class="line">dig @127.0.0.1 example.com A +norecurse</span><br></pre></td></tr></table></figure>
+
+<p>要点：</p>
+<ul>
+<li><code>access-control</code> 默认允许 <code>127.0.0.0/8</code> 和 <code>::1</code>，其他来源被拒绝；服务局域网必须显式添加 <code>allow</code>。</li>
+<li>RD&#x3D;0 的非递归查询默认会被拒绝；需要 cache snooping 时使用 <code>access-control: &lt;网段&gt; allow_snoop</code>。</li>
+<li>把 53 端口暴露到公网会成为开放解析器和放大攻击跳板，需要防火墙限制并考虑启用 <code>ratelimit</code>。</li>
+<li><code>root.key</code> 由 <code>unbound-anchor</code> 初始化，需要保证 unbound 用户对该文件有写权限以完成自动滚动。</li>
+<li>与 systemd-resolved 的 <code>127.0.0.53</code> stub 冲突时，修改监听地址或关闭 stub listener。</li>
+</ul>
+<h2 id="BIND9-递归配置"><a href="#BIND9-递归配置" class="headerlink" title="BIND9 递归配置"></a>BIND9 递归配置</h2><p>BIND9 用一份配置即可同时提供权威 zone 和递归解析：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">acl trusted &#123;</span><br><span class="line">    <span class="number">127.0</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">8</span>;</span><br><span class="line">    ::<span class="number">1</span>;</span><br><span class="line">    <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">16</span>;</span><br><span class="line">    <span class="number">10.0</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">8</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">options &#123;</span><br><span class="line">    directory <span class="string">&quot;/var/cache/bind&quot;</span>;</span><br><span class="line"></span><br><span class="line">    recursion yes;</span><br><span class="line">    allow-recursion &#123; trusted; &#125;;      # 递归 ACL，建议显式设置</span><br><span class="line">    allow-query &#123; trusted; &#125;;          # 谁可以查询本机</span><br><span class="line">    allow-query-cache &#123; trusted; &#125;;    # 谁可以使用缓存</span><br><span class="line"></span><br><span class="line">    listen-on &#123; any; &#125;;</span><br><span class="line">    listen-on-v6 &#123; any; &#125;;</span><br><span class="line"></span><br><span class="line">    # 本地迭代模式：保留根提示 zone，不配置 forwarders</span><br><span class="line">    # 转发模式：启用 forwarders，并按需加 forward only</span><br><span class="line">    <span class="comment">// forwarders &#123; 8.8.8.8; 1.1.1.1; &#125;;</span></span><br><span class="line">    <span class="comment">// forward only;</span></span><br><span class="line"></span><br><span class="line">    dnssec-validation <span class="keyword">auto</span>;</span><br><span class="line">    minimal-responses yes;</span><br><span class="line">    qname-minimization strict;</span><br><span class="line">    max-cache-size <span class="number">256</span>m;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>根提示 zone 在本地迭代时必须存在，发行版默认配置通常已包含：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zone <span class="string">&quot;.&quot;</span> &#123;</span><br><span class="line">    type hint;</span><br><span class="line">    file <span class="string">&quot;/usr/share/dns/root.hints&quot;</span>;   # RHEL 系常见路径为 /var/named/named.ca</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">named-checkconf -z</span><br><span class="line">rndc status</span><br><span class="line">dig @127.0.0.1 example.com A</span><br><span class="line">dig @127.0.0.1 example.com A +norecurse</span><br><span class="line">rndc recursing        <span class="comment"># 查看当前正在进行的递归查询</span></span><br><span class="line">rndc flush            <span class="comment"># 清空缓存</span></span><br></pre></td></tr></table></figure>
+
+<p>权威与递归分离的 view 写法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">view <span class="string">&quot;internal&quot;</span> &#123;</span><br><span class="line">    match-clients &#123; trusted; &#125;;</span><br><span class="line">    recursion yes;</span><br><span class="line">    allow-recursion &#123; trusted; &#125;;</span><br><span class="line">    zone <span class="string">&quot;.&quot;</span> &#123; type hint; file <span class="string">&quot;/usr/share/dns/root.hints&quot;</span>; &#125;;</span><br><span class="line">    <span class="comment">// 内网 zone ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">view <span class="string">&quot;external&quot;</span> &#123;</span><br><span class="line">    match-clients &#123; any; &#125;;</span><br><span class="line">    recursion no;</span><br><span class="line">    allow-query &#123; any; &#125;;</span><br><span class="line">    <span class="comment">// 对外权威 zone ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>要点：</p>
+<ul>
+<li><code>allow-recursion</code> 未显式设置时会从 <code>allow-query-cache</code> &#x2F; <code>allow-query</code> 推导，不同版本和发行版默认值存在差异。只放宽 <code>allow-query</code> 可能意外放开递归，生产环境应把三条 ACL 都写清楚。</li>
+<li><code>forwarders</code> 的默认语义是 <code>forward first</code>，即上游失败后回退到本地迭代；<code>forward only</code> 则强制只走转发。</li>
+<li>权威与递归放在同一进程会增加攻击面，也容易混用缓存。常见做法是拆成独立实例或独立机器，或用 view 按来源分流。</li>
+<li><code>dnssec-validation auto</code> 依赖根信任锚和准确时钟，时间偏差会导致验证失败。</li>
+<li>公网实例需限制 <code>allow-recursion</code>、收紧 <code>allow-transfer</code>，并考虑启用 <code>rate-limit</code> 响应速率限制。</li>
+</ul>
+<h2 id="Unbound-与-BIND9-对比"><a href="#Unbound-与-BIND9-对比" class="headerlink" title="Unbound 与 BIND9 对比"></a>Unbound 与 BIND9 对比</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Unbound</th>
+<th>BIND9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定位</td>
+<td>专用递归解析器</td>
+<td>权威与递归一体</td>
+</tr>
+<tr>
+<td>默认递归</td>
+<td>开启，默认仅本机可用</td>
+<td>由配置决定，需关注 ACL</td>
+</tr>
+<tr>
+<td>迭代起点</td>
+<td>内置根提示或 <code>root-hints</code></td>
+<td>内置或 <code>zone &quot;.&quot; type hint</code></td>
+</tr>
+<tr>
+<td>转发</td>
+<td><code>forward-zone</code>，可选 <code>forward-first</code></td>
+<td><code>forwarders</code> + <code>forward first/only</code></td>
+</tr>
+<tr>
+<td>DNSSEC</td>
+<td><code>auto-trust-anchor-file</code></td>
+<td><code>dnssec-validation auto</code></td>
+</tr>
+<tr>
+<td>缓存调优</td>
+<td><code>msg-cache-size</code>、<code>rrset-cache-size</code>、<code>prefetch</code></td>
+<td><code>max-cache-size</code>、<code>prefetch</code></td>
+</tr>
+<tr>
+<td>运维工具</td>
+<td><code>unbound-checkconf</code>、<code>unbound-control</code></td>
+<td><code>named-checkconf</code>、<code>rndc</code></td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>纯递归解析器、DNSSEC 验证器</td>
+<td>已有权威 DNS、需要一体化或 view 分流</td>
+</tr>
+</tbody></table>
+<h2 id="IPv6、DoT、DoH-支持矩阵"><a href="#IPv6、DoT、DoH-支持矩阵" class="headerlink" title="IPv6、DoT、DoH 支持矩阵"></a>IPv6、DoT、DoH 支持矩阵</h2><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>Unbound 支持状态</th>
+<th>关键配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IPv6 监听与上游传输</td>
+<td>全版本支持</td>
+<td><code>do-ip6</code>、<code>interface: ::0</code>、<code>access-control: ::1 allow</code></td>
+</tr>
+<tr>
+<td>DoT 服务端（下游）</td>
+<td>2011 年起支持</td>
+<td><code>tls-service-key</code>、<code>tls-service-pem</code>、<code>tls-port</code></td>
+</tr>
+<tr>
+<td>DoT 上游（转发到上游）</td>
+<td>1.9.0 起支持</td>
+<td><code>forward-tls-upstream</code>、<code>tls-cert-bundle</code></td>
+</tr>
+<tr>
+<td>DoH 服务端（下游）</td>
+<td>1.12.0 起支持</td>
+<td><code>https-port</code>、<code>http-endpoint</code>，需 <code>libnghttp2</code></td>
+</tr>
+<tr>
+<td>DoH 上游（客户端）</td>
+<td>不支持</td>
+<td>无对应配置项</td>
+</tr>
+<tr>
+<td>DoQ 服务端</td>
+<td>较新版本可选</td>
+<td><code>quic-port</code>，需 ngtcp2&#x2F;quictls</td>
+</tr>
+</tbody></table>
+<p>Unbound 的加密传输能力分成两个方向：下游是客户端连 Unbound，上游是 Unbound 连别的解析器。DoT 两个方向都支持，DoH 只支持下游。</p>
+<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    do-ip4: yes</span><br><span class="line">    do-ip6: yes              # 默认 yes</span><br><span class="line">    interface: 0.0.0.0</span><br><span class="line">    interface: ::0           # 监听所有 IPv6 地址</span><br><span class="line">    # interface: ::1         # 只监听回环</span><br><span class="line"></span><br><span class="line">    access-control: 127.0.0.0/8 allow</span><br><span class="line">    access-control: ::1 allow</span><br><span class="line">    access-control: 192.168.0.0/16 allow</span><br><span class="line">    access-control: 2001:db8:1::/64 allow</span><br><span class="line"></span><br><span class="line">    prefer-ip6: yes          # 默认 no，由 RTT 选择；yes 优先走 IPv6 上游</span><br><span class="line">    # outgoing-interface: 2001:db8:1::/64</span><br></pre></td></tr></table></figure>
+
+<p>要点：</p>
+<ul>
+<li><code>do-ip6: no</code> 会同时关闭 IPv6 监听和 IPv6 上游传输，但 AAAA 记录仍会正常返回；主机没有 IPv6 连通性时关闭它可以避免上游超时。</li>
+<li>默认隐式放行的是 <code>127.0.0.0/8</code>，IPv6 客户端（包括 <code>::1</code>）需要在 <code>access-control</code> 中显式允许。</li>
+<li>自定义 <code>root-hints</code> 文件需要包含根服务器的 AAAA 记录；内置根提示已经包含。</li>
+<li>双栈监听时，防火墙需要同时放行 v4&#x2F;v6 的 53、853、443（DoQ 为 UDP 853）。</li>
+</ul>
+<h2 id="DoT-服务端与上游客户端"><a href="#DoT-服务端与上游客户端" class="headerlink" title="DoT 服务端与上游客户端"></a>DoT 服务端与上游客户端</h2><h3 id="作为-DoT-服务端"><a href="#作为-DoT-服务端" class="headerlink" title="作为 DoT 服务端"></a>作为 DoT 服务端</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    interface: 0.0.0.0@853</span><br><span class="line">    interface: ::0@853</span><br><span class="line"></span><br><span class="line">    tls-service-key: &quot;/etc/unbound/tls/unbound_server.key&quot;</span><br><span class="line">    tls-service-pem: &quot;/etc/unbound/tls/unbound_server.pem&quot;</span><br><span class="line">    tls-port: 853</span><br><span class="line"></span><br><span class="line">    tls-protocols: &quot;TLSv1.2 TLSv1.3&quot;</span><br><span class="line">    tls-ciphers: &quot;HIGH:!aNULL&quot;</span><br><span class="line">    tls-ciphersuites: &quot;TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256&quot;</span><br><span class="line">    tls-session-ticket-keys: &quot;/etc/unbound/tls/ticket.key&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>tls-service-key</code> 和 <code>tls-service-pem</code> 同时启用 DoT 与 DoH 服务；具体哪个接口提供哪种服务由端口决定。</li>
+<li>绑定到 <code>tls-port</code> 的接口只提供 DoT，普通 DNS TCP 不会在该端口响应。</li>
+<li>额外端口用 <code>tls-additional-port: 8853</code> 声明。</li>
+<li>私钥需要 unbound 用户可读，或者在降权&#x2F;chroot 前可读；证书更新后可 <code>unbound-control reload</code>，权限受限时需要重启。</li>
+<li><code>access-control</code> 同样作用于 DoT 客户端。</li>
+<li>旧配置里的 <code>ssl-service-key</code>、<code>ssl-service-pem</code>、<code>ssl-port</code> 是同一组选项的别名。</li>
+</ul>
+<h3 id="作为-DoT-客户端"><a href="#作为-DoT-客户端" class="headerlink" title="作为 DoT 客户端"></a>作为 DoT 客户端</h3><p>DoT 上游只适用于 <code>forward-zone</code> 和 <code>stub-zone</code>。纯迭代解析无法使用 DoT，因为根和顶级域服务器不提供 DoT。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    tls-cert-bundle: &quot;/etc/ssl/certs/ca-certificates.crt&quot;</span><br><span class="line">    # 或者 tls-system-cert: yes</span><br><span class="line"></span><br><span class="line">forward-zone:</span><br><span class="line">    name: &quot;.&quot;</span><br><span class="line">    forward-tls-upstream: yes</span><br><span class="line">    forward-addr: 1.1.1.1@853#cloudflare-dns.com</span><br><span class="line">    forward-addr: 1.0.0.1@853#cloudflare-dns.com</span><br><span class="line">    forward-addr: 2606:4700:4700::1111@853#cloudflare-dns.com</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>IP@端口#认证名</code> 是固定语法；<code>#</code> 后面的名字用于 SNI 和证书校验，建议始终填写。</li>
+<li>没有 <code>tls-cert-bundle</code> 或 <code>tls-system-cert: yes</code> 时，证书无法验证，连接会失败。</li>
+<li><code>forward-first: yes</code> 会在 DoT 上游不可用时回退到普通迭代，这等于允许降级；默认 <code>no</code>。</li>
+<li><code>stub-zone</code> 用 <code>stub-tls-upstream: yes</code>；全局 <code>tls-upstream: yes</code> 对全部 forward&#x2F;stub 生效。</li>
+</ul>
+<h2 id="DoH-服务端"><a href="#DoH-服务端" class="headerlink" title="DoH 服务端"></a>DoH 服务端</h2><p>DoH 支持自 1.12.0 起，编译时需要 <code>libnghttp2</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-libnghttp2</span><br><span class="line">unbound -V | grep -i nghttp2</span><br></pre></td></tr></table></figure>
+
+<p>配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    interface: 0.0.0.0@443</span><br><span class="line">    interface: ::0@443</span><br><span class="line"></span><br><span class="line">    tls-service-key: &quot;/etc/unbound/tls/unbound_server.key&quot;</span><br><span class="line">    tls-service-pem: &quot;/etc/unbound/tls/unbound_server.pem&quot;</span><br><span class="line"></span><br><span class="line">    https-port: 443</span><br><span class="line">    http-endpoint: &quot;/dns-query&quot;</span><br><span class="line">    http-max-streams: 100</span><br><span class="line">    http-query-buffer-size: 4m</span><br><span class="line">    http-response-buffer-size: 4m</span><br><span class="line">    http-nodelay: yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>DoH 只走 HTTP&#x2F;2 + TLS，通过 ALPN 协商 <code>h2</code>；媒体类型为 <code>application/dns-message</code>，支持 GET（<code>?dns=</code> base64url）和 POST。</li>
+<li>默认端口 443，默认路径 <code>/dns-query</code>；访问其他路径返回 404。</li>
+<li>请求体上限受 <code>msg-buffer-size</code> 限制，超限返回 413&#x2F;414。</li>
+<li><code>http-notls-downstream: yes</code> 可以关闭下游 TLS，用于放在 TLS 终止反向代理之后；此时 <code>access-control</code> 看到的是代理地址。</li>
+<li>443 和 853 属于特权端口，非 root 运行需要 <code>CAP_NET_BIND_SERVICE</code>。</li>
+</ul>
+<p>Unbound 不提供 DoH 客户端功能，<code>forward-zone</code> 没有 HTTPS 选项。需要 DoH 上游时，常见做法是在本机运行 <code>dnscrypt-proxy</code>、<code>cloudflared</code> 等 DoH 客户端，让 Unbound 转发到它们的本地端口；或者直接使用 DoT 上游。</p>
+<h2 id="http-notls-downstream-与反向代理"><a href="#http-notls-downstream-与反向代理" class="headerlink" title="http-notls-downstream 与反向代理"></a><code>http-notls-downstream</code> 与反向代理</h2><p><code>http-notls-downstream: yes</code> 让 Unbound 的 DoH 监听端口改用明文 HTTP&#x2F;2（h2c），不再使用 TLS。它面向的部署形态是：反向代理或负载均衡器负责 TLS 终止，Unbound 作为本机或内网后端，只处理 HTTP&#x2F;2 上的 DNS 消息。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">客户端 --HTTPS/HTTP3--&gt; Caddy / Envoy / HAProxy --h2c 明文--&gt; Unbound:8053/dns-query</span><br></pre></td></tr></table></figure>
+
+<p>该选项自 Unbound 1.13.0 起提供（DoH 服务端本身自 1.12.0 起提供）。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>默认（no）</th>
+<th><code>yes</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DoH 监听协议</td>
+<td>HTTPS（TLS + HTTP&#x2F;2）</td>
+<td>HTTP&#x2F;2 cleartext（h2c）</td>
+</tr>
+<tr>
+<td>是否需要证书</td>
+<td>需要 <code>tls-service-key</code> &#x2F; <code>tls-service-pem</code></td>
+<td>该监听不需要证书</td>
+</tr>
+<tr>
+<td>ALPN</td>
+<td>协商 <code>h2</code></td>
+<td>不使用 ALPN</td>
+</tr>
+<tr>
+<td>HTTP 版本</td>
+<td>HTTP&#x2F;2</td>
+<td>HTTP&#x2F;2（prior knowledge）</td>
+</tr>
+<tr>
+<td>端口标记</td>
+<td><code>https-port</code></td>
+<td>仍由 <code>https-port</code> 标记</td>
+</tr>
+<tr>
+<td>DoT 监听</td>
+<td>不受影响</td>
+<td>不受影响</td>
+</tr>
+</tbody></table>
+<p>配置示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    interface: 127.0.0.1@8053</span><br><span class="line">    https-port: 8053</span><br><span class="line">    http-notls-downstream: yes</span><br><span class="line"></span><br><span class="line">    http-endpoint: &quot;/dns-query&quot;</span><br><span class="line">    http-max-streams: 100</span><br><span class="line">    http-query-buffer-size: 4m</span><br><span class="line">    http-response-buffer-size: 4m</span><br><span class="line">    http-nodelay: yes</span><br><span class="line"></span><br><span class="line">    access-control: 127.0.0.1 allow</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接口端口必须与 <code>https-port</code> 一致，Unbound 才会把它识别为 DoH 服务端口。</li>
+<li>使用 8053 这类非特权端口可以避免授予 <code>CAP_NET_BIND_SERVICE</code>。</li>
+<li>绑定 <code>127.0.0.1</code> 或独立内网地址，避免明文 DoH 暴露到不可信网络。</li>
+<li>不配置 <code>tls-service-key</code> 也能启动；配置之后该 DoH 端口仍然走明文，TLS 只用于 DoT。</li>
+<li><code>http-notls-downstream</code> 是全局开关，一个 Unbound 实例里的所有 DoH 监听都会变成明文。需要在同一实例同时提供 HTTPS DoH 和 h2c DoH 时，只能拆成两个实例，或者由前置代理统一终止 TLS。</li>
+</ul>
+<p>反向代理必须支持 HTTP&#x2F;2 cleartext 到后端：</p>
+<ul>
+<li><strong>Caddy</strong>：<code>transport http { versions h2c }</code></li>
+<li><strong>Envoy</strong>：cluster 上设置 <code>http2_protocol_options: {}</code></li>
+<li><strong>HAProxy</strong>：后端 server 行使用 <code>proto h2</code></li>
+<li><strong>开源版 nginx</strong>：<code>proxy_pass</code> 只能向 upstream 发送 HTTP&#x2F;1.x，Unbound 会拒绝。用 <code>stream</code> 模块做四层透传可以连通，但这样就失去了在 nginx 上终止 TLS 的意义。</li>
+</ul>
+<p>Caddy 示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dns.example.com &#123;</span><br><span class="line">    reverse_proxy 127.0.0.1:8053 &#123;</span><br><span class="line">        transport http &#123;</span><br><span class="line">            versions h2c</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种架构的常见收益：</p>
+<ul>
+<li>证书申请、续期、OCSP 和密码套件策略集中在代理层。</li>
+<li>代理可以对客户端提供 HTTP&#x2F;3（DoH3），Unbound 后端仍使用 h2c。</li>
+<li>代理层统一做访问日志、WAF、限速和多实例负载均衡。</li>
+<li>Unbound 侧减少 TLS 握手开销。</li>
+</ul>
+<p>安全与运维注意点：</p>
+<ul>
+<li>代理到 Unbound 这一段是明文，只应走回环地址、Unix 域套接字所在主机或受控内网，并用防火墙限制来源。</li>
+<li>Unbound 看到的客户端地址是代理地址。<code>access-control</code>、按 IP 的 <code>ratelimit</code>、<code>wait-limit</code> 都按代理 IP 计算，无法区分真实客户端。</li>
+<li>Unbound 的 DoH 监听不支持 PROXYv2，也不会解析 <code>X-Forwarded-For</code>，所以无法通过这两种方式恢复真实客户端 IP。</li>
+<li>该模式没有客户端证书认证，也没有传输层加密，不要直接暴露到公网。</li>
+<li>代理的健康检查应发送合法的 DoH 请求；对 <code>/dns-query</code> 的空 GET 会得到 400。</li>
+</ul>
+<h2 id="RHEL-8-9-10-的-DoT-DoH-打包差异"><a href="#RHEL-8-9-10-的-DoT-DoH-打包差异" class="headerlink" title="RHEL 8&#x2F;9&#x2F;10 的 DoT&#x2F;DoH 打包差异"></a>RHEL 8&#x2F;9&#x2F;10 的 DoT&#x2F;DoH 打包差异</h2><p>RHEL 8、9、10 的官方 <code>unbound</code> RPM 都自带 DoT 服务端支持（基于 OpenSSL）。DoH 的差别来自打包时的编译开关：</p>
+<ul>
+<li><strong>RHEL 9 &#x2F; RHEL 10</strong>：官方包已带 <code>--with-libnghttp2</code>，DoH 开箱可用，不需要自己编译。</li>
+<li><strong>RHEL 8</strong>：即使后期版本已升到 1.16.2（上游支持 DoH），RPM 仍未带 nghttp2，DoH 不可用，需要自行重编 SRPM 或使用前置 DoH 代理。</li>
+<li><strong>DoT 上游转发</strong>：需要 Unbound ≥ 1.9.0，RHEL 8.7+、RHEL 9、RHEL 10 支持；RHEL 8.0–8.6 的 1.7.3 不支持。</li>
+</ul>
+<p>CentOS Stream、Rocky Linux、AlmaLinux、Oracle Linux 重新构建同一份 RHEL SRPM，因此特性矩阵与对应 RHEL 版本一致。</p>
+<table>
+<thead>
+<tr>
+<th>发行版 &#x2F; 次版本</th>
+<th>自带 unbound</th>
+<th>DoT 服务端</th>
+<th>DoT 上游</th>
+<th>DoH 服务端</th>
+<th>官方包是否需编译</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RHEL 7（EOL）</td>
+<td>1.6.x</td>
+<td>支持（<code>ssl-*</code>）</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>DoH 需</td>
+</tr>
+<tr>
+<td>RHEL 8.0–8.6</td>
+<td>1.7.3</td>
+<td>支持（<code>ssl-*</code>）</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>DoH、DoT 上游需</td>
+</tr>
+<tr>
+<td>RHEL 8.7–8.10</td>
+<td>1.16.2</td>
+<td>支持（<code>tls-*</code>）</td>
+<td>支持</td>
+<td>不支持（未带 nghttp2）</td>
+<td>DoH 需重编</td>
+</tr>
+<tr>
+<td>RHEL 9.0</td>
+<td>1.13.1</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>RHEL 9.1–9.7</td>
+<td>1.16.2</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>RHEL 9.8</td>
+<td>1.24.2</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>RHEL 10.0–10.1</td>
+<td>1.20.0</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>RHEL 10.2</td>
+<td>1.24.2</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不需要</td>
+</tr>
+</tbody></table>
+<p>RHEL 9.8 和 RHEL 10.2 的 1.24.2 包还额外带 DoQ 支持（<code>quic-port</code>）；RHEL 10.0 的 1.20.0 包未带 DoQ。次版本矩阵以发布时 Red Hat 包信息为准。</p>
+<h3 id="同一个-1-16-2，RHEL-8-和-RHEL-9-不同"><a href="#同一个-1-16-2，RHEL-8-和-RHEL-9-不同" class="headerlink" title="同一个 1.16.2，RHEL 8 和 RHEL 9 不同"></a>同一个 1.16.2，RHEL 8 和 RHEL 9 不同</h3><p>RHEL 8.7 起把 unbound 升到了 1.16.2，上游版本完全支持 DoH。但 RHEL 8 的 spec 文件：</p>
+<ul>
+<li>没有 <code>%bcond_without doh</code> 开关；</li>
+<li>没有 <code>BuildRequires: libnghttp2-devel</code>；</li>
+<li><code>%configure</code> 参数中没有 <code>--with-libnghttp2</code>。</li>
+</ul>
+<p>所以 RHEL 8 的二进制里能解析 <code>http-notls-downstream</code> 之类的配置项，但 HTTP&#x2F;2 和 DoH 代码没有被编译进去，启动 DoH 监听时只会得到“not compiled with nghttp2”的警告。</p>
+<p>RHEL 9 和 RHEL 10 的 spec 则包含：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">%bcond_without doh</span><br><span class="line">...</span><br><span class="line">%if %&#123;with doh&#125;</span><br><span class="line">BuildRequires: libnghttp2-devel</span><br><span class="line">%endif</span><br><span class="line">...</span><br><span class="line">%if %&#123;with doh&#125;</span><br><span class="line">            --with-libnghttp2 \</span><br><span class="line">%endif</span><br></pre></td></tr></table></figure>
+
+<p><code>%bcond_without doh</code> 的默认含义是开启，因此官方构建默认带 DoH。</p>
+<h3 id="在机器上确认"><a href="#在机器上确认" class="headerlink" title="在机器上确认"></a>在机器上确认</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -q unbound</span><br><span class="line">unbound -V</span><br></pre></td></tr></table></figure>
+
+<p>看 <code>Configure line</code> 是否包含 <code>--with-libnghttp2</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># RHEL 9/10 典型输出</span><br><span class="line">Configure line: --with-libevent --with-pthreads --with-ssl ... --with-libnghttp2 ...</span><br><span class="line"></span><br><span class="line"># RHEL 8 的输出不含 --with-libnghttp2</span><br></pre></td></tr></table></figure>
+
+<p>补充检查：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -q --requires unbound | grep -i nghttp2</span><br><span class="line">ldd /usr/sbin/unbound | grep -i nghttp2</span><br></pre></td></tr></table></figure>
+
+<p>RHEL 9&#x2F;10 通常能看到 <code>libnghttp2.so.14</code> 依赖。<code>unbound -V</code> 的 configure 行是最直接的判断依据。</p>
+<h3 id="RHEL-8-想用-DoH-的三条路"><a href="#RHEL-8-想用-DoH-的三条路" class="headerlink" title="RHEL 8 想用 DoH 的三条路"></a>RHEL 8 想用 DoH 的三条路</h3><p><strong>方案一：重编 SRPM，保留系统包管理。</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dnf install rpm-build dnf-plugins-core</span><br><span class="line">dnf download --<span class="built_in">source</span> unbound</span><br><span class="line">rpm -ivh unbound-*.src.rpm</span><br></pre></td></tr></table></figure>
+
+<p>编辑 <code>~/rpmbuild/SPECS/unbound.spec</code>，加入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BuildRequires: libnghttp2-devel</span><br></pre></td></tr></table></figure>
+
+<p>并在 <code>%configure</code> 参数中加入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--with-libnghttp2</span><br></pre></td></tr></table></figure>
+
+<p>构建并安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpmbuild -ba ~/rpmbuild/SPECS/unbound.spec</span><br><span class="line">dnf install ~/rpmbuild/RPMS/x86_64/unbound-*.rpm</span><br></pre></td></tr></table></figure>
+
+<p>RHEL 8 的 spec 没有 <code>%bcond_with doh</code>，因此需要手动加依赖和 configure 参数，不能只靠 <code>--with doh</code> 宏。</p>
+<p><strong>方案二：容器运行新版 Unbound。</strong> 用 Podman 运行来自 RHEL 9&#x2F;10 或 Fedora 的新版 unbound，把 53&#x2F;853&#x2F;443 映射到宿主机。适合不想改动系统包的场景，但要注意容器网络、SELinux 端口标签和 systemd 集成。</p>
+<p><strong>方案三：前置 DoH 代理。</strong> 在 Unbound 前面放一个支持 DoH 服务端的组件（例如 dnsdist），由它终止 TLS 和 HTTP&#x2F;2，再以普通 DNS 转发到本机 Unbound 的 53 端口。这样 RHEL 8 的 Unbound 继续做递归解析，DoH 能力由前端提供。</p>
+<h3 id="容易混淆的点"><a href="#容易混淆的点" class="headerlink" title="容易混淆的点"></a>容易混淆的点</h3><ul>
+<li>RHEL 8 的 1.16.2 有 DoT 上游，只是没有 DoH。DoT 和 DoH 是两个独立特性，DoT 只依赖 OpenSSL。</li>
+<li>DoH 上游在 Unbound 中始终不支持，RHEL 9&#x2F;10 也一样。需要加密转发时使用 DoT 上游；需要 DoH 上游时只能在本机放 DoH 客户端代理。</li>
+<li>安装 <code>nghttp2</code> 命令行包不会给 Unbound 增加 DoH。决定因素是 unbound 二进制是否带 <code>--with-libnghttp2</code> 编译。</li>
+<li>RHEL 8 的 1.7.3 使用 <code>ssl-service-key</code> &#x2F; <code>ssl-port</code>；新文档里的 <code>tls-service-key</code> &#x2F; <code>tls-port</code> 在该版本中不存在。</li>
+<li>RHEL 9.0 的 1.13.1 已经支持 DoH 和 <code>http-notls-downstream</code>，不必等到 1.16.2。</li>
+</ul>
+<h2 id="用-acme-sh-管理-Unbound-证书"><a href="#用-acme-sh-管理-Unbound-证书" class="headerlink" title="用 acme.sh 管理 Unbound 证书"></a>用 acme.sh 管理 Unbound 证书</h2><p>acme.sh 负责三件事：签发证书、自动续期、在续期后触发部署动作。Unbound 只负责读取两个文件：</p>
+<ul>
+<li><code>tls-service-key</code>：私钥 PEM。</li>
+<li><code>tls-service-pem</code>：证书 PEM，使用包含中间证书的 fullchain。</li>
+</ul>
+<p>把 acme.sh 的 <code>--install-cert</code> 指向这两个路径，并用 <code>--reloadcmd</code> 在每次签发&#x2F;续期后修正权限并 reload Unbound，就完成了集成。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --issue --&gt; 证书目录 --&gt; --install-cert --&gt; /etc/unbound/tls/</span><br><span class="line">                                                      |</span><br><span class="line">                                                      +-- reloadcmd --&gt; systemctl reload unbound</span><br></pre></td></tr></table></figure>
+
+<h3 id="选择验证方式"><a href="#选择验证方式" class="headerlink" title="选择验证方式"></a>选择验证方式</h3><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>要求</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HTTP-01</td>
+<td>公网 80 端口可达</td>
+<td>80 端口空闲，或已有 Web 服务器</td>
+</tr>
+<tr>
+<td>DNS-01</td>
+<td>能通过 API 修改 DNS</td>
+<td>推荐；支持泛域名，不需要开放入站端口</td>
+</tr>
+<tr>
+<td>TLS-ALPN-01</td>
+<td>公网 443 端口可达</td>
+<td>443 被 Unbound DoH 占用时不可用</td>
+</tr>
+</tbody></table>
+<p>DoT&#x2F;DoH 服务器通常只开放 853&#x2F;443，推荐 DNS-01。如果 80 端口空闲，<code>--standalone</code> 也可以。</p>
+<h3 id="签发证书"><a href="#签发证书" class="headerlink" title="签发证书"></a>签发证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://get.acme.sh | sh -s email=admin@example.com</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">acme.sh --set-default-ca --server letsencrypt</span><br></pre></td></tr></table></figure>
+
+<p>DNS-01（以 Cloudflare 为例）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CF_Token=<span class="string">&quot;你的 API Token&quot;</span></span><br><span class="line"><span class="built_in">export</span> CF_Account_ID=<span class="string">&quot;你的 Account ID&quot;</span></span><br><span class="line"></span><br><span class="line">acme.sh --issue --dns dns_cf -d dns.example.com --keylength ec-256</span><br></pre></td></tr></table></figure>
+
+<p>HTTP-01：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 80 端口空闲</span></span><br><span class="line">acme.sh --issue -d dns.example.com --standalone --keylength ec-256</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已有 Web 服务器</span></span><br><span class="line">acme.sh --issue -d dns.example.com --webroot /var/www/html --keylength ec-256</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>泛域名必须用 DNS-01，例如 <code>-d example.com -d &#39;*.example.com&#39;</code>。</li>
+<li>测试阶段加 <code>--staging</code>，避免触发 Let’s Encrypt 速率限制。</li>
+<li>使用 <code>--keylength ec-256</code> 时，后续 <code>--install-cert</code> 必须加 <code>--ecc</code>。</li>
+<li>证书域名必须是客户端实际使用的名字，DoT 客户端通过 SNI&#x2F;主机名校验证书。</li>
+</ul>
+<h3 id="部署到-Unbound"><a href="#部署到-Unbound" class="headerlink" title="部署到 Unbound"></a>部署到 Unbound</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --install-cert -d dns.example.com --ecc \</span><br><span class="line">  --key-file       /etc/unbound/tls/unbound.key \</span><br><span class="line">  --fullchain-file /etc/unbound/tls/unbound.pem \</span><br><span class="line">  --reloadcmd      <span class="string">&quot;/usr/local/sbin/unbound-cert-reload&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>--install-cert</code> 会在首次安装和每次续期后执行 <code>--reloadcmd</code>。</p>
+<p><code>/usr/local/sbin/unbound-cert-reload</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -euo pipefail</span><br><span class="line"></span><br><span class="line">install -d -m 0750 -o root -g unbound /etc/unbound/tls</span><br><span class="line"><span class="built_in">chown</span> root:unbound /etc/unbound/tls/unbound.key /etc/unbound/tls/unbound.pem</span><br><span class="line"><span class="built_in">chmod</span> 640 /etc/unbound/tls/unbound.key</span><br><span class="line"><span class="built_in">chmod</span> 644 /etc/unbound/tls/unbound.pem</span><br><span class="line"></span><br><span class="line">/usr/sbin/unbound-checkconf</span><br><span class="line">systemctl reload unbound</span><br></pre></td></tr></table></figure>
+
+<p>关键点：</p>
+<ul>
+<li>私钥权限设为 <code>root:unbound 0640</code>。Unbound 启动时以 root 读取私钥，但 SIGHUP reload 时以 unbound 用户重新读取；私钥如果保持 <code>0600 root</code>，reload 会读不到，只能重启。</li>
+<li><code>unbound-checkconf</code> 失败时脚本退出，不执行 reload，正在运行的 Unbound 继续使用内存中的旧证书。</li>
+<li>目录权限保持 <code>0750 root:unbound</code>，不要让 unbound 用户可写。</li>
+<li>如果使用 chroot，证书路径必须位于 chroot 内，并符合 Unbound 的路径调整规则。</li>
+</ul>
+<h3 id="Unbound-配置"><a href="#Unbound-配置" class="headerlink" title="Unbound 配置"></a>Unbound 配置</h3><p>DoT + DoH 共用同一份证书：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    interface: 0.0.0.0@853</span><br><span class="line">    interface: ::0@853</span><br><span class="line">    interface: 0.0.0.0@443</span><br><span class="line">    interface: ::0@443</span><br><span class="line"></span><br><span class="line">    tls-service-key: &quot;/etc/unbound/tls/unbound.key&quot;</span><br><span class="line">    tls-service-pem: &quot;/etc/unbound/tls/unbound.pem&quot;</span><br><span class="line"></span><br><span class="line">    tls-port: 853</span><br><span class="line">    https-port: 443</span><br><span class="line">    http-endpoint: &quot;/dns-query&quot;</span><br><span class="line"></span><br><span class="line">    access-control: 192.168.0.0/16 allow</span><br><span class="line">    access-control: 2001:db8:1::/64 allow</span><br></pre></td></tr></table></figure>
+
+<p>RHEL 8.0–8.6 的 Unbound 1.7.3 使用旧选项名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">    interface: 0.0.0.0@853</span><br><span class="line">    ssl-service-key: &quot;/etc/unbound/tls/unbound.key&quot;</span><br><span class="line">    ssl-service-pem: &quot;/etc/unbound/tls/unbound.pem&quot;</span><br><span class="line">    ssl-port: 853</span><br></pre></td></tr></table></figure>
+
+<h3 id="自动续期"><a href="#自动续期" class="headerlink" title="自动续期"></a>自动续期</h3><p>acme.sh 安装时会写入 cron 任务，每天检查一次：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --list          <span class="comment"># 查看证书和下次续期时间</span></span><br><span class="line">acme.sh --cron          <span class="comment"># 手动触发检查</span></span><br></pre></td></tr></table></figure>
+
+<p><code>--reloadcmd</code> 会保存在证书配置里，续期成功后自动执行。可以手动模拟一次续期：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --renew -d dns.example.com --ecc --force</span><br></pre></td></tr></table></figure>
+
+<p>或者直接测试 reload 脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/sbin/unbound-cert-reload</span><br><span class="line">systemctl status unbound</span><br><span class="line">journalctl -u unbound -n 50 --no-pager</span><br></pre></td></tr></table></figure>
+
+<h3 id="结合反向代理"><a href="#结合反向代理" class="headerlink" title="结合反向代理"></a>结合反向代理</h3><p>如果 DoH 由 Caddy、nginx、Envoy 终止 TLS，Unbound 使用 <code>http-notls-downstream: yes</code> 提供 h2c 后端，那么证书只需要部署在代理上：</p>
+<ul>
+<li><strong>Caddy</strong>：内置 ACME，不需要 acme.sh；证书和续期由 Caddy 管理。</li>
+<li><strong>nginx</strong>：用 acme.sh 签发后 <code>--install-cert --reloadcmd &quot;systemctl reload nginx&quot;</code>，Unbound 不配置证书。</li>
+<li><strong>acme.sh + Unbound 直连</strong>：适用于 Unbound 自己监听 853&#x2F;443 的场景。</li>
+</ul>
+<p>这种拆分的好处是证书轮换只影响代理，Unbound 的 reload 与证书生命周期解耦。</p>
+<h2 id="验证与排障"><a href="#验证与排障" class="headerlink" title="验证与排障"></a>验证与排障</h2><h3 id="检查服务与端口"><a href="#检查服务与端口" class="headerlink" title="检查服务与端口"></a>检查服务与端口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unbound-checkconf</span><br><span class="line">unbound -V | grep -Ei <span class="string">&#x27;nghttp2|openssl&#x27;</span></span><br><span class="line">ss -lntup | grep unbound</span><br></pre></td></tr></table></figure>
+
+<h3 id="IPv6-1"><a href="#IPv6-1" class="headerlink" title="IPv6"></a>IPv6</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig @::1 example.com A</span><br></pre></td></tr></table></figure>
+
+<h3 id="DoT"><a href="#DoT" class="headerlink" title="DoT"></a>DoT</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dig @127.0.0.1 -p 853 +tls example.com</span><br><span class="line">dig @127.0.0.1 -p 853 +tls +tls-hostname=dns.example.com \</span><br><span class="line">    +tls-ca=/etc/ssl/certs/ca-certificates.crt example.com</span><br><span class="line">kdig @127.0.0.1 +tls example.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="DoH"><a href="#DoH" class="headerlink" title="DoH"></a>DoH</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># GET，base64url 查询为 example.com A</span></span><br><span class="line">curl --http2 -k -sS \</span><br><span class="line">  <span class="string">&#x27;https://127.0.0.1/dns-query?dns=AAABAAABAAAAAAAAB2V4YW1wbGUDY29tAAABAAE&#x27;</span> \</span><br><span class="line">  -o /tmp/answer.bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># POST，query.bin 为 DNS wire format 查询</span></span><br><span class="line">curl --http2 -k -sS -H <span class="string">&#x27;content-type: application/dns-message&#x27;</span> \</span><br><span class="line">  --data-binary @query.bin https://127.0.0.1/dns-query -o /tmp/answer.bin</span><br><span class="line"></span><br><span class="line">unbound-control stats_noreset | grep -E <span class="string">&#x27;num.query.(tls|https)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>直连 h2c 时必须显式使用 prior knowledge：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v --http2-prior-knowledge \</span><br><span class="line">  -H <span class="string">&#x27;content-type: application/dns-message&#x27;</span> \</span><br><span class="line">  --data-binary @query.bin \</span><br><span class="line">  http://127.0.0.1:8053/dns-query -o /tmp/answer.bin</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查证书"><a href="#检查证书" class="headerlink" title="检查证书"></a>检查证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">openssl s_client -connect dns.example.com:853 \</span><br><span class="line">  -servername dns.example.com -showcerts &lt;/dev/null 2&gt;/dev/null \</span><br><span class="line">  | openssl x509 -noout -subject -issuer -dates</span><br><span class="line"></span><br><span class="line">openssl s_client -connect dns.example.com:443 \</span><br><span class="line">  -servername dns.example.com -alpn h2 &lt;/dev/null 2&gt;/dev/null \</span><br><span class="line">  | openssl x509 -noout -subject -issuer -dates</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因与处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>续期成功但 Unbound 仍返回旧证书</td>
+<td><code>--reloadcmd</code> 未配置或 reload 失败；检查 <code>journalctl -u unbound</code></td>
+</tr>
+<tr>
+<td>reload 后证书加载失败</td>
+<td>私钥权限为 <code>0600 root</code>；改为 <code>root:unbound 0640</code></td>
+</tr>
+<tr>
+<td>客户端报证书链不完整</td>
+<td>使用了 <code>cert.pem</code>；改用 <code>fullchain.cer</code> &#x2F; <code>--fullchain-file</code></td>
+</tr>
+<tr>
+<td><code>--install-cert</code> 找不到证书</td>
+<td>ECC 证书缺少 <code>--ecc</code> 参数</td>
+</tr>
+<tr>
+<td>HTTP-01 验证失败</td>
+<td>80 端口不可达或被防火墙拦截；改用 DNS-01</td>
+</tr>
+<tr>
+<td>泛域名签发失败</td>
+<td>HTTP-01 不支持泛域名；使用 DNS-01</td>
+</tr>
+<tr>
+<td>443 被占用导致 <code>--alpn</code> 失败</td>
+<td>Unbound DoH 已监听 443；改用 DNS-01 或 HTTP-01</td>
+</tr>
+<tr>
+<td>SELinux 拒绝读取私钥</td>
+<td><code>ausearch -m avc -ts recent</code>，用 <code>restorecon</code> 或 <code>semanage fcontext</code> 修正标签</td>
+</tr>
+<tr>
+<td>证书时间异常</td>
+<td>检查 chrony&#x2F;NTP，避免“not yet valid”或过期</td>
+</tr>
+<tr>
+<td>用 <code>https://127.0.0.1:8053</code> 握手失败</td>
+<td>该监听是明文 HTTP，应使用 <code>http://</code></td>
+</tr>
+<tr>
+<td><code>curl --http2 http://...</code> 失败或返回空</td>
+<td>客户端尝试 HTTP&#x2F;1.1 Upgrade，应改用 <code>--http2-prior-knowledge</code></td>
+</tr>
+<tr>
+<td>反向代理返回 502</td>
+<td>代理向上游发送 HTTP&#x2F;1.1，需启用 h2c 后端传输</td>
+</tr>
+<tr>
+<td>启动日志提示没有 TLS key</td>
+<td><code>http-notls-downstream</code> 未生效或写成了 <code>no</code></td>
+</tr>
+<tr>
+<td>端口无响应</td>
+<td>接口 <code>@port</code> 与 <code>https-port</code> 不一致，或 <code>access-control</code> 未放行代理地址</td>
+</tr>
+<tr>
+<td>所有请求来源都是 127.0.0.1</td>
+<td>代理在中间，Unbound 只能看到代理地址</td>
+</tr>
+<tr>
+<td>配置了证书但 DoH 仍是明文</td>
+<td><code>http-notls-downstream: yes</code> 是全局的，该实例所有 DoH 端口都走 h2c</td>
+</tr>
+</tbody></table>
+<h3 id="排查顺序"><a href="#排查顺序" class="headerlink" title="排查顺序"></a>排查顺序</h3><ol>
+<li>用 <code>unbound-checkconf</code> 或 <code>named-checkconf</code> 检查语法。</li>
+<li>用 <code>ss -lntup</code> 确认监听地址和端口。</li>
+<li>用 <code>dig +norecurse</code> 区分缓存&#x2F;权威回答与真正递归。</li>
+<li>检查 ACL、防火墙和 SELinux。</li>
+<li>检查上游 53&#x2F;853&#x2F;443 是否可达，根提示文件是否过期。</li>
+<li>检查证书链、SNI、系统时间。</li>
+</ol>
+<p><code>dig +trace</code> 由 dig 自身完成迭代，绕开本机递归器，无法用来验证服务器的递归配置。</p>
+<h2 id="参考与时效"><a href="#参考与时效" class="headerlink" title="参考与时效"></a>参考与时效</h2><ul>
+<li>本文整理自 2026-11-14 的 Grok 技术会话，配置示例以 Unbound 和 BIND9 官方文档的选项语义为准。</li>
+<li>RHEL 次版本、unbound RPM 版本和 DoH 编译开关会随发行版更新变化，部署前用 <code>rpm -q unbound</code>、<code>unbound -V</code> 和 <code>rpm -q --requires unbound</code> 在目标机器上确认。</li>
+<li>证书命令以 acme.sh 当前版本为准，生产环境先用 <code>--staging</code> 验证流程。</li>
+<li>示例中的域名、IP 和邮箱均为文档占位符，请替换为实际环境值。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/unbound/" rel="tag"># unbound</a>
+              <a href="/tags/bind9/" rel="tag"># bind9</a>
+              <a href="/tags/dns/" rel="tag"># dns</a>
+              <a href="/tags/dot/" rel="tag"># dot</a>
+              <a href="/tags/doh/" rel="tag"># doh</a>
+              <a href="/tags/rhel/" rel="tag"># rhel</a>
+              <a href="/tags/acme-sh/" rel="tag"># acme-sh</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/11/15/dell-ultrasharp-4k/" rel="prev" title="Dell 27 英寸 4K 显示器怎么选：U2718Q、U2720Q 与后续迭代">
+                  <i class="fa fa-angle-left"></i> Dell 27 英寸 4K 显示器怎么选：U2718Q、U2720Q 与后续迭代
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

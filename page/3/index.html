@@ -162,18 +162,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -190,6 +190,217 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/02/16/architecture_design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/02/16/architecture_design/" class="post-title-link" itemprop="url">架构</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-16 10:17:43" itemprop="dateCreated datePublished" datetime="2017-02-16T10:17:43+08:00">2017-02-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ol>
+<li>DNS服务器<ul>
+<li>如果资金充足的话，建议使用<code>BGP</code>机房，2-3台DNS服务器均衡，通常使用bind软件。<ul>
+<li><code>BGP</code>（边界网关协议）主要用于互联网AS（自治系统）之间的互联，<code>BGP</code>的最主要功能在于控制路由的传播和选择最好的路由。<ul>
+<li>中国网通 、中国电信、中国铁通和一些大的民营IDC运营商都具有AS号，全国各大网络运营商多数都是通过<code>BGP</code>协议与自身的AS号来实现多线互联的。</li>
+<li>使用此方案来实现多线路互联，IDC需要在<code>CNNIC</code>（中国互联网信息中心）或APNIC（亚太网络信息中心）申请自己的IP地址段和AS号，然后通过<code>BGP</code>协议将此段IP地址广播到其它的网络运营商的网络中。</li>
+<li>使用<code>BGP</code>协议互联后，网络运营商的所有骨干路由设备将会判断到IDC机房IP段的最佳路由，以保证不同网络运营商用户的高速访问。</li>
+</ul>
+</li>
+<li><code>BGP</code> 机房的优点：<ol>
+<li>服务器只需要设置一个IP地址，最佳访问路由是由网络上的骨干路由器根据路由跳数与其它技术指标来确定的，不会占用服务器的任何系统资源。</li>
+<li>服务器的上行路由与下行路由都能选择最优的路径，所以能真正实现高速的单IP高速访问。</li>
+<li>由于<code>BGP</code>协议本身具有冗余备份、消除环路的特点，所以当IDC服务商有多条<code>BGP</code>互联线路时可以实现路由的相互备份，在一条线路出现故障时路由会自动切换到其它线路。</li>
+<li>使用<code>BGP</code>协议还可以使网络具有很强的扩展性可以将IDC网络与其他运营商互联，轻松实现单IP多线路，做到所有互联运营商的用户访问都很快。这个是双IP双线无法比拟的。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>如果资金紧的话，可以购买专业的dns服务，比如国内的<code>dnspod</code></li>
+</ul>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/02/16/architecture_design/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/01/10/bash_CVE-2014-6271/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/01/10/bash_CVE-2014-6271/" class="post-title-link" itemprop="url">BASH_CVE-2014-6271</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-01-10 15:17:43" itemprop="dateCreated datePublished" datetime="2017-01-10T15:17:43+08:00">2017-01-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Security/" itemprop="url" rel="index"><span itemprop="name">Security</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>很多人或许对上半年发生的安全问题“心脏流血”（Heartbleed Bug）事件记忆颇深，这两天，又出现了另外一个“毁灭级”的漏洞——Bash软件安全漏洞。这个漏洞由法国GNU&#x2F;Linux爱好者Stéphane Chazelas所发现。随后，美国电脑紧急应变中心（US-CERT）、红帽以及多家从事安全的公司于周三（北京时间9月24日）发出警告。 关于这个安全漏洞的细节可参看美国政府计算安全的这两个漏洞披露：CVE-2014-6271 和 CVE-2014-7169。</p>
+<p>这个漏洞其实是非常经典的“注入式攻击”，也就是可以向 bash注入一段命令，从bash1.14 到4.3都存在这样的漏洞。我们先来看一下这个安全问题的症状。</p>
+<h3 id="Shellshock-CVE-2014-6271"><a href="#Shellshock-CVE-2014-6271" class="headerlink" title="Shellshock (CVE-2014-6271)"></a>Shellshock (CVE-2014-6271)</h3><p>下面是一个简单的测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ env VAR=&#x27;() &#123; :;&#125;; echo Bash is vulnerable!&#x27; bash -c &quot;echo Bash Test&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如果你发现上面这个命令在你的bash下有这样的输出，那你就说明你的bash是有漏洞的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Bash is vulnerable!</span><br><span class="line">Bash Test</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/01/10/bash_CVE-2014-6271/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -235,7 +446,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -327,7 +538,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -422,7 +633,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -521,7 +732,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -638,7 +849,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -730,7 +941,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -826,7 +1037,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -919,7 +1130,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 19:03:55" itemprop="dateModified" datetime="2026-11-15T19:03:55+08:00">2026-11-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -948,248 +1159,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2016/09/06/db2_instructions/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/07/25/oracle_sqlplus/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="By Kebyn">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="觅回首">
-      <meta itemprop="description" content="碎碎念">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 觅回首">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/07/25/oracle_sqlplus/" class="post-title-link" itemprop="url">sqlplus 安装</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-07-25 16:34:52" itemprop="dateCreated datePublished" datetime="2016-07-25T16:34:52+08:00">2016-07-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Database/" itemprop="url" rel="index"><span itemprop="name">Database</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Oracle数据库软件十分庞大，数据库引擎有好几个G。通常情况下，我们的使用方式是安装一个Oracle数据库在服务器机器上，在客户端通过PL&#x2F;SQL Developer、sqlplus等工具操作服务器上的数据，当然Oracle 10g后，OEM(企业管理器)已经是WEB版了，在浏览器中也可以同样操作数据库。</p>
-<h3 id="Windows-下Oracle-Instant-Client-的安装"><a href="#Windows-下Oracle-Instant-Client-的安装" class="headerlink" title="Windows 下Oracle Instant Client 的安装"></a>Windows 下Oracle Instant Client 的安装</h3><p>Windows下客户端工具 PL&#x2F;SQL Developer 使用得最多，Linux下，我喜欢直接使用sqlplus。不论使用哪种工具，都需要在客户端机器上安装Oracle客户端工具，安装以下三种软件均可连接Oracle服务器：</p>
-<ul>
-<li>Oracle 数据库引擎</li>
-<li>Oracle Client</li>
-<li>Oracle Instant Client</li>
-</ul>
-<p>其中前两种占硬盘空间大，并且安装也相对繁琐，我一般喜欢采用第三种方式，因此，下面介绍 Oracle Instant Client 的安装：</p>
-<ol>
-<li><p>Windows 下Oracle Instant Client 的安装</p>
-</li>
-<li><p>Oracle Instant Client 下载</p>
-<ul>
-<li>进入<a target="_blank" rel="noopener" href="http://www.oracle.com/">Oracle官网首页</a>，单击首页中的downloads链接，在新页面中选择 Database —&gt; Instant Client，进入 Instant Client Downloads 页，选择相应版本下载。</li>
-<li><a target="_blank" rel="noopener" href="http://www.oracle.com/cn/index.html">Oracle 中文网站</a></li>
-<li>我下载的软件包是：basic、sqlplus.</li>
-<li>注意，必须下载basic或者basiclite其中之一，若需要做 OCI &#x2F; OCCI 开发，还需下载 sdk.</li>
-</ul>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/07/25/oracle_sqlplus/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/07/20/oracle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="By Kebyn">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="觅回首">
-      <meta itemprop="description" content="碎碎念">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 觅回首">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/07/20/oracle/" class="post-title-link" itemprop="url">Oracle</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-07-20 17:12:52" itemprop="dateCreated datePublished" datetime="2016-07-20T17:12:52+08:00">2016-07-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 17:44:26" itemprop="dateModified" datetime="2026-11-15T17:44:26+08:00">2026-11-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Database/" itemprop="url" rel="index"><span itemprop="name">Database</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li>环境设置</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_BASE=oracle_install_dir</span><br><span class="line">export ORACLE_HOME=oracle_install_dir/oracle12c</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>启动</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">oracle&gt; startup open</span><br><span class="line">bash# lsnrctl start</span><br></pre></td></tr></table></figure>
-<pre><code>1. startup nomount
-    非安装启动，这种方式启动下可执行：重建控制文件、重建数据库,启动instance，即启动SGA和后台进程，这种启动只需要init.ora文件。
-2. startup mount dbname
-    安装启动，这种方式启动下可执行：数据库日志归档、数据库恢复、重新命名一些数据库文件
-    如：系统表空间或日志文件。
-    执行“nomount”，然后打开控制文件
-3. startup open dbname
-    先执行“nomount”，然后执行“mount”，再打开包括Redo log文件在内的所有数据库文件， 这种方式下可访问数据库中的数据。
-4. startup，等于以下三个命令
-    startup nomount
-    alter database mount
-    alter database open
-5. startup restrict
-    约束方式启动
-    这种方式能够启动数据库，但只允许具有一定特权的用户访问
-    非特权用户访问时，会出现以下提示：
-    ERROR：
-    ORA-01035: ORACLE 只允许具有 RESTRICTED SESSION 权限的用户使用
-6. startup force
-    强制启动方式
-    当不能关闭数据库时，可以用startup force来完成数据库的关闭
-    先关闭数据库，再执行正常启动数据库命令
-7. startup pfile=参数文件名
-    带初始化参数文件的启动方式
-    先读取参数文件，再按参数文件中的设置启动数据库
-    例：startup pfile=E:\Oracle\admin\oradb\pfile\init.ora
-8. startup EXCLUSIVE
-</code></pre>
-<ol start="3">
-<li>关闭</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash# lsnrctl stop</span><br><span class="line">oracle&gt; shutdown immediate</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/07/20/oracle/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
