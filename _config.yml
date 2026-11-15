@@ -67,6 +67,22 @@ index_generator:
 default_category: uncategorized
 category_map:
 tag_map:
+  DB2: db2
+  CVE: cve
+  SysRq: sysrq
+  vLLM: vllm
+  X-FORWARDED-FOR: x-forwarded-for
+  'access control': access-control
+  'posix capabilities': posix-capabilities
+  'git key': git-key
+  'docker engine': docker-engine
+  'docker command': docker-command
+  'docker proxy': docker-proxy
+  'silent install': silent-install
+  ssh_tunnel: ssh-tunnel
+  issus: issues
+  games: game
+  cnf: conf
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta

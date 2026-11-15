@@ -9,6 +9,12 @@ local_search:
   # Preload the search data when the page loads.
   preload: false
 
+menu:
+  home: / || fa fa-home
+  archives: /archives/ || fa fa-archive
+  categories: /categories/ || fa fa-layer-group
+  tags: /tags/ || fa fa-tags
+
 sidebar:
   position: left
   display: post
