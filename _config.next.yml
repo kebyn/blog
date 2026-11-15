@@ -19,4 +19,7 @@ footer:
 
 post_navigation: left
 
+follow_me:
+  RSS: /atom.xml || fa fa-rss
+
 
