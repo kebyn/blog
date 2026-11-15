@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha256-4Lad8m4ZWW1Lgb9+sMVLYEfnIh7BjV1NQMEe79Pviks=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kebyn.cc","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.29.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="sys.stdout 加time可以写进度条百分百1234567for i in range(100):      # num +&#x3D; &quot;#&quot;      sys.stdout.write(&#x27;\r&#x27;)  ##意思是打印在清空      i1 &#x3D; i &#x2F; 100      sys.stdout.write(&quot;%s%% | %s&quot; % (int(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中常用模块">
+<meta property="og:url" content="https://kebyn.cc/2016/06/17/python_os/index.html">
+<meta property="og:site_name" content="觅回首">
+<meta property="og:description" content="sys.stdout 加time可以写进度条百分百1234567for i in range(100):      # num +&#x3D; &quot;#&quot;      sys.stdout.write(&#x27;\r&#x27;)  ##意思是打印在清空      i1 &#x3D; i &#x2F; 100      sys.stdout.write(&quot;%s%% | %s&quot; % (int(">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-17T04:12:52.000Z">
+<meta property="article:modified_time" content="2026-11-15T08:58:01.000Z">
+<meta property="article:author" content="By Kebyn">
+<meta property="article:tag" content="os">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="sys">
+<meta property="article:tag" content="进度条">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://kebyn.cc/2016/06/17/python_os/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kebyn.cc/2016/06/17/python_os/","path":"2016/06/17/python_os/","title":"Python中常用模块"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python中常用模块 | 觅回首</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="觅回首" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-search popup-trigger" aria-label="搜索" role="button">
+      <i class="fa fa-search fa-fw fa-lg"></i>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">觅回首</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-toggle" aria-label="切换导航栏" role="button">
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  
+  <template id="search-popup-template"><div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div></template>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#sys-stdout-%E5%8A%A0time%E5%8F%AF%E4%BB%A5%E5%86%99%E8%BF%9B%E5%BA%A6%E6%9D%A1%E7%99%BE%E5%88%86%E7%99%BE"><span class="nav-number">1.</span> <span class="nav-text">sys.stdout 加time可以写进度条百分百</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sys%E7%BB%93%E5%90%88os%EF%BC%8C%E6%8A%8A%E5%BD%93%E5%89%8D%E8%B7%AF%E5%BE%84%EF%BC%8C%E6%88%96%E8%80%85%E9%9C%80%E8%A6%81%E7%9A%84%E8%B7%AF%E5%BE%84%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%A8%A1%E5%9D%97%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="nav-number">2.</span> <span class="nav-text">sys结合os，把当前路径，或者需要的路径添加到模块搜索路径</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">By Kebyn</p>
+  <div class="site-description" itemprop="description">碎碎念</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/06/17/python_os/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python中常用模块 | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python中常用模块
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-06-17 12:12:52" itemprop="dateCreated datePublished" datetime="2016-06-17T12:12:52+08:00">2016-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h5 id="sys-stdout-加time可以写进度条百分百"><a href="#sys-stdout-加time可以写进度条百分百" class="headerlink" title="sys.stdout 加time可以写进度条百分百"></a>sys.stdout 加time可以写进度条百分百</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for i in range(100):  </span><br><span class="line">    # num += &quot;#&quot;  </span><br><span class="line">    sys.stdout.write(&#x27;\r&#x27;)  ##意思是打印在清空  </span><br><span class="line">    i1 = i / 100  </span><br><span class="line">    sys.stdout.write(&quot;%s%% | %s&quot; % (int(i1 * 100), int(i1 *100) * &quot;#&quot;))  </span><br><span class="line">    sys.stdout.flush()  </span><br><span class="line">    time.sleep(0.3)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h5 id="sys结合os，把当前路径，或者需要的路径添加到模块搜索路径"><a href="#sys结合os，把当前路径，或者需要的路径添加到模块搜索路径" class="headerlink" title="sys结合os，把当前路径，或者需要的路径添加到模块搜索路径"></a>sys结合os，把当前路径，或者需要的路径添加到模块搜索路径</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">path = sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__))))</span><br><span class="line"></span><br><span class="line">import sys  </span><br><span class="line">import os  </span><br><span class="line">a = os.path.dirname(__file__)  </span><br><span class="line">b = &#x27;bin&#x27;  </span><br><span class="line">c = os.path.join(a,b)  </span><br><span class="line">sys.path.append(c)  </span><br><span class="line">print(sys.path)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">sys.argv                            命令行参数list,第一个元素是程序员本事路径  </span><br><span class="line">sys.exit(n)                         退出程序，正常退出时exit(0)  </span><br><span class="line">sys.version                         获取python解释程序的版本信息  </span><br><span class="line">sys.maxint                          最大的int值（3.0取消）  </span><br><span class="line">sys.path                            返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值  </span><br><span class="line">sys.platform                        返回操作系统平台的名称  </span><br><span class="line">sys.stdout                          输出相关内容  </span><br><span class="line">sys.stdin                           输入相关内容</span><br><span class="line">os.getcwd()                         获取当前工作目录，即当前python脚本工作的目录路径  </span><br><span class="line">os.chdir(&quot;dirname&quot;)                 改变当前脚本工作目录，相当于shell下cd  </span><br><span class="line">os.curdir                           返回当前目录（&quot;.&quot;）  </span><br><span class="line">os.pardir                           获取当前目录的父目录字符串名（&quot;..&quot;）  </span><br><span class="line">os.makedir          </span><br><span class="line">os.makedirs(&#x27;dir1/dir2&#x27;)            可生成多成递归目录  </span><br><span class="line">os.removedirs(&#x27;dirname1&#x27;)           若目录为空，则删除，并递归到上一层目录，如若也为空，则删除，依此类推  </span><br><span class="line">os.mkdir(&#x27;dirname&#x27;)                 生成单级目录；相当于shell中mkdir dirname  </span><br><span class="line">os.rmdir(&#x27;dirname&#x27;)                 删除单级空目录，若目录不为空则无法删除，报错；相当于shell中的rmdir dirname  </span><br><span class="line">os.listdir(&#x27;dirname&#x27;)               列出指定目录下的所有文件和子目录，包括隐藏文件，并以列表方式打印  </span><br><span class="line">os.remove()                         删除一个文件  </span><br><span class="line">os.rename(&quot;oldname&quot;,&quot;new&quot;)          重命名文件/目录  </span><br><span class="line">os.stat(&#x27;path/filename&#x27;)            获取文件/目录信息  </span><br><span class="line">os.seq                              操作系统特定的路径分隔符，win下位&quot;\\&quot;,linux下位&quot;/&quot;   </span><br><span class="line">os.pathseq                          用于分割文件路径的字符串  </span><br><span class="line">os.name                             字符串指示当前使用平台。win-&gt;&#x27;nt&#x27;;linux-&gt;&#x27;posix&#x27;  </span><br><span class="line">os.system(&quot;bash command&quot;)           运行shell命令，直接显示  </span><br><span class="line">os.environ                          获取环境变量  </span><br><span class="line">os.path.abspath(path)               返回path规范化的绝对路径  </span><br><span class="line">os.path.split(path)                 将path分割和文件名二元组返回  </span><br><span class="line">os.path.dirname(path)               返回path的目录。其实就是os.path.split(path) 的第一元素  </span><br><span class="line">os.path.basename(path)              返回path最后的文件名。如果path以/或\结尾，那么就会返回空值。即os.path.split(path) 的第二个元素  </span><br><span class="line">os.path.exists(path)                如果path存在，返回True；如果path不存在，返回False  </span><br><span class="line">os.path.isabs(path)                 如果path是绝对路径，返回True  </span><br><span class="line">os.path.isfile(path)                如果path是一个存在的文件，返回True。否则返回False  </span><br><span class="line">os.path.isdir(path)                 如果path是一个存在的目录，则返回True。否则返回False  </span><br><span class="line">os.path.join(path1[,path2[,...]])   将多个路径组合后返回，第一个绝对路径之前的参数将被忽略  </span><br><span class="line">os.path.getatime(path)              返回path所指向的文件或者目录的最后存取时间  </span><br><span class="line">os.path.getmtime(path)              返回path所指向的文件或目录的最后修改时间  </span><br><span class="line">os.sep                              更改操作系统中的路径分隔符。  </span><br><span class="line">os.getcwd()                         获取当前路径，这个在Python代码中比较常用。  </span><br><span class="line">os.listdir()                        列出当前目录下的所有文件和文件夹。  </span><br><span class="line">os.remove()                         方法可以删除指定的文件。  </span><br><span class="line">os.system()                         方法用来运行shell命令。  </span><br><span class="line">os.chdir()                          改变当前目录，到指定目录中。</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E8%BF%9B%E5%BA%A6%E6%9D%A1/" rel="tag"># 进度条</a>
+              <a href="/tags/sys/" rel="tag"># sys</a>
+              <a href="/tags/os/" rel="tag"># os</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/05/17/worst_passwords/" rel="prev" title="worst-passwords">
+                  <i class="fa fa-angle-left"></i> worst-passwords
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/06/20/JAR_WAR_EAR/" rel="next" title="JAR_WAR_EAR">
+                  JAR_WAR_EAR <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">By Kebyn</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

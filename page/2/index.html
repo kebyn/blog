@@ -68,6 +68,7 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="觅回首" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -160,12 +161,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-count">89</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -182,6 +183,89 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/07/13/git_error/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="By Kebyn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="觅回首">
+      <meta itemprop="description" content="碎碎念">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 觅回首">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/07/13/git_error/" class="post-title-link" itemprop="url">git 添加 key</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-13 16:14:43" itemprop="dateCreated datePublished" datetime="2017-07-13T16:14:43+08:00">2017-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-add ~/.ssh/id_rsa.pub</span><br><span class="line">Could not open a connection to your authentication agent.</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/07/13/git_error/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -227,7 +311,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -244,14 +328,14 @@
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl">https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl</a></p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ cat cert.pem</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIDUzCCAjugAwIBAgIUc9s+2e+ABxNDunYGckzbCz+q4xMwDQYJKoZIhvcNAQEL</span><br><span class="line">BQAwOTEUMBIGA1UEAwwLZXhhbXBsZS5jb20xFDASBgNVBAoMC0V4YW1wbGUgT3Jn</span><br><span class="line">MQswCQYDVQQGEwJVUzAeFw0yNjExMTUwODA1MzNaFw0zNjExMTIwODA1MzNaMDkx</span><br><span class="line">FDASBgNVBAMMC2V4YW1wbGUuY29tMRQwEgYDVQQKDAtFeGFtcGxlIE9yZzELMAkG</span><br><span class="line">A1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC0GV/qb354</span><br><span class="line">zxZ8VFua2Tyb/Ox8lZNJSsG0XX2c3YELydHtEJyfHd72o/w/palCr2Rq2VxSX7dI</span><br><span class="line">XlkuuWlfILgUVjfw/MIujmMIenlP4CUMQwDrMhnEE7U36r0xfXdHUdPTd47PR8cc</span><br><span class="line">s+aXYHBlXPRc2EVVVBHY7SNAjZ0m2b8jZ9Vj9tYNBcAvHChi2iP5OsulPWQVxT4a</span><br><span class="line">jgJURfMrYrw6K16ktYumASHKUs4t0XQzCfzadaHM0HW91GjdbzZ9axc9Ta2uizvv</span><br><span class="line">RDc9iQ8bI29FRQN9Vtzmd0AV/HXioYdP78MwL6PPKFarAhpXNPpfxsB+sfUToyOR</span><br><span class="line">QIJ6/IqDfOsDAgMBAAGjUzBRMB0GA1UdDgQWBBR1YsIR8Wcaz3RRugV7NW50b4zb</span><br><span class="line">iDAfBgNVHSMEGDAWgBR1YsIR8Wcaz3RRugV7NW50b4zbiDAPBgNVHRMBAf8EBTAD</span><br><span class="line">AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA4hzddmPOKy2dfrlFLgwdxYgGBmWGpWPkR</span><br><span class="line">cSKvzx7flQt8ujMVStXw9GeBu0ajETR1kV791kUtgq043ixKDxcy9lvgm6pB9KmG</span><br><span class="line">XzBwrlYl+XLUdvNe4reomVgej7455ozIyAsKf90Pfvhj1ZPyaP6EsU6Ce+tJm0ZQ</span><br><span class="line">W4PJjJhsfVQzAUEhG89XdE1dovO2bT78FP21WHb9exwoZ2iAU1WbpxFIozx272Eh</span><br><span class="line">cMa98IUND1sVjrbkqNC3FqdvkL7Fgy0ciV94/Jc103Rkc8YL1Z4VM5u92mIMm65r</span><br><span class="line">+MjkPW0Ng+8b1iGUYdE/fxR3KjGk2bRwvKZL2KuZiaL+4LBJozOU</span><br><span class="line">-----END CERTIFICATE-----</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local http.sslCAInfo /path/cert.pem</span><br><span class="line">$ git config --local --unset http.sslCAInfo</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local http.sslVerify false #NO NEED TO USE THIS</span><br><span class="line">$ git config --local --unset http.sslverify</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Copy CA cert to &#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates.</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-ca-certificates</span><br><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/07/13/openssl_generate_certificate/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -313,7 +397,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -330,28 +414,14 @@
 <li>opevpn 服务器开启</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">port 1194</span><br><span class="line">proto udp</span><br><span class="line">dev tun</span><br><span class="line">ca ca.crt</span><br><span class="line">cert xxx.crt</span><br><span class="line">dh dh2048.pem</span><br><span class="line">server 10.8.0.0 255.255.255.0  //openvpnIP段</span><br><span class="line">ifconfig-pool-persist ipp.txt  //分配的地址记录在ipp.txt</span><br><span class="line">client-config-dir ccd  //个人单独配置文件</span><br><span class="line"></span><br><span class="line">client-to-client  //客户端可以互相连接</span><br><span class="line">keepalive 10 120</span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line">user nobody</span><br><span class="line">group nogroup</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">status /tmp/openvpn-status.log</span><br><span class="line">log         /tmp/openvpn.log</span><br><span class="line">verb 4</span><br><span class="line"></span><br><span class="line">mode server  //运行模式</span><br><span class="line">tls-server  //tls加密</span><br><span class="line">topology subnet  //使用服务端子网</span><br><span class="line">push &quot;topology subnet&quot;  //通知客户端使用子网</span><br><span class="line"></span><br><span class="line">auth-user-pass-verify /etc/openvpn/checkpsw.js via-env  //密码认证</span><br><span class="line">client-cert-not-required  //不认证证书</span><br><span class="line">username-as-common-name  //使用用户名区别不同用户</span><br><span class="line">script-security 3</span><br><span class="line"></span><br><span class="line">route 192.168.2.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.2.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br><span class="line">route 10.8.0.0 255.255.255.0 10.8.0.1  //使用这个子网</span><br><span class="line">push &quot;route 10.8.0.0 255.255.255.0&quot;  //通知客户端使用子网</span><br><span class="line">route 192.168.3.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.3.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>连接到openvpn服务器</li>
-</ol>
-<ul>
-<li>开启路由转发</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sudo iptables -A FORWARD -i eth0 -j ACCEPT</span><br><span class="line">sudo iptables -A FORWARD -i eth1 -j ACCEPT</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>配置路由<ul>
-<li>可以在路由器上配置全局路由</li>
-<li>下面是需要连接 openvpn 的单独配置<ul>
-<li>Windows 需要cmd 管理员窗口执行:<br>  <code>route add  10.8.0.0 mask 255.255.255.0 10.0.0.1</code></li>
-<li>Linux 需要sudo 权限执行:<br>  <code>ip route add 10.8.0.0/24 via 10.0.0.1</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>可以在各个网络出入口使用 tcpdump 抓包判断网络情况</p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/07/09/openvpn/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -413,7 +483,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -504,7 +574,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -517,64 +587,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <ol>
-<li>docker engine安装</li>
-</ol>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/#supported-platforms">docker install</a></li>
-<li><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-server-debian">debian install</a></li>
-<li><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-server-centos">centos install</a></li>
-<li><a target="_blank" rel="noopener" href="https://store.docker.com/editions/community/docker-ce-desktop-windows">windows install</a></li>
-</ul>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  curl -fsSL https://get.docker.com | bash</span><br><span class="line"></span><br><span class="line">  dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">  curl -s https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo</span><br><span class="line">  yum install -y docker-ce</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. docker官方文档</span><br><span class="line">  - [docker administrator guide](https://docs.docker.com/engine/admin/start-containers-automatically/#restart-policy-details)</span><br><span class="line">  - [docker user guide](https://docs.docker.com/engine/userguide/)</span><br><span class="line">  - [docker proxy](https://stackoverflow.com/questions/23111631/cannot-download-docker-images-behind-a-proxy)</span><br></pre></td></tr></table></figure>
-<pre><code>      $ cat /etc/docker/daemon.json
-        &#123;
-          &quot;registry-mirrors&quot;: [&quot;https://www.example.cc&quot;],
-          &quot;data-root&quot;: &quot;/data/docker&quot;,
-          &quot;proxies&quot;: &#123;
-            &quot;http-proxy&quot;: &quot;http://proxy.example.com:8080&quot;,
-            &quot;https-proxy&quot;: &quot;http://proxy.example.com:8080&quot;,
-            &quot;no-proxy&quot;: &quot;localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16&quot;
-          &#125;,
-          &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;],
-          &quot;log-driver&quot;: &quot;json-file&quot;,
-          &quot;log-opts&quot;: &#123;
-            &quot;max-size&quot;: &quot;100m&quot;,
-            &quot;max-file&quot;: &quot;3&quot;,
-            &quot;tag&quot;: &quot;&#123;&#123;.ImageName&#125;&#125;|&#123;&#123;.Name&#125;&#125;|&#123;&#123;.ImageFullID&#125;&#125;|&#123;&#123;.FullID&#125;&#125;&quot;
-          &#125;,
-          &quot;storage-driver&quot;: &quot;overlay2&quot;
-        &#125;
-      $ cat /etc/systemd/system/docker.service.d
-        Environment=&quot;HTTP_PROXY=http://proxy.example.com:8080&quot;
-        Environment=&quot;HTTPS_PROXY=http://proxy.example.com:8080&quot;
-        Environment=&quot;NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16&quot;
-      $ systemctl daemon-reload &amp;&amp; systemctl restart docker
-      $ systemctl show --property Environment docker
-        Environment=HTTP_PROXY=http://proxy.example.com:8080
-      <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- more--&gt;</span><br><span class="line">  - [docker command](https://docs.docker.com/engine/reference/run/)</span><br></pre></td></tr></table></figure>
-docker version/info/login
-docker run
-docker run -i -t
-docker pull/search/commit/push
-docker start/stop/kill/restart
-docker ps       正在运行的docker
-docker ps -a    所有的docker
-docker ps -l    最近运行的docker
-docker rm       删除docker
-docker images   列出image
-docker rmi     删除image
-docker rmi `docker images -f dangling=true -q`
-docker save/load
-
-docker network inspect bridge
-docker inspect ID/Name
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3. ~~docker-compose~~`docker compose` `v3`版本是`docker`的子命令</span><br><span class="line">  - [docker-compose command](https://docs.docker.com/compose/reference/overview/)</span><br><span class="line">  - [docker-compose install](https://github.com/docker/compose/releases)</span><br></pre></td></tr></table></figure>
-curl -L https://github.com/docker/compose/releases/download/1.14.0-rc2/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-```
-</code></pre>
-
+          <p>Docker 安装、代理与常用命令备忘。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/06/08/docker_instructions/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -636,7 +657,7 @@ chmod +x /usr/local/bin/docker-compose
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -752,7 +773,7 @@ chmod +x /usr/local/bin/docker-compose
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -839,7 +860,7 @@ chmod +x /usr/local/bin/docker-compose
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -928,7 +949,7 @@ chmod +x /usr/local/bin/docker-compose
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -996,7 +1017,7 @@ chmod +x /usr/local/bin/docker-compose
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/12/25/cdn_ip/">
+    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2017/01/10/bash_CVE-2014-6271/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1014,7 +1035,7 @@ chmod +x /usr/local/bin/docker-compose
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/25/cdn_ip/" class="post-title-link" itemprop="url">CDN中记录真实IP</a>
+          <a href="/2017/01/10/bash_CVE-2014-6271/" class="post-title-link" itemprop="url">BASH_CVE-2014-6271</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1025,14 +1046,14 @@ chmod +x /usr/local/bin/docker-compose
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2016-12-25 17:34:52" itemprop="dateCreated datePublished" datetime="2016-12-25T17:34:52+08:00">2016-12-25</time>
+      <time title="创建时间：2017-01-10 15:17:43" itemprop="dateCreated datePublished" datetime="2017-01-10T15:17:43+08:00">2017-01-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
+      <time title="修改时间：2026-11-15 16:58:01" itemprop="dateModified" datetime="2026-11-15T16:58:01+08:00">2026-11-15</time>
     </span>
 
   
@@ -1045,96 +1066,16 @@ chmod +x /usr/local/bin/docker-compose
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="使用CDN后在网页服务器日志中显示真实的用户IP地址"><a href="#使用CDN后在网页服务器日志中显示真实的用户IP地址" class="headerlink" title="使用CDN后在网页服务器日志中显示真实的用户IP地址"></a>使用CDN后在网页服务器日志中显示真实的用户IP地址</h4><h5 id="真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加-X-Forwarded-For-信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用-http-x-forwarded-for变量记录远程客户端的真实IP。格式如下："><a href="#真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加-X-Forwarded-For-信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用-http-x-forwarded-for变量记录远程客户端的真实IP。格式如下：" class="headerlink" title="真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加 X-Forwarded-For 信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用 $http_x_forwarded_for变量记录远程客户端的真实IP。格式如下："></a>真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加 X-Forwarded-For 信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用 $http_x_forwarded_for变量记录远程客户端的真实IP。格式如下：</h5><ol>
-<li>Nginx<br><code>&#39;$http_x_forwarded_for - $remote_user [$time_local] &quot;$request&quot; &#39; &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39; &#39;&quot;$http_user_agent&quot; &#39;;</code></li>
-<li>Apache<br><code>LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot;</code></li>
-</ol>
+          <p>很多人或许对上半年发生的安全问题“心脏流血”（Heartbleed Bug）事件记忆颇深，这两天，又出现了另外一个“毁灭级”的漏洞——Bash软件安全漏洞。这个漏洞由法国GNU&#x2F;Linux爱好者Stéphane Chazelas所发现。随后，美国电脑紧急应变中心（US-CERT）、红帽以及多家从事安全的公司于周三（北京时间9月24日）发出警告。 关于这个安全漏洞的细节可参看美国政府计算安全的这两个漏洞披露：CVE-2014-6271 和 CVE-2014-7169。</p>
+<p>这个漏洞其实是非常经典的“注入式攻击”，也就是可以向 bash注入一段命令，从bash1.14 到4.3都存在这样的漏洞。我们先来看一下这个安全问题的症状。</p>
+<h3 id="Shellshock-CVE-2014-6271"><a href="#Shellshock-CVE-2014-6271" class="headerlink" title="Shellshock (CVE-2014-6271)"></a>Shellshock (CVE-2014-6271)</h3><p>下面是一个简单的测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ env VAR=&#x27;() &#123; :;&#125;; echo Bash is vulnerable!&#x27; bash -c &quot;echo Bash Test&quot;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://kebyn.cc/2016/11/11/minecraft/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="By Kebyn">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="觅回首">
-      <meta itemprop="description" content="碎碎念">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 觅回首">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/11/11/minecraft/" class="post-title-link" itemprop="url">minecraft</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-11-11 15:17:43" itemprop="dateCreated datePublished" datetime="2016-11-11T15:17:43+08:00">2016-11-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-11-15 16:08:16" itemprop="dateModified" datetime="2026-11-15T16:08:16+08:00">2026-11-15</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://minecraft.net/static/theme/img/gif/menu-buy.gif" alt="MineCraft"></p>
-<hr>
-<h4 id="MineCraft官网购买链接"><a href="#MineCraft官网购买链接" class="headerlink" title="MineCraft官网购买链接"></a>MineCraft官网购买链接</h4><p><a target="_blank" rel="noopener" href="https://minecraft.net/zh-hans/store/minecraft">store</a></p>
-<h4 id="客户端下载"><a href="#客户端下载" class="headerlink" title="客户端下载"></a>客户端下载</h4><p><a target="_blank" rel="noopener" href="https://minecraft.net/zh-hans/download">client</a></p>
-<h4 id="服务器版本下载地址"><a href="#服务器版本下载地址" class="headerlink" title="服务器版本下载地址"></a>服务器版本下载地址</h4><p><a target="_blank" rel="noopener" href="https://minecraft.net/zh-hans/download/server">server</a></p>
-<h4 id="2016-10-04日解析地址："><a href="#2016-10-04日解析地址：" class="headerlink" title="2016&#x2F;10&#x2F;04日解析地址："></a>2016&#x2F;10&#x2F;04日解析地址：</h4><p><a target="_blank" rel="noopener" href="https://s3.amazonaws.com/Minecraft.Download/versions/1.10.2/minecraft_server.1.10.2.jar">minecraft_server.1.10.2.jar</a></p>
-<h4 id="2017-03-10日解析地址："><a href="#2017-03-10日解析地址：" class="headerlink" title="2017&#x2F;03&#x2F;10日解析地址："></a>2017&#x2F;03&#x2F;10日解析地址：</h4><p><a target="_blank" rel="noopener" href="https://s3.amazonaws.com/Minecraft.Download/versions/1.11.2/minecraft_server.1.11.2.jar">minecraft_server.1.11.2.jar</a></p>
-<h4 id="启动-startup"><a href="#启动-startup" class="headerlink" title="启动&#x2F;startup"></a>启动&#x2F;startup</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx1024M -Xms512M -jar minecraft_server.1.11.2.jar nogui</span><br></pre></td></tr></table></figure>
+<p>如果你发现上面这个命令在你的bash下有这样的输出，那你就说明你的bash是有漏洞的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Bash is vulnerable!</span><br><span class="line">Bash Test</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2016/11/11/minecraft/#more" rel="contents">
+              <a class="btn" href="/2017/01/10/bash_CVE-2014-6271/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1158,7 +1099,7 @@ chmod +x /usr/local/bin/docker-compose
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

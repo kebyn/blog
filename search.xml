@@ -193,21 +193,11 @@
       </tags>
   </entry>
   <entry>
-    <title>CDN中记录真实IP</title>
-    <url>/2016/12/25/cdn_ip/</url>
-    <content><![CDATA[<h4 id="使用CDN后在网页服务器日志中显示真实的用户IP地址"><a href="#使用CDN后在网页服务器日志中显示真实的用户IP地址" class="headerlink" title="使用CDN后在网页服务器日志中显示真实的用户IP地址"></a>使用CDN后在网页服务器日志中显示真实的用户IP地址</h4><h5 id="真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加-X-Forwarded-For-信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用-http-x-forwarded-for变量记录远程客户端的真实IP。格式如下："><a href="#真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加-X-Forwarded-For-信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用-http-x-forwarded-for变量记录远程客户端的真实IP。格式如下：" class="headerlink" title="真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加 X-Forwarded-For 信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用 $http_x_forwarded_for变量记录远程客户端的真实IP。格式如下："></a>真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加 X-Forwarded-For 信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用 $http_x_forwarded_for变量记录远程客户端的真实IP。格式如下：</h5><ol>
-<li>Nginx<br><code>&#39;$http_x_forwarded_for - $remote_user [$time_local] &quot;$request&quot; &#39; &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39; &#39;&quot;$http_user_agent&quot; &#39;;</code></li>
-<li>Apache<br><code>LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot;</code></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>X-FORWARDED-FOR</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>awk</title>
     <url>/2014/03/20/awk/</url>
     <content><![CDATA[<h3 id="awk是一种编程语言，用于在linux-unix下对文本和数据进行处理。"><a href="#awk是一种编程语言，用于在linux-unix下对文本和数据进行处理。" class="headerlink" title="awk是一种编程语言，用于在linux&#x2F;unix下对文本和数据进行处理。"></a>awk是一种编程语言，用于在linux&#x2F;unix下对文本和数据进行处理。</h3><p>#####数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是linux&#x2F;unix下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势。</p>
+<span id="more"></span>
+
 <h3 id="awk命令格式和选项"><a href="#awk命令格式和选项" class="headerlink" title="awk命令格式和选项"></a>awk命令格式和选项</h3><h4 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h4><pre><code>awk [options] &#39;script&#39; var=value file(s)
 awk [options] -f scriptfile var=value file(s)
 </code></pre>
@@ -415,9 +405,153 @@ Array[&quot;birth&quot;]=&quot;1987&quot;
       </tags>
   </entry>
   <entry>
+    <title>BASH_CVE-2014-6271</title>
+    <url>/2017/01/10/bash_CVE-2014-6271/</url>
+    <content><![CDATA[<p>很多人或许对上半年发生的安全问题“心脏流血”（Heartbleed Bug）事件记忆颇深，这两天，又出现了另外一个“毁灭级”的漏洞——Bash软件安全漏洞。这个漏洞由法国GNU&#x2F;Linux爱好者Stéphane Chazelas所发现。随后，美国电脑紧急应变中心（US-CERT）、红帽以及多家从事安全的公司于周三（北京时间9月24日）发出警告。 关于这个安全漏洞的细节可参看美国政府计算安全的这两个漏洞披露：CVE-2014-6271 和 CVE-2014-7169。</p>
+<p>这个漏洞其实是非常经典的“注入式攻击”，也就是可以向 bash注入一段命令，从bash1.14 到4.3都存在这样的漏洞。我们先来看一下这个安全问题的症状。</p>
+<h3 id="Shellshock-CVE-2014-6271"><a href="#Shellshock-CVE-2014-6271" class="headerlink" title="Shellshock (CVE-2014-6271)"></a>Shellshock (CVE-2014-6271)</h3><p>下面是一个简单的测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ env VAR=&#x27;() &#123; :;&#125;; echo Bash is vulnerable!&#x27; bash -c &quot;echo Bash Test&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如果你发现上面这个命令在你的bash下有这样的输出，那你就说明你的bash是有漏洞的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Bash is vulnerable!</span><br><span class="line">Bash Test</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>简单地看一下，其实就是向环境变量中注入了一段代码 echo Bash is vulnerable。关于其中的原理我会在后面给出。</p>
+<p>很快，CVE-2014-6271的官方补丁出来的了——Bash-4.3 Official Patch 25。</p>
+<p>AfterShock – CVE-2014-7169 （又叫Incomplete fix to Shellshock）<br>但随后，马上有人在Twitter上发贴——说这是一个不完整的fix，并给出了相关的攻击方法。</p>
+<p>也就是下面这段测试代码（注意，其中的sh在linux下等价于bash）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">env X=&#x27;() &#123; (a)=&gt;\&#x27; sh -c &quot;echo date&quot;; cat echo</span><br></pre></td></tr></table></figure>
+
+<p>上面这段代码运行起来会报错，但是它要的就是报错，报错后会在你在当前目录下生成一个echo的文件，这个文件的内容是一个时间文本。下面是上面 这段命令执行出来的样子。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ env X=&#x27;() &#123; (a)=&gt;\&#x27; sh -c &quot;echo date&quot;; cat echo</span><br><span class="line">sh: X: line 1: syntax error near unexpected token `=&#x27;</span><br><span class="line">sh: X: line 1: `&#x27;</span><br><span class="line">sh: error importing function definition for `X&#x27;</span><br><span class="line">Sat Sep 27 22:06:29 CST 2014</span><br></pre></td></tr></table></figure>
+
+<p>这段测试脚本代码相当的诡异，就像“天书”一样，我会在后面详细说明这段代码的原理。</p>
+<h5 id="原理和技术细节"><a href="#原理和技术细节" class="headerlink" title="原理和技术细节"></a>原理和技术细节</h5><p>要说清楚这个原理和细节，我们需要从 bash的环境变量开始说起。</p>
+<h5 id="bash的环境变量"><a href="#bash的环境变量" class="headerlink" title="bash的环境变量"></a>bash的环境变量</h5><p>环境变量大家知道吧，这个不用我普及了吧。环境变量是操作系统运行shell中的变量，很多程序会通过环境变量改变自己的执行行为。在bash中要定义一个环境变量的语法很简单（注：&#x3D;号的前后不能有空格）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ var=&quot;hello world&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后你就可以使用这个变量了，比如：echo $var什么的。但是，我们要知道，这个变量只是一个当前shell的“局部变量”，只在当前的shell进程中可以访问，这个shell进程fork出来的进程是访问不到的。</p>
+<p>你可以做这样的测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ var=&quot;hello coolshell&quot;</span><br><span class="line">$ echo $var</span><br><span class="line">hello coolshell</span><br><span class="line">$ bash</span><br><span class="line">$ echo $var</span><br></pre></td></tr></table></figure>
+
+<p>上面的测试中，第三个命令执行了一个bash，也就是开了一个bash的子进程，你就会发现var不能访问了。</p>
+<p>为了要让shell的子进程可以访问，我们需要export一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ export var=&quot;hello coolshell&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这样，这个环境变量就会在其子进程中可见了。</p>
+<p>如果你要查看一下有哪些环境变量可以在子进程中可见（也就是是否被export了），你可使用env命令。不过，env命令也可以用来定义export的环境变量。如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ env var=&quot;hello haoel&quot;</span><br></pre></td></tr></table></figure>
+
+<p>有了这些基础知识还不够，我们还要知道一个基础知识——shell的函数。</p>
+<h5 id="bash的函数"><a href="#bash的函数" class="headerlink" title="bash的函数"></a>bash的函数</h5><p>在bash下定义一个函数很简单，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ foo()&#123; echo &quot;hello coolshell&quot;; &#125;</span><br><span class="line">$ foo</span><br><span class="line">hello coolshell</span><br></pre></td></tr></table></figure>
+
+<p>有了上面的环境变量的基础知识后，你一定会想试试这个函数是否可以在子进程中调用，答案当然是不行的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ foo()&#123; echo &quot;hello coolshell&quot;; &#125;</span><br><span class="line">$ foo</span><br><span class="line">hello coolshell</span><br><span class="line">$ bash</span><br><span class="line">$ foo</span><br><span class="line">bash: foo: command not found</span><br></pre></td></tr></table></figure>
+
+<p>你看，和环境变量是一样的，如果要在子进程中可以访问的话，那么，还是一样的，需要export，export有个参数 -f，意思是export一个函数。如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ foo()&#123; echo &quot;hello coolshell&quot;; &#125;</span><br><span class="line">$ foo</span><br><span class="line">hello coolshell</span><br><span class="line">$ export -f foo</span><br><span class="line">$ bash</span><br><span class="line">$ foo</span><br><span class="line">hello coolshell</span><br></pre></td></tr></table></figure>
+
+<p>好了，我讲了这么半天的基础知识，别烦，懂了这些，你才会很容易地理解这两个漏洞是怎么回事。</p>
+<p>好，现在要进入正题。</p>
+<h5 id="bash的bug"><a href="#bash的bug" class="headerlink" title="bash的bug"></a>bash的bug</h5><p>从上面我们可以看到，bash的变量和函数用了一模一样的机制，如果你用env命令看一下export出来的东西，你会看到上面我们定义的变量和函数都在，如下所示（我省略了其它的环境变量）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ env</span><br><span class="line">var=hello coolshell</span><br><span class="line">foo=() &#123; echo &quot;hello coolshell&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原来，都用同样的方式啊——无论是函数还是变量都是变量啊。于是，看都不用看bash的源代码，聪明的黑客就能猜得到——bash判断一个环境变量是不是一个函数，就看它的值是否以”()”开始。于是，一股邪念涌上心头。</p>
+<p>黑客定义了这样的环境变量（注：() 和 { 间的空格不能少）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ export X=&#x27;() &#123; echo &quot;inside X&quot;; &#125;; echo &quot;outside X&quot;;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>env一下，你会看到X已经在了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ env</span><br><span class="line">X=()&#123; echo &quot;inside X&quot;; &#125;; echo &quot;outside X&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>然后，当我们在当前的bash shell进程下产生一个bash的子进程时，新的子进程会读取父进程的所有export的环境变量，并复制到自己的进程空间中，很明显，上面的X变量的函数的后面还注入了一条命令：echo “outside X”，这会在父进程向子进程复制的过程中被执行吗？（关于fork相关的东西你可以看一下我以前写的《fork的一个面试题》）</p>
+<p>答案是肯定的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ export X=&#x27;() &#123; echo &quot;inside X&quot;; &#125;; echo &quot;outside X&quot;;&#x27;</span><br><span class="line">$ bash</span><br><span class="line">outside X</span><br></pre></td></tr></table></figure>
+
+<p>你看，一个代码注入就这样完成了。这就是bash的bug—— 函数体外面的代码被默认地执行了。</p>
+<p>我们并不一定非要像上面那样创建另一个bash的子进程，我们可以使用bash -c的参数来执行一个bash子进程命令。就像这个安全漏洞的测试脚本一样：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">env VAR=&#x27;() &#123; :;&#125;; echo Bash is vulnerable!&#x27; bash -c &quot;echo Bash Test&quot;</span><br></pre></td></tr></table></figure>
+
+<p>其中，() { :;} 中的冒号就相当于&#x2F;bin&#x2F;true，返回true并退出。而bash -c其实就是在spawn一个bash的echo的子进程，用于触发函数体外的echo命令。所以，更为友好一点的测试脚本应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">env VAR=&#x27;() &#123; :;&#125;; echo Bash is vulnerable!&#x27; bash -c &quot;echo </span><br></pre></td></tr></table></figure>
+
+<p>如果你看到了vulnerable字样说明你的bash有安全问题”<br>OK，你应该明白这个漏洞是怎么一回事了吧。</p>
+<h5 id="bash漏洞的影响有多大"><a href="#bash漏洞的影响有多大" class="headerlink" title="bash漏洞的影响有多大"></a>bash漏洞的影响有多大</h5><p>在网上看到好多人说这个漏洞不大，还说这个事只有那些陈旧的执行CGI脚本的网站才会有，现在已经没有网站用CGI了。我靠，这真是无知者无畏啊。</p>
+<p>我举个例子，如果你的网站中有调用操作系统的shell命令，比如你用PHP执行个exec之类的东西。这样的需求是有的，特别是对于一些需要和操作系统交互的重要的后台用于系统管理的程序。于是就会开一个bash的进程来执行。</p>
+<p>我们还知道，现在的HTTP服务器基本上都是以子进程式的，所以，其中必然会存在export 一些环境变量的事，而有的环境变量的值是从用户端来的，比如：HTTP_USER_AGENT这样的环境变量，只由浏览器发出的。其实这个变量你想写成什么就写成什么。</p>
+<p>于是，我可以把这个HTTP_USER_AGENT的环境变量设置成上述的测试脚本，只不过，我会把echo Bash is vulnerable!这个东西换成别的更为凶残的命令。呵呵。</p>
+<p>关于这个漏洞会影响哪些已有的系统，你可以自己Google，几乎所有的报告这个漏洞的文章都说了（比如：这篇，这篇），我这里就不复述了。</p>
+<p>注：如果你要看看你的网站有没有这样的问题，你可以用这个在线工具测试一下：<a href="http://shellshock.brandonpotter.com/">‘ShellShock’ Bash Vulnerability CVE-2014-6271 Test Tool</a>。</p>
+<p>现在，你知道这事可能会很大了吧。还不赶快去打补丁。（注，yum update bash 把bash版本升级到 4.1.2-15.el6_5.2 ， ）</p>
+<p>关于 AfterShock – CVE-2014-7169 测试脚本的解释<br>很多同学没有看懂下面这个测试脚本是什么意思，我这里解释一下。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">env X=&#x27;() &#123; (a)=&gt;\&#x27; sh -c &quot;echo date&quot;; cat echo</span><br></pre></td></tr></table></figure>
+
+<p>X&#x3D;’() { (a)&#x3D;&gt;\’ 这个不用说了，定义一个X的环境变量。但是，这个函数不完整啊，是的，这是故意的。另外你一定要注意，\’不是为了单引号的转义，X这个变量的值就是 () { (a)&#x3D;&gt;\<br>其中的 (a)&#x3D;这个东西目的就是为了让bash的解释器出错（语法错误）。<br>语法出错后，在缓冲区中就会只剩下了 “&gt;\”这两个字符。<br>于是，这个神奇的bash会把后面的命令echo date换个行放到这个缓冲区中，然后执行。<br>相当于在shell 下执行了下面这个命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ &gt;\</span><br><span class="line">echo date</span><br></pre></td></tr></table></figure>
+
+<p>如果你了解bash，你会知道 \ 是用于命令行上换行的，于是相当于执行了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ &gt;echo date</span><br></pre></td></tr></table></figure>
+
+<p>这不就是一个重定向么？上述的命令相当于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ date &gt; echo</span><br></pre></td></tr></table></figure>
+
+<p>于是，你的当前目录下会出现一个echo的文件，这个文件的内容就是date命令的输出。</p>
+<p>能发现这个种玩法的人真是个变态，完全是为bash的源代码量身定制的一个攻击。</p>
+]]></content>
+      <tags>
+        <tag>command</tag>
+        <tag>CVE</tag>
+        <tag>bash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言写入文件简易应用</title>
+    <url>/2014/03/25/c_1/</url>
+    <content><![CDATA[<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>输入文件名后创建c文件，并用vc6打开c文件</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">int main ()</span><br><span class="line">&#123;</span><br><span class="line">        FILE*fp;</span><br><span class="line">        char ch ,filename[256];</span><br><span class="line">        printf(&quot;filename:&quot;);</span><br><span class="line">        scanf(&quot;%s&quot;,filename);</span><br><span class="line">        strcat(filename,&quot;.c&quot;);</span><br><span class="line">        if ((fp=fopen(filename,&quot;w&quot;)) == NULL)</span><br><span class="line">        &#123;</span><br><span class="line">                printf (&quot;erro\n&quot;);</span><br><span class="line">                return 0;</span><br><span class="line">                exit (0);</span><br><span class="line">        &#125;</span><br><span class="line">        ch=getchar();</span><br><span class="line">        printf(&quot;EOF for #\n&quot;);</span><br><span class="line">        ch=getchar();</span><br><span class="line">        if(ch != &#x27;\n&#x27;)</span><br><span class="line">        &#123;</span><br><span class="line">        while(ch != &#x27;#&#x27;)</span><br><span class="line">        &#123;</span><br><span class="line">                fputc(ch,fp);</span><br><span class="line">//    			putchar(ch);</span><br><span class="line">                ch=getchar();</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        fclose(fp);</span><br><span class="line">        putchar(256);</span><br><span class="line">		ShellExecute(NULL,&quot;open&quot;,filename,&quot;D:/VC98/Bin/MSDEV.EXE&quot;,NULL,SW_SHOWNORMAL);</span><br><span class="line"> return 0;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>c</tag>
+        <tag>vc6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言连接数据库</title>
+    <url>/2016/10/16/c_mysql/</url>
+    <content><![CDATA[<h4 id="c语言连接数据库执行sql语句"><a href="#c语言连接数据库执行sql语句" class="headerlink" title="c语言连接数据库执行sql语句"></a>c语言连接数据库执行sql语句</h4><span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#if defined(_WIN32) || defined(_WIN64)  //为了支持windows平台上的编译</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#endif</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &quot;mysql.h&quot;</span><br><span class="line"> </span><br><span class="line">#define SELECT_QUERY &quot;select username from tbb_user where userid = %d&quot;</span><br><span class="line"> </span><br><span class="line">int main(int argc, char **argv) //char **argv 相当于 char *argv[]</span><br><span class="line">&#123;</span><br><span class="line">    MYSQL mysql,*sock;    //定义数据库连接的句柄，它被用于几乎所有的MySQL函数</span><br><span class="line">    MYSQL_RES *res;       //查询结果集，结构类型</span><br><span class="line">    MYSQL_FIELD *fd ;     //包含字段信息的结构</span><br><span class="line">    MYSQL_ROW row ;       //存放一行查询结果的字符串数组</span><br><span class="line">    char  qbuf[160];      //存放查询sql语句字符串</span><br><span class="line">    </span><br><span class="line">    if (argc != 2) &#123;  //检查输入参数</span><br><span class="line">        fprintf(stderr,&quot;usage : mysql_select &lt;userid&gt;\n\n&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mysql_init(&amp;mysql);</span><br><span class="line">    if (!(sock = mysql_real_connect(&amp;mysql,&quot;localhost&quot;,&quot;dbuser&quot;,&quot;dbpwd&quot;,&quot;9tmd_bbs_utf8&quot;,0,NULL,0))) &#123;</span><br><span class="line">        fprintf(stderr,&quot;Couldn&#x27;t connect to engine!\n%s\n\n&quot;,mysql_error(&amp;mysql));</span><br><span class="line">        perror(&quot;&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    sprintf(qbuf,SELECT_QUERY,atoi(argv[1]));</span><br><span class="line">    if(mysql_query(sock,qbuf)) &#123;</span><br><span class="line">        fprintf(stderr,&quot;Query failed (%s)\n&quot;,mysql_error(sock));</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (!(res=mysql_store_result(sock))) &#123;</span><br><span class="line">        fprintf(stderr,&quot;Couldn&#x27;t get result from %s\n&quot;, mysql_error(sock));</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    printf(&quot;number of fields returned: %d\n&quot;,mysql_num_fields(res));</span><br><span class="line">        </span><br><span class="line">    while (row = mysql_fetch_row(res)) &#123;</span><br><span class="line">        printf(&quot;Ther userid #%d &#x27;s username is: %s\n&quot;, atoi(argv[1]),(((row[0]==NULL)&amp;&amp;(!strlen(row[0]))) ? &quot;NULL&quot; : row[0])) ; </span><br><span class="line">        puts( &quot;query ok !\n&quot; ) ; </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    mysql_free_result(res);</span><br><span class="line">    mysql_close(sock);</span><br><span class="line">    exit(0);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>c</tag>
+        <tag>database</tag>
+        <tag>mysql</tag>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CDN中记录真实IP</title>
+    <url>/2016/12/25/cdn_ip/</url>
+    <content><![CDATA[<h4 id="使用CDN后在网页服务器日志中显示真实的用户IP地址"><a href="#使用CDN后在网页服务器日志中显示真实的用户IP地址" class="headerlink" title="使用CDN后在网页服务器日志中显示真实的用户IP地址"></a>使用CDN后在网页服务器日志中显示真实的用户IP地址</h4><h5 id="真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加-X-Forwarded-For-信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用-http-x-forwarded-for变量记录远程客户端的真实IP。格式如下："><a href="#真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加-X-Forwarded-For-信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用-http-x-forwarded-for变量记录远程客户端的真实IP。格式如下：" class="headerlink" title="真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加 X-Forwarded-For 信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用 $http_x_forwarded_for变量记录远程客户端的真实IP。格式如下："></a>真实IP：为解决这个问题，可以通过在云加速转发的HTTP头信息中增加 X-Forwarded-For 信息，用于记录客户端的真实IP，这时web服务器的日志就可以使用 $http_x_forwarded_for变量记录远程客户端的真实IP。格式如下：</h5><span id="more"></span>
+
+<ol>
+<li>Nginx<br><code>&#39;$http_x_forwarded_for - $remote_user [$time_local] &quot;$request&quot; &#39; &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39; &#39;&quot;$http_user_agent&quot; &#39;;</code></li>
+<li>Apache<br><code>LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot;</code></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>X-FORWARDED-FOR</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>串口调试</title>
     <url>/2017/08/09/com/</url>
-    <content><![CDATA[<h3 id="Linux下调试串口服务器的命令"><a href="#Linux下调试串口服务器的命令" class="headerlink" title="Linux下调试串口服务器的命令"></a>Linux下调试串口服务器的命令</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">minicom -D /dev/ttyUSB0 -H -w -o</span><br><span class="line"></span><br><span class="line">  - -D 指定串口设备</span><br><span class="line"></span><br><span class="line">  - -H 使用16进制输出</span><br><span class="line"></span><br><span class="line">  - -w 滚屏输出</span><br><span class="line"></span><br><span class="line">  - -o 不对设备进行初始化</span><br><span class="line"></span><br><span class="line">  - -c on/off 输出开启颜色</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h3 id="Linux下调试串口服务器的命令"><a href="#Linux下调试串口服务器的命令" class="headerlink" title="Linux下调试串口服务器的命令"></a>Linux下调试串口服务器的命令</h3><span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">minicom -D /dev/ttyUSB0 -H -w -o</span><br><span class="line"></span><br><span class="line">  - -D 指定串口设备</span><br><span class="line"></span><br><span class="line">  - -H 使用16进制输出</span><br><span class="line"></span><br><span class="line">  - -w 滚屏输出</span><br><span class="line"></span><br><span class="line">  - -o 不对设备进行初始化</span><br><span class="line"></span><br><span class="line">  - -c on/off 输出开启颜色</span><br></pre></td></tr></table></figure>
 <h3 id="Windows-下调试串口服务器的软件"><a href="#Windows-下调试串口服务器的软件" class="headerlink" title="Windows 下调试串口服务器的软件"></a>Windows 下调试串口服务器的软件</h3><ul>
 <li><a href="https://github.com/movsb/common">common</a></li>
 </ul>
@@ -492,14 +626,17 @@ Array[&quot;birth&quot;]=&quot;1987&quot;
       <tags>
         <tag>command</tag>
         <tag>database</tag>
-        <tag>DB2</tag>
         <tag>sql</tag>
+        <tag>DB2</tag>
       </tags>
   </entry>
   <entry>
     <title>docker</title>
     <url>/2017/06/08/docker_instructions/</url>
-    <content><![CDATA[<ol>
+    <content><![CDATA[<p>Docker 安装、代理与常用命令备忘。</p>
+<span id="more"></span>
+
+<ol>
 <li>docker engine安装</li>
 </ol>
 <ul>
@@ -571,6 +708,8 @@ chmod +x /usr/local/bin/docker-compose
     <content><![CDATA[<h1 id="Harbor-Docker-镜像加速器"><a href="#Harbor-Docker-镜像加速器" class="headerlink" title="Harbor Docker 镜像加速器"></a>Harbor Docker 镜像加速器</h1><blockquote>
 <p><a href="https://github.com/goharbor/harbor/blob/main/contrib/Configure_mirror.md">https://github.com/goharbor/harbor/blob/main/contrib/Configure_mirror.md</a></p>
 </blockquote>
+<span id="more"></span>
+
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">storage:</span><br><span class="line">  filesystem:</span><br><span class="line">    rootdirectory: /var/lib/registry</span><br><span class="line">    # rootdirectory: /var/lib/registry-ghcr</span><br><span class="line"></span><br><span class="line">proxy:</span><br><span class="line">  remoteurl: https://registry-1.docker.io</span><br><span class="line">  # remoteurl: https://ghcr.io</span><br><span class="line">  username: $USERNAME</span><br><span class="line"></span><br><span class="line">http:</span><br><span class="line">  addr: 192.168.128.1:5000</span><br><span class="line">  # addr: 192.168.128.1:5001</span><br><span class="line"></span><br><span class="line">storage_service:</span><br><span class="line">  s3:</span><br><span class="line">    accesskey: xxxxxxx</span><br><span class="line">    secretkey: xxxxxxx</span><br><span class="line">    bucket: some-docker-registry</span><br><span class="line">    regionendpoint: https://s3.xxx.com</span><br><span class="line">    region: default</span><br><span class="line">    v4auth: false</span><br><span class="line">    chunksize: 5242880  #分段上传（由 WriteStream 执行）到 S3 的默认分段大小。</span><br><span class="line">    multipartcopychunksize: 33554432</span><br><span class="line">    multipartcopymaxconcurrency: 100</span><br><span class="line">    multipartcopythresholdsize: 33554432 #这个值需要调大，最大5G</span><br><span class="line">    rootdirectory: /</span><br><span class="line"> redirect:</span><br><span class="line">    disabled: true</span><br></pre></td></tr></table></figure>
 
 <h1 id="Docker-registry"><a href="#Docker-registry" class="headerlink" title="Docker registry"></a>Docker registry</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version: 0.1</span><br><span class="line">log:</span><br><span class="line">  fields:</span><br><span class="line">    service: registry</span><br><span class="line"># storage:</span><br><span class="line">#   cache:</span><br><span class="line">#     blobdescriptor: inmemory</span><br><span class="line">#   filesystem:</span><br><span class="line">#     rootdirectory: /var/lib/registry</span><br><span class="line">storage:</span><br><span class="line">  s3:</span><br><span class="line">    accesskey: XXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">    secretkey: YYYYYYYYYYYYYYYYYYYYYYYYY</span><br><span class="line">    region: us-west-1</span><br><span class="line">    bucket: my-docker-registry</span><br><span class="line">    secure: true</span><br><span class="line">    v4auth: true</span><br><span class="line">    chunksize: 5242880</span><br><span class="line">  cache:</span><br><span class="line">    blobdescriptor: inmemory</span><br><span class="line">  maintenance:</span><br><span class="line">    uploadpurging:</span><br><span class="line">      enabled: true</span><br><span class="line">      age: 168h</span><br><span class="line">      interval: 24h</span><br><span class="line">      dryrun: false</span><br><span class="line">    </span><br><span class="line">http:</span><br><span class="line">  addr: 0.0.0.0:5000</span><br><span class="line">  headers:</span><br><span class="line">    X-Content-Type-Options: [nosniff]</span><br><span class="line">health:</span><br><span class="line">  storagedriver:</span><br><span class="line">    enabled: true</span><br><span class="line">    interval: 10s</span><br><span class="line">    threshold: 3</span><br><span class="line">proxy:</span><br><span class="line">  remoteurl: https://registry-1.docker.io</span><br><span class="line">delete:</span><br><span class="line">  enabled: true</span><br><span class="line">maintenance:</span><br><span class="line">  uploadpurging:</span><br><span class="line">    enabled: true</span><br><span class="line">    age: 24h</span><br><span class="line">    interval: 1h</span><br><span class="line">    dryrun: false</span><br><span class="line">  readonly:</span><br><span class="line">    enabled: false</span><br></pre></td></tr></table></figure>]]></content>
@@ -777,6 +916,8 @@ find . -name &quot;*.txt&quot; -o -name &quot;*.pdf&quot;
     <title>git 添加 key</title>
     <url>/2017/07/13/git_error/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh-add ~/.ssh/id_rsa.pub</span><br><span class="line">Could not open a connection to your authentication agent.</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
 <p>You might need to start ssh-agent before you run the ssh-add command:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">eval `ssh-agent -s`</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">ssh -Tv git@github.com</span><br></pre></td></tr></table></figure>
@@ -880,6 +1021,26 @@ b
       </tags>
   </entry>
   <entry>
+    <title>HuggingFace 模型下载</title>
+    <url>/2025/11/11/huggingface_model_download/</url>
+    <content><![CDATA[<p>使用 <code>huggingface-cli</code>、镜像站和 Docker 下载模型。</p>
+<span id="more"></span>
+
+<h1 id="huggingface-cli"><a href="#huggingface-cli" class="headerlink" title="huggingface-cli"></a>huggingface-cli</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 使用 docker 环境</span><br><span class="line">$ docker run --name huggingface --rm -it -v /data/:/data/ -v /root:/root python bash</span><br><span class="line"></span><br><span class="line"># 使用代理下载</span><br><span class="line"># export http_proxy=http://proxy.example.com:8080 https_proxy=http://proxy.example.com:8080</span><br><span class="line"></span><br><span class="line"># 使用 modelscope 替换 huggingface-cli 命令</span><br><span class="line"># modelscope download --local-dir /data/DeepSeek-V3/v1/ deepseek-ai/DeepSeek-V3</span><br><span class="line"></span><br><span class="line"># 使用 hf-mirror.com 镜像下载</span><br><span class="line">export HF_ENDPOINT=https://hf-mirror.com</span><br><span class="line"># export HF_ENDPOINT=https://aifasthub.com</span><br><span class="line"># 启用 rust 模块进行快速下载，会停用多线程下载，经过测试，速度会稍有提升</span><br><span class="line">export HF_HUB_ENABLE_HF_TRANSFER=1</span><br><span class="line"></span><br><span class="line"># 下载 model</span><br><span class="line">huggingface-cli download --local-dir /data/DeepSeek-V3/v1/ deepseek-ai/DeepSeek-V3</span><br><span class="line"></span><br><span class="line"># 下载指定目录</span><br><span class="line">huggingface-cli download unsloth/DeepSeek-V3-GGUF --include &quot;DeepSeek-V3-Q4_K_M*&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="modelexpress"><a href="#modelexpress" class="headerlink" title="modelexpress"></a>modelexpress</h1><blockquote>
+<p><a href="https://github.com/ai-dynamo/modelexpress">https://github.com/ai-dynamo/modelexpress</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ./modelexpress-server -h</span><br><span class="line">High-performance gRPC server for model serving and management</span><br><span class="line"></span><br><span class="line">Usage: modelexpress-server [OPTIONS]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -c, --config &lt;FILE&gt;</span><br><span class="line">          Configuration file path</span><br><span class="line">  -p, --port &lt;PORT&gt;</span><br><span class="line">          Server port [env: MODEL_EXPRESS_SERVER_PORT=8000]</span><br><span class="line">      --host &lt;HOST&gt;</span><br><span class="line">          Server host address [env: MODEL_EXPRESS_SERVER_HOST=]</span><br><span class="line">  -l, --log-level &lt;LOG_LEVEL&gt;</span><br><span class="line">          Log level [env: MODEL_EXPRESS_LOG_LEVEL=info] [possible values: trace, debug, info, warn, error]</span><br><span class="line">      --log-format &lt;LOG_FORMAT&gt;</span><br><span class="line">          Log format [env: MODEL_EXPRESS_LOG_FORMAT=] [possible values: json, pretty, compact]</span><br><span class="line">  -d, --database-path &lt;DATABASE_PATH&gt;</span><br><span class="line">          Database file path [env: MODEL_EXPRESS_DATABASE_PATH=/app/models.db]</span><br><span class="line">      --cache-directory &lt;CACHE_DIRECTORY&gt;</span><br><span class="line">          Cache directory path [env: MODEL_EXPRESS_CACHE_DIRECTORY=/app/cache]</span><br><span class="line">      --cache-eviction-enabled &lt;CACHE_EVICTION_ENABLED&gt;</span><br><span class="line">          Enable cache eviction [env: MODEL_EXPRESS_CACHE_EVICTION_ENABLED=] [possible values: true, false]</span><br><span class="line">      --validate-config</span><br><span class="line">          Validate configuration and exit</span><br><span class="line">  -h, --help</span><br><span class="line">          Print help</span><br><span class="line">  -V, --version</span><br><span class="line">          Print version</span><br><span class="line"></span><br><span class="line"># ./model-express-cli --endpoint http://localhost:8000 -h</span><br><span class="line">A CLI tool for interacting with ModelExpress server</span><br><span class="line"></span><br><span class="line">Usage: model-express-cli [OPTIONS] &lt;COMMAND&gt;</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  health  Check server health and status</span><br><span class="line">  model   Model management operations (download, list, clear, validate, etc.)</span><br><span class="line">  api     Send general API requests</span><br><span class="line">  help    Print this message or the help of the given subcommand(s)</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -e, --endpoint &lt;ENDPOINT&gt;  Server endpoint (can also be set via MODEL_EXPRESS_ENDPOINT env var) [env: MODEL_EXPRESS_ENDPOINT=] [default: http://localhost:8001]</span><br><span class="line">  -t, --timeout &lt;TIMEOUT&gt;    Request timeout in seconds [default: 30]</span><br><span class="line">  -f, --format &lt;FORMAT&gt;      Output format [default: human] [possible values: human, json, json-pretty]</span><br><span class="line">  -v...                      Verbose mode (-v for info, -vv for debug, -vvv for trace)</span><br><span class="line">  -q, --quiet                Quiet mode (suppress all output except errors)</span><br><span class="line">      --cache-path &lt;PATH&gt;    Cache path override</span><br><span class="line">  -h, --help                 Print help (see more with &#x27;--help&#x27;)</span><br><span class="line">  -V, --version              Print version</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ./model-express-cli --endpoint http://localhost:8000 help model</span><br><span class="line">Model management operations (download, list, clear, validate, etc.)</span><br><span class="line"></span><br><span class="line">Usage: model-express-cli model &lt;COMMAND&gt;</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  download   Download a model with various strategies (automatically cached)</span><br><span class="line">  init       Initialize model storage configuration</span><br><span class="line">  list       List downloaded models</span><br><span class="line">  status     Show model storage status and usage</span><br><span class="line">  clear      Clear specific model from storage</span><br><span class="line">  clear-all  Clear all models from storage</span><br><span class="line">  validate   Validate model integrity</span><br><span class="line">  stats      Show model storage statistics</span><br><span class="line">  help       Print this message or the help of the given subcommand(s)</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -h, --help  Print help</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>docker</tag>
+        <tag>huggingface</tag>
+        <tag>model</tag>
+        <tag>download</tag>
+        <tag>vllm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>自动发现JAVA路径的BASH脚本</title>
     <url>/2016/06/23/java_bash/</url>
     <content><![CDATA[<h4 id="自动识别JAVA路径"><a href="#自动识别JAVA路径" class="headerlink" title="自动识别JAVA路径"></a>自动识别JAVA路径</h4><span id="more"></span>
@@ -899,6 +1060,8 @@ b
 </blockquote>
 <h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>在 Linux 系统中，传统上有两种主要的权限提升机制：SUID（设置用户 ID）和 SGID（设置组 ID）。这些机制允许用户在执行特定二进制文件时临时获得文件所有者或组的权限，通常是 root 用户。然而，这种方法存在安全风险，因为它授予了过多的权限，可能导致系统被滥用。<br>为了解决这些问题，Linux 引入了 POSIX 能力（Capabilities）机制。该机制允许将 root 用户的权限划分为更小、更具体的单元，这些单元可以单独分配给进程。这种方法提高了系统的安全性，因为它允许仅授予进程所需的最低权限，从而减少了潜在的攻击面。</p>
 <p>Capabilities是 Linux 中的一种细粒度访问控制机制，允许比传统超级用户 ( root) 模型更精细的权限。权能将通常与 root 用户关联的权限划分为不同的单元，这些单元可以针对不同的进程单独启用或禁用。这使得权限管理更加安全可控。</p>
+<span id="more"></span>
+
 <p>例如，某个进程可能需要绑定到特权端口的权限，但不需要任何其他提升的权限。通过使用能力，系统管理员可以更好地控制进程的权限，从而减少潜在的安全风险。<br>要了解我们的 Linux 主机知道多少功能，我们可以查询目录cap_last_cap内的文件&#x2F;proc：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># cat /proc/sys/kernel/cap_last_cap</span><br><span class="line">40</span><br></pre></td></tr></table></figure>
 <p>该capsh –print命令显示 shell 或调用该命令的进程的当前功能及相关设置。在我们的 Linux 主机上执行此命令时，我们可以看到完整的功能列表。</p>
@@ -1040,15 +1203,18 @@ b
       <tags>
         <tag>conf</tag>
         <tag>database</tag>
-        <tag>script</tag>
         <tag>mysql</tag>
+        <tag>script</tag>
         <tag>password</tag>
       </tags>
   </entry>
   <entry>
     <title>ngrok server 简单部署</title>
     <url>/2017/12/10/ngrok_generate/</url>
-    <content><![CDATA[<ul>
+    <content><![CDATA[<p>ngrok 服务端部署与证书配置备忘。</p>
+<span id="more"></span>
+
+<ul>
 <li><a href="https://github.com/inconshreveable/ngrok/releases">ngrok下载</a></li>
 <li>生成网站证书</li>
 </ul>
@@ -1078,6 +1244,8 @@ b
 <li>Unpack it.</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tar –xvzf Ocsinventory-Agent-2.0.x.tar.gz</span><br><span class="line">cd Ocsinventory-Agent-2.0.x</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
 <ol start="2">
 <li>Check perl configuration with the script Makefile.PL. Its looks at the configuration of Perl, machine, libraries … and it generates the Makefile. During this step, we will create a temporary environment variable to install agent non-interactively.</li>
 </ol>
@@ -1156,24 +1324,10 @@ b
 </ol>
 ]]></content>
       <tags>
+        <tag>CVE</tag>
         <tag>openssh</tag>
         <tag>openssl</tag>
-        <tag>CVE</tag>
         <tag>dropbear</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>grep</title>
-    <url>/2015/02/06/huggingface_model_download/</url>
-    <content><![CDATA[<h1 id="huggingface-cli"><a href="#huggingface-cli" class="headerlink" title="huggingface-cli"></a>huggingface-cli</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 使用 docker 环境</span><br><span class="line">$ docker run --name huggingface --rm -it -v /data/:/data/ -v /root:/root python bash</span><br><span class="line"></span><br><span class="line"># 使用代理下载</span><br><span class="line"># export http_proxy=http://proxy.example.com:8080 https_proxy=http://proxy.example.com:8080</span><br><span class="line"></span><br><span class="line"># 使用 modelscope 替换 huggingface-cli 命令</span><br><span class="line"># modelscope download --local-dir /data/DeepSeek-V3/v1/ deepseek-ai/DeepSeek-V3</span><br><span class="line"></span><br><span class="line"># 使用 hf-mirror.com 镜像下载</span><br><span class="line">export HF_ENDPOINT=https://hf-mirror.com</span><br><span class="line"># export HF_ENDPOINT=https://aifasthub.com</span><br><span class="line"># 启用 rust 模块进行快速下载，会停用多线程下载，经过测试，速度会稍有提升</span><br><span class="line">export HF_HUB_ENABLE_HF_TRANSFER=1</span><br><span class="line"></span><br><span class="line"># 下载 model</span><br><span class="line">huggingface-cli download --local-dir /data/DeepSeek-V3/v1/ deepseek-ai/DeepSeek-V3</span><br><span class="line"></span><br><span class="line"># 下载指定目录</span><br><span class="line">huggingface-cli download unsloth/DeepSeek-V3-GGUF --include &quot;DeepSeek-V3-Q4_K_M*&quot;</span><br></pre></td></tr></table></figure>
-
-<h1 id="modelexpress"><a href="#modelexpress" class="headerlink" title="modelexpress"></a>modelexpress</h1><blockquote>
-<p><a href="https://github.com/ai-dynamo/modelexpress">https://github.com/ai-dynamo/modelexpress</a></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ./modelexpress-server -h</span><br><span class="line">High-performance gRPC server for model serving and management</span><br><span class="line"></span><br><span class="line">Usage: modelexpress-server [OPTIONS]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -c, --config &lt;FILE&gt;</span><br><span class="line">          Configuration file path</span><br><span class="line">  -p, --port &lt;PORT&gt;</span><br><span class="line">          Server port [env: MODEL_EXPRESS_SERVER_PORT=8000]</span><br><span class="line">      --host &lt;HOST&gt;</span><br><span class="line">          Server host address [env: MODEL_EXPRESS_SERVER_HOST=]</span><br><span class="line">  -l, --log-level &lt;LOG_LEVEL&gt;</span><br><span class="line">          Log level [env: MODEL_EXPRESS_LOG_LEVEL=info] [possible values: trace, debug, info, warn, error]</span><br><span class="line">      --log-format &lt;LOG_FORMAT&gt;</span><br><span class="line">          Log format [env: MODEL_EXPRESS_LOG_FORMAT=] [possible values: json, pretty, compact]</span><br><span class="line">  -d, --database-path &lt;DATABASE_PATH&gt;</span><br><span class="line">          Database file path [env: MODEL_EXPRESS_DATABASE_PATH=/app/models.db]</span><br><span class="line">      --cache-directory &lt;CACHE_DIRECTORY&gt;</span><br><span class="line">          Cache directory path [env: MODEL_EXPRESS_CACHE_DIRECTORY=/app/cache]</span><br><span class="line">      --cache-eviction-enabled &lt;CACHE_EVICTION_ENABLED&gt;</span><br><span class="line">          Enable cache eviction [env: MODEL_EXPRESS_CACHE_EVICTION_ENABLED=] [possible values: true, false]</span><br><span class="line">      --validate-config</span><br><span class="line">          Validate configuration and exit</span><br><span class="line">  -h, --help</span><br><span class="line">          Print help</span><br><span class="line">  -V, --version</span><br><span class="line">          Print version</span><br><span class="line"></span><br><span class="line"># ./model-express-cli --endpoint http://localhost:8000 -h</span><br><span class="line">A CLI tool for interacting with ModelExpress server</span><br><span class="line"></span><br><span class="line">Usage: model-express-cli [OPTIONS] &lt;COMMAND&gt;</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  health  Check server health and status</span><br><span class="line">  model   Model management operations (download, list, clear, validate, etc.)</span><br><span class="line">  api     Send general API requests</span><br><span class="line">  help    Print this message or the help of the given subcommand(s)</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -e, --endpoint &lt;ENDPOINT&gt;  Server endpoint (can also be set via MODEL_EXPRESS_ENDPOINT env var) [env: MODEL_EXPRESS_ENDPOINT=] [default: http://localhost:8001]</span><br><span class="line">  -t, --timeout &lt;TIMEOUT&gt;    Request timeout in seconds [default: 30]</span><br><span class="line">  -f, --format &lt;FORMAT&gt;      Output format [default: human] [possible values: human, json, json-pretty]</span><br><span class="line">  -v...                      Verbose mode (-v for info, -vv for debug, -vvv for trace)</span><br><span class="line">  -q, --quiet                Quiet mode (suppress all output except errors)</span><br><span class="line">      --cache-path &lt;PATH&gt;    Cache path override</span><br><span class="line">  -h, --help                 Print help (see more with &#x27;--help&#x27;)</span><br><span class="line">  -V, --version              Print version</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ./model-express-cli --endpoint http://localhost:8000 help model</span><br><span class="line">Model management operations (download, list, clear, validate, etc.)</span><br><span class="line"></span><br><span class="line">Usage: model-express-cli model &lt;COMMAND&gt;</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  download   Download a model with various strategies (automatically cached)</span><br><span class="line">  init       Initialize model storage configuration</span><br><span class="line">  list       List downloaded models</span><br><span class="line">  status     Show model storage status and usage</span><br><span class="line">  clear      Clear specific model from storage</span><br><span class="line">  clear-all  Clear all models from storage</span><br><span class="line">  validate   Validate model integrity</span><br><span class="line">  stats      Show model storage statistics</span><br><span class="line">  help       Print this message or the help of the given subcommand(s)</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -h, --help  Print help</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>command</tag>
-        <tag>grep</tag>
       </tags>
   </entry>
   <entry>
@@ -1183,6 +1337,9 @@ b
 <blockquote>
 <p><a href="https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl">https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl</a></p>
 </blockquote>
+<span id="more"></span>
+
+
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat cert.pem</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIDUzCCAjugAwIBAgIUc9s+2e+ABxNDunYGckzbCz+q4xMwDQYJKoZIhvcNAQEL</span><br><span class="line">BQAwOTEUMBIGA1UEAwwLZXhhbXBsZS5jb20xFDASBgNVBAoMC0V4YW1wbGUgT3Jn</span><br><span class="line">MQswCQYDVQQGEwJVUzAeFw0yNjExMTUwODA1MzNaFw0zNjExMTIwODA1MzNaMDkx</span><br><span class="line">FDASBgNVBAMMC2V4YW1wbGUuY29tMRQwEgYDVQQKDAtFeGFtcGxlIE9yZzELMAkG</span><br><span class="line">A1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC0GV/qb354</span><br><span class="line">zxZ8VFua2Tyb/Ox8lZNJSsG0XX2c3YELydHtEJyfHd72o/w/palCr2Rq2VxSX7dI</span><br><span class="line">XlkuuWlfILgUVjfw/MIujmMIenlP4CUMQwDrMhnEE7U36r0xfXdHUdPTd47PR8cc</span><br><span class="line">s+aXYHBlXPRc2EVVVBHY7SNAjZ0m2b8jZ9Vj9tYNBcAvHChi2iP5OsulPWQVxT4a</span><br><span class="line">jgJURfMrYrw6K16ktYumASHKUs4t0XQzCfzadaHM0HW91GjdbzZ9axc9Ta2uizvv</span><br><span class="line">RDc9iQ8bI29FRQN9Vtzmd0AV/HXioYdP78MwL6PPKFarAhpXNPpfxsB+sfUToyOR</span><br><span class="line">QIJ6/IqDfOsDAgMBAAGjUzBRMB0GA1UdDgQWBBR1YsIR8Wcaz3RRugV7NW50b4zb</span><br><span class="line">iDAfBgNVHSMEGDAWgBR1YsIR8Wcaz3RRugV7NW50b4zbiDAPBgNVHRMBAf8EBTAD</span><br><span class="line">AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA4hzddmPOKy2dfrlFLgwdxYgGBmWGpWPkR</span><br><span class="line">cSKvzx7flQt8ujMVStXw9GeBu0ajETR1kV791kUtgq043ixKDxcy9lvgm6pB9KmG</span><br><span class="line">XzBwrlYl+XLUdvNe4reomVgej7455ozIyAsKf90Pfvhj1ZPyaP6EsU6Ce+tJm0ZQ</span><br><span class="line">W4PJjJhsfVQzAUEhG89XdE1dovO2bT78FP21WHb9exwoZ2iAU1WbpxFIozx272Eh</span><br><span class="line">cMa98IUND1sVjrbkqNC3FqdvkL7Fgy0ciV94/Jc103Rkc8YL1Z4VM5u92mIMm65r</span><br><span class="line">+MjkPW0Ng+8b1iGUYdE/fxR3KjGk2bRwvKZL2KuZiaL+4LBJozOU</span><br><span class="line">-----END CERTIFICATE-----</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --local http.sslCAInfo /path/cert.pem</span><br><span class="line">$ git config --local --unset http.sslCAInfo</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --local http.sslVerify false #NO NEED TO USE THIS</span><br><span class="line">$ git config --local --unset http.sslverify</span><br></pre></td></tr></table></figure>
@@ -1194,6 +1351,41 @@ b
       <tags>
         <tag>openssl</tag>
         <tag>cert</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>openvpn  设置备忘</title>
+    <url>/2017/07/09/openvpn/</url>
+    <content><![CDATA[<ol>
+<li>opevpn 服务器开启</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">port 1194</span><br><span class="line">proto udp</span><br><span class="line">dev tun</span><br><span class="line">ca ca.crt</span><br><span class="line">cert xxx.crt</span><br><span class="line">dh dh2048.pem</span><br><span class="line">server 10.8.0.0 255.255.255.0  //openvpnIP段</span><br><span class="line">ifconfig-pool-persist ipp.txt  //分配的地址记录在ipp.txt</span><br><span class="line">client-config-dir ccd  //个人单独配置文件</span><br><span class="line"></span><br><span class="line">client-to-client  //客户端可以互相连接</span><br><span class="line">keepalive 10 120</span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line">user nobody</span><br><span class="line">group nogroup</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">status /tmp/openvpn-status.log</span><br><span class="line">log         /tmp/openvpn.log</span><br><span class="line">verb 4</span><br><span class="line"></span><br><span class="line">mode server  //运行模式</span><br><span class="line">tls-server  //tls加密</span><br><span class="line">topology subnet  //使用服务端子网</span><br><span class="line">push &quot;topology subnet&quot;  //通知客户端使用子网</span><br><span class="line"></span><br><span class="line">auth-user-pass-verify /etc/openvpn/checkpsw.js via-env  //密码认证</span><br><span class="line">client-cert-not-required  //不认证证书</span><br><span class="line">username-as-common-name  //使用用户名区别不同用户</span><br><span class="line">script-security 3</span><br><span class="line"></span><br><span class="line">route 192.168.2.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.2.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br><span class="line">route 10.8.0.0 255.255.255.0 10.8.0.1  //使用这个子网</span><br><span class="line">push &quot;route 10.8.0.0 255.255.255.0&quot;  //通知客户端使用子网</span><br><span class="line">route 192.168.3.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.3.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<ol start="2">
+<li>连接到openvpn服务器</li>
+</ol>
+<ul>
+<li>开启路由转发</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sudo iptables -A FORWARD -i eth0 -j ACCEPT</span><br><span class="line">sudo iptables -A FORWARD -i eth1 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>配置路由<ul>
+<li>可以在路由器上配置全局路由</li>
+<li>下面是需要连接 openvpn 的单独配置<ul>
+<li>Windows 需要cmd 管理员窗口执行:<br>  <code>route add  10.8.0.0 mask 255.255.255.0 10.0.0.1</code></li>
+<li>Linux 需要sudo 权限执行:<br>  <code>ip route add 10.8.0.0/24 via 10.0.0.1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>可以在各个网络出入口使用 tcpdump 抓包判断网络情况</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>openvpn</tag>
       </tags>
   </entry>
   <entry>
@@ -1483,39 +1675,6 @@ $开头的命令  说明需要用oracle用户执行
       </tags>
   </entry>
   <entry>
-    <title>openvpn  设置备忘</title>
-    <url>/2017/07/09/openvpn/</url>
-    <content><![CDATA[<ol>
-<li>opevpn 服务器开启</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">port 1194</span><br><span class="line">proto udp</span><br><span class="line">dev tun</span><br><span class="line">ca ca.crt</span><br><span class="line">cert xxx.crt</span><br><span class="line">dh dh2048.pem</span><br><span class="line">server 10.8.0.0 255.255.255.0  //openvpnIP段</span><br><span class="line">ifconfig-pool-persist ipp.txt  //分配的地址记录在ipp.txt</span><br><span class="line">client-config-dir ccd  //个人单独配置文件</span><br><span class="line"></span><br><span class="line">client-to-client  //客户端可以互相连接</span><br><span class="line">keepalive 10 120</span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line">user nobody</span><br><span class="line">group nogroup</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">status /tmp/openvpn-status.log</span><br><span class="line">log         /tmp/openvpn.log</span><br><span class="line">verb 4</span><br><span class="line"></span><br><span class="line">mode server  //运行模式</span><br><span class="line">tls-server  //tls加密</span><br><span class="line">topology subnet  //使用服务端子网</span><br><span class="line">push &quot;topology subnet&quot;  //通知客户端使用子网</span><br><span class="line"></span><br><span class="line">auth-user-pass-verify /etc/openvpn/checkpsw.js via-env  //密码认证</span><br><span class="line">client-cert-not-required  //不认证证书</span><br><span class="line">username-as-common-name  //使用用户名区别不同用户</span><br><span class="line">script-security 3</span><br><span class="line"></span><br><span class="line">route 192.168.2.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.2.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br><span class="line">route 10.8.0.0 255.255.255.0 10.8.0.1  //使用这个子网</span><br><span class="line">push &quot;route 10.8.0.0 255.255.255.0&quot;  //通知客户端使用子网</span><br><span class="line">route 192.168.3.0 255.255.255.0 10.8.0.2  //使用这个子网</span><br><span class="line">push &quot;route 192.168.3.0 255.255.255.0 10.8.0.2&quot;  //通知客户端使用子网</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>连接到openvpn服务器</li>
-</ol>
-<ul>
-<li>开启路由转发</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sudo iptables -A FORWARD -i eth0 -j ACCEPT</span><br><span class="line">sudo iptables -A FORWARD -i eth1 -j ACCEPT</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>配置路由<ul>
-<li>可以在路由器上配置全局路由</li>
-<li>下面是需要连接 openvpn 的单独配置<ul>
-<li>Windows 需要cmd 管理员窗口执行:<br>  <code>route add  10.8.0.0 mask 255.255.255.0 10.0.0.1</code></li>
-<li>Linux 需要sudo 权限执行:<br>  <code>ip route add 10.8.0.0/24 via 10.0.0.1</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>可以在各个网络出入口使用 tcpdump 抓包判断网络情况</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>openvpn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>sqlplus 安装</title>
     <url>/2016/07/25/oracle_sqlplus/</url>
     <content><![CDATA[<p>Oracle数据库软件十分庞大，数据库引擎有好几个G。通常情况下，我们的使用方式是安装一个Oracle数据库在服务器机器上，在客户端通过PL&#x2F;SQL Developer、sqlplus等工具操作服务器上的数据，当然Oracle 10g后，OEM(企业管理器)已经是WEB版了，在浏览器中也可以同样操作数据库。</p>
@@ -1656,6 +1815,67 @@ $开头的命令  说明需要用oracle用户执行
       </tags>
   </entry>
   <entry>
+    <title>parted</title>
+    <url>/2015/07/17/parted/</url>
+    <content><![CDATA[<h3 id="parted-–help"><a href="#parted-–help" class="headerlink" title="parted –help"></a>parted –help</h3><h6 id="Usage-parted-OPTION-…-DEVICE-COMMAND-PARAMETERS-…-…"><a href="#Usage-parted-OPTION-…-DEVICE-COMMAND-PARAMETERS-…-…" class="headerlink" title="Usage: parted [OPTION]… [DEVICE [COMMAND [PARAMETERS]…]…]"></a>Usage: parted [OPTION]… [DEVICE [COMMAND [PARAMETERS]…]…]</h6><p>Apply COMMANDs with PARAMETERS to DEVICE. If no COMMAND(s) are given, run in<br>interactive mode.</p>
+<h5 id="OPTIONs"><a href="#OPTIONs" class="headerlink" title="OPTIONs:"></a>OPTIONs:</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-h, --help                      displays this help message</span><br><span class="line">-l, --list                      lists partition layout on all block devices</span><br><span class="line">-m, --machine                   displays machine parseable output</span><br><span class="line">-s, --script                    never prompts for user intervention</span><br><span class="line">-v, --version                   displays the version</span><br><span class="line">-a, --align=[none|cyl|min|opt]  alignment for new partitions</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<hr>
+<h6 id="COMMANDs"><a href="#COMMANDs" class="headerlink" title="COMMANDs:"></a>COMMANDs:</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    align-check TYPE N                        check partition N for TYPE(min|opt)</span><br><span class="line"></span><br><span class="line">    alignment</span><br><span class="line"></span><br><span class="line">    check NUMBER                             do a simple check on the file system</span><br><span class="line">    </span><br><span class="line">    cp [FROM-DEVICE] FROM-NUMBER TO-NUMBER   copy file system to another partition</span><br><span class="line"></span><br><span class="line">    help [COMMAND]                           print general help, or help on</span><br><span class="line">          </span><br><span class="line">	COMMAND</span><br><span class="line"></span><br><span class="line">    mklabel,mktable LABEL-TYPE               create a new disklabel (partition</span><br><span class="line">          table) label-type</span><br><span class="line"></span><br><span class="line">          malable Create a new disklabel (partition table) of label-type.   label-</span><br><span class="line">                  type  should  be  one  of  &quot;bsd&quot;,  &quot;dvh&quot;,  &quot;gpt&quot;, &quot;loop&quot;, &quot;mac&quot;,</span><br><span class="line">                  &quot;msdos&quot;, &quot;pc98&quot;, or &quot;sun&quot;.</span><br><span class="line"></span><br><span class="line">          mktable mbr gpt</span><br><span class="line">          </span><br><span class="line">    mkfs NUMBER FS-TYPE                      make a FS-TYPE file system on</span><br><span class="line">          </span><br><span class="line">	partition NUMBER</span><br><span class="line"></span><br><span class="line">	partition fs-type</span><br><span class="line"></span><br><span class="line">                       Make  a  filesystem  fs-type on partition. fs-type can be one of</span><br><span class="line">                       &quot;fat16&quot;, &quot;fat32&quot;, &quot;ext2&quot;, &quot;linux-swap&quot;, or &quot;reiserfs&quot;.</span><br><span class="line"></span><br><span class="line">    mkpart PART-TYPE [FS-TYPE] START END     make a partition</span><br><span class="line">    </span><br><span class="line">    mkpartfs PART-TYPE FS-TYPE START END     make a partition with a file system</span><br><span class="line"></span><br><span class="line">	Make a part-type partition with filesystem fs-type beginning  at</span><br><span class="line">                       start  and  ending at end (by default in megabytes).  Using this</span><br><span class="line">                       command is discouraged.  Instead use mkpart to create  an  empty</span><br><span class="line">                       partition,  and then use external tools like mke2fs(8) to create</span><br><span class="line">                       the filesystem.</span><br><span class="line"></span><br><span class="line">    move NUMBER START END                    move partition NUMBER</span><br><span class="line"></span><br><span class="line">    name NUMBER NAME                         name partition NUMBER as NAME</span><br><span class="line"></span><br><span class="line">    print [devices|free|list,all|NUMBER]     display the partition table,</span><br><span class="line"></span><br><span class="line">          available devices, free space, all found partitions, or a particular</span><br><span class="line">          partition</span><br><span class="line"></span><br><span class="line">    quit                                     exit program</span><br><span class="line"></span><br><span class="line">    rescue START END                         rescue a lost partition near START</span><br><span class="line">          and END</span><br><span class="line"></span><br><span class="line">    resize NUMBER START END                  resize partition NUMBER and its file</span><br><span class="line">          system</span><br><span class="line"></span><br><span class="line">    rm NUMBER                                delete partition NUMBER</span><br><span class="line"></span><br><span class="line">    select DEVICE                            choose the device to edit</span><br><span class="line"></span><br><span class="line">    set NUMBER FLAG STATE                    change the FLAG on partition NUMBER</span><br><span class="line"></span><br><span class="line">    toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition</span><br><span class="line"></span><br><span class="line">          NUMBER</span><br><span class="line"></span><br><span class="line">    unit UNIT                                set the default unit to UNIT</span><br><span class="line"></span><br><span class="line">    version                                  display the version number and</span><br><span class="line">copyright information of GNU Parted</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>command</tag>
+        <tag>parted</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python中常用模块</title>
+    <url>/2016/06/17/python_os/</url>
+    <content><![CDATA[<h5 id="sys-stdout-加time可以写进度条百分百"><a href="#sys-stdout-加time可以写进度条百分百" class="headerlink" title="sys.stdout 加time可以写进度条百分百"></a>sys.stdout 加time可以写进度条百分百</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for i in range(100):  </span><br><span class="line">    # num += &quot;#&quot;  </span><br><span class="line">    sys.stdout.write(&#x27;\r&#x27;)  ##意思是打印在清空  </span><br><span class="line">    i1 = i / 100  </span><br><span class="line">    sys.stdout.write(&quot;%s%% | %s&quot; % (int(i1 * 100), int(i1 *100) * &quot;#&quot;))  </span><br><span class="line">    sys.stdout.flush()  </span><br><span class="line">    time.sleep(0.3)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h5 id="sys结合os，把当前路径，或者需要的路径添加到模块搜索路径"><a href="#sys结合os，把当前路径，或者需要的路径添加到模块搜索路径" class="headerlink" title="sys结合os，把当前路径，或者需要的路径添加到模块搜索路径"></a>sys结合os，把当前路径，或者需要的路径添加到模块搜索路径</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">path = sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__))))</span><br><span class="line"></span><br><span class="line">import sys  </span><br><span class="line">import os  </span><br><span class="line">a = os.path.dirname(__file__)  </span><br><span class="line">b = &#x27;bin&#x27;  </span><br><span class="line">c = os.path.join(a,b)  </span><br><span class="line">sys.path.append(c)  </span><br><span class="line">print(sys.path)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sys.argv                            命令行参数list,第一个元素是程序员本事路径  </span><br><span class="line">sys.exit(n)                         退出程序，正常退出时exit(0)  </span><br><span class="line">sys.version                         获取python解释程序的版本信息  </span><br><span class="line">sys.maxint                          最大的int值（3.0取消）  </span><br><span class="line">sys.path                            返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值  </span><br><span class="line">sys.platform                        返回操作系统平台的名称  </span><br><span class="line">sys.stdout                          输出相关内容  </span><br><span class="line">sys.stdin                           输入相关内容</span><br><span class="line">os.getcwd()                         获取当前工作目录，即当前python脚本工作的目录路径  </span><br><span class="line">os.chdir(&quot;dirname&quot;)                 改变当前脚本工作目录，相当于shell下cd  </span><br><span class="line">os.curdir                           返回当前目录（&quot;.&quot;）  </span><br><span class="line">os.pardir                           获取当前目录的父目录字符串名（&quot;..&quot;）  </span><br><span class="line">os.makedir          </span><br><span class="line">os.makedirs(&#x27;dir1/dir2&#x27;)            可生成多成递归目录  </span><br><span class="line">os.removedirs(&#x27;dirname1&#x27;)           若目录为空，则删除，并递归到上一层目录，如若也为空，则删除，依此类推  </span><br><span class="line">os.mkdir(&#x27;dirname&#x27;)                 生成单级目录；相当于shell中mkdir dirname  </span><br><span class="line">os.rmdir(&#x27;dirname&#x27;)                 删除单级空目录，若目录不为空则无法删除，报错；相当于shell中的rmdir dirname  </span><br><span class="line">os.listdir(&#x27;dirname&#x27;)               列出指定目录下的所有文件和子目录，包括隐藏文件，并以列表方式打印  </span><br><span class="line">os.remove()                         删除一个文件  </span><br><span class="line">os.rename(&quot;oldname&quot;,&quot;new&quot;)          重命名文件/目录  </span><br><span class="line">os.stat(&#x27;path/filename&#x27;)            获取文件/目录信息  </span><br><span class="line">os.seq                              操作系统特定的路径分隔符，win下位&quot;\\&quot;,linux下位&quot;/&quot;   </span><br><span class="line">os.pathseq                          用于分割文件路径的字符串  </span><br><span class="line">os.name                             字符串指示当前使用平台。win-&gt;&#x27;nt&#x27;;linux-&gt;&#x27;posix&#x27;  </span><br><span class="line">os.system(&quot;bash command&quot;)           运行shell命令，直接显示  </span><br><span class="line">os.environ                          获取环境变量  </span><br><span class="line">os.path.abspath(path)               返回path规范化的绝对路径  </span><br><span class="line">os.path.split(path)                 将path分割和文件名二元组返回  </span><br><span class="line">os.path.dirname(path)               返回path的目录。其实就是os.path.split(path) 的第一元素  </span><br><span class="line">os.path.basename(path)              返回path最后的文件名。如果path以/或\结尾，那么就会返回空值。即os.path.split(path) 的第二个元素  </span><br><span class="line">os.path.exists(path)                如果path存在，返回True；如果path不存在，返回False  </span><br><span class="line">os.path.isabs(path)                 如果path是绝对路径，返回True  </span><br><span class="line">os.path.isfile(path)                如果path是一个存在的文件，返回True。否则返回False  </span><br><span class="line">os.path.isdir(path)                 如果path是一个存在的目录，则返回True。否则返回False  </span><br><span class="line">os.path.join(path1[,path2[,...]])   将多个路径组合后返回，第一个绝对路径之前的参数将被忽略  </span><br><span class="line">os.path.getatime(path)              返回path所指向的文件或者目录的最后存取时间  </span><br><span class="line">os.path.getmtime(path)              返回path所指向的文件或目录的最后修改时间  </span><br><span class="line">os.sep                              更改操作系统中的路径分隔符。  </span><br><span class="line">os.getcwd()                         获取当前路径，这个在Python代码中比较常用。  </span><br><span class="line">os.listdir()                        列出当前目录下的所有文件和文件夹。  </span><br><span class="line">os.remove()                         方法可以删除指定的文件。  </span><br><span class="line">os.system()                         方法用来运行shell命令。  </span><br><span class="line">os.chdir()                          改变当前目录，到指定目录中。</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>进度条</tag>
+        <tag>sys</tag>
+        <tag>os</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python中不能打开ssl链接</title>
+    <url>/2016/12/17/python_ssl/</url>
+    <content><![CDATA[<h3 id="SSL-CERTIFICATE-VERIFY-FAILED"><a href="#SSL-CERTIFICATE-VERIFY-FAILED" class="headerlink" title="SSL: CERTIFICATE_VERIFY_FAILED"></a>SSL: CERTIFICATE_VERIFY_FAILED</h3><h4 id="python中不能打开ssl链接"><a href="#python中不能打开ssl链接" class="headerlink" title="python中不能打开ssl链接"></a>python中不能打开ssl链接</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- import requests.packages.urllib3.util.ssl_ requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = ‘ALL&#x27;</span><br><span class="line">- pip install requests</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a href="http://stackoverflow.com/questions/31730819/python-sslerror-using-requests-for-surveymonkey-com">python-ssl_error</a>  </p>
+<span id="more"></span></blockquote>
+<ol>
+<li><p>使用ssl创建未经验证的上下文，在urlopen中传入上下文参数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import ssl</span><br><span class="line">import urllib2</span><br><span class="line"></span><br><span class="line"># This restores the same behavior as before.</span><br><span class="line">context = ssl._create_unverified_context()</span><br><span class="line">print urllib2.urlopen(&quot;https://www.baidu.com&quot;, context=context).read()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入ssl时关闭全局证书验证</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import ssl</span><br><span class="line">import urllib2</span><br><span class="line"># Legacy Python that doesn&#x27;t verify HTTPS certificates by default </span><br><span class="line">ssl._create_default_https_context = ssl._create_unverified_context</span><br><span class="line"></span><br><span class="line"># Handle target environment that doesn&#x27;t support HTTPS verification</span><br><span class="line">#ssl._create_default_https_context = _create_unverified_https_context</span><br><span class="line"></span><br><span class="line">print urllib2.urlopen(&quot;https://www.baidu.com&quot;).read()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p><a href="https://www.python.org/dev/peps/pep-0476/">官方文档介绍</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>error</tag>
+        <tag>python</tag>
+        <tag>requests</tag>
+        <tag>urllib</tag>
+        <tag>urllib2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>random_password</title>
     <url>/2016/07/17/random_password/</url>
     <content><![CDATA[<ol>
@@ -1775,6 +1995,9 @@ $开头的命令  说明需要用oracle用户执行
     <content><![CDATA[<h1 id="科学估算服务器资源需求"><a href="#科学估算服务器资源需求" class="headerlink" title="科学估算服务器资源需求"></a>科学估算服务器资源需求</h1><blockquote>
 <p>参考来源 <a href="https://mp.weixin.qq.com/s/zklAxdcU6j78QaYwM7CLYA">https://mp.weixin.qq.com/s/zklAxdcU6j78QaYwM7CLYA</a></p>
 </blockquote>
+<span id="more"></span>
+
+
 <h1 id="CPU-资源估算公式和方法"><a href="#CPU-资源估算公式和方法" class="headerlink" title="CPU 资源估算公式和方法"></a>CPU 资源估算公式和方法</h1><p>CPU 的估算相对来说比较复杂，因为不同类型的应用对 CPU 的需求差别很大。我总结了一套比较实用的计算方法。</p>
 <h2 id="基础-CPU-需求计算公式"><a href="#基础-CPU-需求计算公式" class="headerlink" title="基础 CPU 需求计算公式"></a>基础 CPU 需求计算公式</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CPU 核心数 = (并发用户数 × 单用户 CPU 消耗 × 安全系数) / CPU 利用率目标</span><br></pre></td></tr></table></figure>
 
@@ -2964,6 +3187,65 @@ $开头的命令  说明需要用oracle用户执行
       </tags>
   </entry>
   <entry>
+    <title>swap设置</title>
+    <url>/2015/03/16/swap/</url>
+    <content><![CDATA[<h3 id="Swap-设置"><a href="#Swap-设置" class="headerlink" title="Swap 设置"></a>Swap 设置</h3><ol>
+<li><p>检查 Swap 空间<br>在设置 Swap 文件之前，有必要先检查一下系统里有没有既存的 Swap 文件。<br>运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">swapon -s</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>如果返回的信息概要是空的，则表示 Swap 文件不存在。</p>
+<p>2.检查文件系统<br>在设置 Swap 文件之前，同样有必要检查一下文件系统，看看是否有足够的硬盘空间来设置 Swap 。运行以下命令：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">df -hal</span><br></pre></td></tr></table></figure>
+
+<p>检查返回的信息，还剩余足够的硬盘空间即可。</p>
+<ol>
+<li><p>创建并允许 Swap 文件<br>下面使用 dd 命令来创建 Swap 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dd if=/dev/zero of=/tmp/swapfile bs=1024 count=1024k</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>参数解读：</p>
+<p>if&#x3D;文件名：输入文件名，缺省为标准输入。即指定源文件。&lt; if&#x3D;input file &gt;</p>
+<p>of&#x3D;文件名：输出文件名，缺省为标准输出。即指定目的文件。&lt; of&#x3D;output file &gt;</p>
+<p>bs&#x3D;bytes：同时设置读入&#x2F;输出的块大小为bytes个字节</p>
+<p>count&#x3D;blocks：仅拷贝blocks个块，块大小等于bs指定的字节数。</p>
+<span id="more"></span>
+
+<p>最后，赋予 Swap 文件适当的权限：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chown root:root /tmp/swapfile </span><br><span class="line">chmod 600 /tmp/swapfile</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>格式化并激活 Swap 文件</li>
+</ol>
+<p>上面已经创建好 Swap 文件，还需要格式化后才能使用。  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkswap /tmp/swapfile</span><br><span class="line">swapon /tmp/swapfile</span><br></pre></td></tr></table></figure>
+
+<p>以上步骤做完，再次运行命令：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">swapon -s</span><br><span class="line"></span><br><span class="line">Filename                    Type        Size    Used    Priority</span><br><span class="line"></span><br><span class="line">/tmp/swapfile               file        524284    0     -1</span><br></pre></td></tr></table></figure>
+
+<p>如果要机器重启的时候自动挂载 Swap ，那么还需要修改 fstab 配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/tmp/swapfile           swap                    swap    defaults        0 0</span><br></pre></td></tr></table></figure>
+
+<p>同时，我们还可以修改 Linux Swap 空间的 swappiness ，降低对硬盘的缓存。</p>
+<p>Linux 会使用硬盘的一部分做为 Swap 分区，用来进行进程调度–进程是正在运行的程序–把当前不用的进程调成‘等待（standby）’，甚至‘睡眠（sleep）’，一旦要用，再调成‘活动（active）’，睡眠的进程就会在 Swap 分区，把内存空出来让给‘活动’的进程。</p>
+<p>如果内存够大，应当告诉 Linux 不必太多的使用 Swap 分区，可以通过修改 swappiness 的参数来设置。swappiness&#x3D;0 的时候表示最大限度使用物理内存，然后才是 Swap 空间，swappiness＝100 的时候表示积极的使用 Swap 分区，并且把内存上的数据及时的搬运到 Swap 空间里面。</p>
+<p>在 CentOS 中，swappiness 的默认值是60。<br>通过以下命令可以看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /proc/sys/vm/swappiness</span><br></pre></td></tr></table></figure>
+
+<p>返回值60</p>
+<p>我们可以调整 swappiness 的值到一个合适的参数，从而达到最优化使用 Swap 的目的。这里我们将其设为10。<br>使用 sysctl 命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sysctl vm.swappiness=10</span><br></pre></td></tr></table></figure>
+
+<p>但是这只是临时性的修改，在你重启系统后会恢复默认的60，要永久设置，还需要在 vim 中修改sysctl.conf：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"># Search for the vm.swappiness setting.  Uncomment and change it as necessary.</span><br><span class="line">vm.swappiness=10</span><br></pre></td></tr></table></figure>
+
+<p>这样一来，Swap 分区重启后都会生效了。</p>
+]]></content>
+      <tags>
+        <tag>command</tag>
+        <tag>cnf</tag>
+        <tag>swap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 宕机急救</title>
     <url>/2017/09/29/system_downtime/</url>
     <content><![CDATA[<ul>
@@ -3008,12 +3290,37 @@ $开头的命令  说明需要用oracle用户执行
       </tags>
   </entry>
   <entry>
+    <title>useradd</title>
+    <url>/2015/06/09/user/</url>
+    <content><![CDATA[<h2 id="useradd-–help"><a href="#useradd-–help" class="headerlink" title="useradd –help"></a>useradd –help</h2><h3 id="Usage-useradd-options-LOGIN"><a href="#Usage-useradd-options-LOGIN" class="headerlink" title="Usage: useradd [options] LOGIN"></a>Usage: useradd [options] LOGIN</h3><h4 id="Options"><a href="#Options" class="headerlink" title="Options:"></a>Options:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-b, --base-dir BASE_DIR       base directory for the home directory of the</span><br><span class="line">                              new account</span><br><span class="line">-c, --comment COMMENT         GECOS field of the new account</span><br><span class="line">-d, --home-dir HOME_DIR       home directory of the new account</span><br><span class="line">-D, --defaults                print or change default useradd configuration</span><br><span class="line">      查看预设值</span><br><span class="line">-e, --expiredate EXPIRE_DATE  expiration date of the new account</span><br><span class="line">      The date on which the user account will be disabled. The date is specified in the format YYYY-MM-DD.</span><br><span class="line"></span><br><span class="line">      If not specified, useradd will use the default expiry date specified by the EXPIRE variable in /etc/default/useradd, or an empty string (no expiry) by default.</span><br><span class="line"></span><br><span class="line">-f, --inactive INACTIVE       password inactivity period of the new account</span><br><span class="line">      The number of days after a password expires until the account is permanently disabled. A value of 0 disables the account as soon as the password has expired,</span><br><span class="line">      and a value of -1 disables the feature.</span><br><span class="line"></span><br><span class="line">      If not specified, useradd will use the default inactivity period specified by the INACTIVE variable in /etc/default/useradd, or -1 by default.</span><br><span class="line">-g, --gid GROUP               name or ID of the primary group of the new</span><br><span class="line">                              account</span><br><span class="line">-G, --groups GROUPS           list of supplementary groups of the new</span><br><span class="line">                              account</span><br><span class="line">-h, --help                    display this help message and exit</span><br><span class="line">-k, --skel SKEL_DIR           use this alternative skeleton directory</span><br><span class="line">-K, --key KEY=VALUE           override /etc/login.defs defaults</span><br><span class="line">-l, --no-log-init             do not add the user to the lastlog and</span><br><span class="line">                              faillog databases</span><br><span class="line">-m, --create-home             create the user&#x27;s home directory</span><br><span class="line">      強制！要建立使用者家目錄！(一般帳號預設值)</span><br><span class="line">-M, --no-create-home          do not create the user&#x27;s home directory</span><br><span class="line">      強制！不要建立使用者家目錄！(系統帳號預設值)</span><br><span class="line">-N, --no-user-group           do not create a group with the same name as</span><br><span class="line">                              the user</span><br><span class="line">-o, --non-unique              allow to create users with duplicate</span><br><span class="line">                              (non-unique) UID</span><br><span class="line">-p, --password PASSWORD       encrypted password of the new account</span><br><span class="line">-r, --system                  create a system account</span><br><span class="line">-s, --shell SHELL             login shell of the new account</span><br><span class="line">-u, --uid UID                 user ID of the new account</span><br><span class="line">-U, --user-group              create a group with the same name as the user</span><br><span class="line">-Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mapping</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<hr>
+<h3 id="userdel-–help"><a href="#userdel-–help" class="headerlink" title="userdel –help"></a>userdel –help</h3><h4 id="Usage-userdel-options-LOGIN"><a href="#Usage-userdel-options-LOGIN" class="headerlink" title="Usage: userdel [options] LOGIN"></a>Usage: userdel [options] LOGIN</h4><h4 id="Options-1"><a href="#Options-1" class="headerlink" title="Options:"></a>Options:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-f, --force                   force removal of files,</span><br><span class="line">  This option forces the removal of the user account, even if the user is still logged in. It also forces userdel to remove the user´s home directory and mail</span><br><span class="line">         spool, even if another user uses the same home directory or if the mail spool is not owned by the specified user. If USERGROUPS_ENAB is defined to yes in</span><br><span class="line">         /etc/login.defs and if a group exists with the same name as the deleted user, then this group will be removed, even if it is still the primary group of another</span><br><span class="line">         user.</span><br><span class="line"></span><br><span class="line">         Note: This option is dangerous and may leave your system in an inconsistent state.</span><br><span class="line">                          even if not owned by user</span><br><span class="line">-h, --help                    display this help message and exit</span><br><span class="line">-r, --remove                  remove home directory and mail spool</span><br><span class="line">-Z, --selinux-user            remove SELinux user from SELinux user mapping</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="chage-–help"><a href="#chage-–help" class="headerlink" title="chage –help"></a>chage –help</h3><h4 id="Usage-chage-options-LOGIN"><a href="#Usage-chage-options-LOGIN" class="headerlink" title="Usage: chage [options] [LOGIN]"></a>Usage: chage [options] [LOGIN]</h4><h4 id="Options-2"><a href="#Options-2" class="headerlink" title="Options:"></a>Options:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-d, --lastday LAST_DAY        set date of last password change to LAST_DAY</span><br><span class="line">      Set the number of days since January 1st, 1970 when the password was last changed. The date may also be expressed in the format YYYY-MM-DD (or the format more</span><br><span class="line">         commonly used in your area).</span><br><span class="line"></span><br><span class="line">-E, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE</span><br><span class="line">-h, --help                    display this help message and exit</span><br><span class="line">-I, --inactive INACTIVE       set password inactive after expiration</span><br><span class="line">                              to INACTIVE</span><br><span class="line">-l, --list                    show account aging information</span><br><span class="line">-m, --mindays MIN_DAYS        set minimum number of days before password</span><br><span class="line">                              change to MIN_DAYS</span><br><span class="line">-M, --maxdays MAX_DAYS        set maximim number of days before password</span><br><span class="line">                              change to MAX_DAYS</span><br><span class="line">-W, --warndays WARN_DAYS      set expiration warning days to WARN_DAYS</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-153-old-sudo-cat-etc-passwd-awk-F-‘-3-500-‘"><a href="#1-153-old-sudo-cat-etc-passwd-awk-F-‘-3-500-‘" class="headerlink" title="[1.153_old]$ sudo cat &#x2F;etc&#x2F;passwd |awk -F: ‘ $3 &gt; 500 ‘"></a>[1.153_old]$ sudo cat &#x2F;etc&#x2F;passwd |awk -F: ‘ $3 &gt; 500 ‘</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin</span><br><span class="line">mysql:x:501:501::/home/mysql:/bin/bash</span><br><span class="line">svn:x:502:502::/home/svn:/bin/bash</span><br><span class="line">user01:x:503:0::/home/user01:/bin/bash</span><br><span class="line">user02:x:504:0::/home/user02:/bin/bash</span><br><span class="line">user03:x:505:0::/home/user03:/bin/bash</span><br><span class="line">user04:x:506:0::/home/user04:/bin/bash</span><br><span class="line">user05:x:509:0::/home/user05:/bin/bash</span><br><span class="line">user06:x:512:0::/home/user06:/bin/bash</span><br><span class="line">user07:x:513:0::/home/user07:/bin/bash</span><br><span class="line">user08:x:514:514::/home/user08:/bin/bash</span><br><span class="line">user09:x:515:0::/home/user09:/bin/bash</span><br><span class="line">user10:x:516:0::/home/user10:/bin/bash</span><br><span class="line">user11:x:517:0::/home/user11:/bin/bash</span><br><span class="line">user12:x:518:0::/home/user12:/bin/bash</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="useradd-sh"><a href="#useradd-sh" class="headerlink" title="useradd.sh"></a>useradd.sh</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">unset name</span><br><span class="line">unset name_list</span><br><span class="line">unset i</span><br><span class="line"></span><br><span class="line">groupadd -g 501 mysql</span><br><span class="line">useradd -u 501 -g 501 mysql</span><br><span class="line">echo &#x27;&lt;redacted&gt;&#x27; | passwd --stdin mysql</span><br><span class="line">#chage -d 0 mysql</span><br><span class="line"></span><br><span class="line">groupadd -g 502 svn</span><br><span class="line">useradd -u 502 -g 502 svn</span><br><span class="line">echo &#x27;&lt;redacted&gt;&#x27; | passwd --stdin svn</span><br><span class="line">#chage -d 0 svn</span><br><span class="line"></span><br><span class="line">groupadd -g 503 user01</span><br><span class="line">useradd -u 503 -g 0 user01</span><br><span class="line">passwd user01</span><br><span class="line">chage -d 0 user01</span><br><span class="line"></span><br><span class="line">#用户组从503开始</span><br><span class="line">i=503</span><br><span class="line">name_list=$(cat list.txt | awk -F: &#x27; $3&gt;503 &#123;print $1&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">for name in $name_list;do</span><br><span class="line">    if [ &quot;$name&quot; = &quot;nfsnobody&quot; ];then</span><br><span class="line">        continue</span><br><span class="line">    fi</span><br><span class="line">    #groupadd -g $i $name</span><br><span class="line">    #useradd -u $i -g $i $name</span><br><span class="line"></span><br><span class="line">    useradd -u $i -g 0 $name</span><br><span class="line">    echo &quot;$name&quot; | passwd --stdin $name</span><br><span class="line">    chage -d 0 $name</span><br><span class="line">    i=$[ i + 1 ]</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">unset $name</span><br><span class="line">unset $name_id</span><br><span class="line">read -&quot;请输入取消root组的用户名&quot;  $name</span><br><span class="line">name_id=$(id -u $name)</span><br><span class="line">groupadd -g $name_id $name</span><br><span class="line">usermod -g $name_id $name</span><br><span class="line">cat /etc/passwd |awk -F: &#x27; $3 &gt; 500 &#x27;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>command</tag>
+        <tag>useradd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vLLM Sleep Mode</title>
     <url>/2025/11/10/vllm_sleep_mode/</url>
     <content><![CDATA[<blockquote>
 <p><a href="https://docs.vllm.ai/en/latest/features/sleep_mode/">https://docs.vllm.ai/en/latest/features/sleep_mode/</a></p>
 </blockquote>
 <p>可以在不停止vLLM服务的情况下，通过接口睡眠、唤醒来切换不同的模型</p>
+<span id="more"></span>
+
 <h3 id="需要手动指定–gpu-memory-utilization，否则多vLLM显存会冲突"><a href="#需要手动指定–gpu-memory-utilization，否则多vLLM显存会冲突" class="headerlink" title="需要手动指定–gpu-memory-utilization，否则多vLLM显存会冲突"></a>需要手动指定–gpu-memory-utilization，否则多vLLM显存会冲突</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --rm -it \</span><br><span class="line">  --name Qwen3-4B \</span><br><span class="line">  --runtime=nvidia \</span><br><span class="line">  --entrypoint=&#x27;&#x27; \</span><br><span class="line">  -e VLLM_NO_USAGE_STATS=1 \</span><br><span class="line">  -e VLLM_USE_V1=1 \</span><br><span class="line">  -e VLLM_SERVER_DEV_MODE=1 \</span><br><span class="line">  --cap-add=sys_nice --ipc=host --network host \</span><br><span class="line">  -v /data/cache:/data/cache \</span><br><span class="line">  docker.io/vllm/vllm-openai:v0.11.0 \</span><br><span class="line">  vllm serve Qwen/Qwen3-4B --disable-log-requests --no-enable-prefix-caching --port=8000 --tensor-parallel-size=1 --max-model-len=2048 --gpu-memory-utilization=0.5 --enable-sleep-mode</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>vLLM</tag>
@@ -3022,9 +3329,1025 @@ $开头的命令  说明需要用oracle用户执行
       </tags>
   </entry>
   <entry>
+    <title>worst-passwords</title>
+    <url>/2016/05/17/worst_passwords/</url>
+    <content><![CDATA[<ol>
+<li><p>123456</p>
+</li>
+<li><p>password</p>
+</li>
+<li><p>12345678</p>
+</li>
+<li><p>1234</p>
+</li>
+<li><p>pussy</p>
+</li>
+<li><p>12345</p>
+</li>
+<li><p>dragon</p>
+</li>
+<li><p>qwerty</p>
+</li>
+<li><p>696969</p>
+</li>
+<li><p>mustang</p>
+<span id="more"></span>
+</li>
+<li><p>letmein</p>
+</li>
+<li><p>baseball</p>
+</li>
+<li><p>master</p>
+</li>
+<li><p>michael</p>
+</li>
+<li><p>football</p>
+</li>
+<li><p>shadow</p>
+</li>
+<li><p>monkey</p>
+</li>
+<li><p>abc123</p>
+</li>
+<li><p>pass</p>
+</li>
+<li><p>fuckme</p>
+</li>
+<li><p>6969</p>
+</li>
+<li><p>jordan</p>
+</li>
+<li><p>harley</p>
+</li>
+<li><p>ranger</p>
+</li>
+<li><p>iwantu</p>
+</li>
+<li><p>jennifer</p>
+</li>
+<li><p>hunter</p>
+</li>
+<li><p>fuck</p>
+</li>
+<li><p>2000</p>
+</li>
+<li><p>test</p>
+</li>
+<li><p>batman</p>
+</li>
+<li><p>trustno1</p>
+</li>
+<li><p>thomas</p>
+</li>
+<li><p>tigger</p>
+</li>
+<li><p>robert</p>
+</li>
+<li><p>access</p>
+</li>
+<li><p>love</p>
+</li>
+<li><p>buster</p>
+</li>
+<li><p>1234567</p>
+</li>
+<li><p>soccer</p>
+</li>
+<li><p>hockey</p>
+</li>
+<li><p>killer</p>
+</li>
+<li><p>george</p>
+</li>
+<li><p>sexy</p>
+</li>
+<li><p>andrew</p>
+</li>
+<li><p>charlie</p>
+</li>
+<li><p>superman</p>
+</li>
+<li><p>asshole</p>
+</li>
+<li><p>fuckyou</p>
+</li>
+<li><p>dallas</p>
+</li>
+<li><p>jessica</p>
+</li>
+<li><p>panties</p>
+</li>
+<li><p>pepper</p>
+</li>
+<li><p>1111</p>
+</li>
+<li><p>austin</p>
+</li>
+<li><p>william</p>
+</li>
+<li><p>daniel</p>
+</li>
+<li><p>golfer</p>
+</li>
+<li><p>summer</p>
+</li>
+<li><p>heather</p>
+</li>
+<li><p>hammer</p>
+</li>
+<li><p>yankees</p>
+</li>
+<li><p>joshua</p>
+</li>
+<li><p>maggie</p>
+</li>
+<li><p>biteme</p>
+</li>
+<li><p>enter</p>
+</li>
+<li><p>ashley</p>
+</li>
+<li><p>thunder</p>
+</li>
+<li><p>cowboy</p>
+</li>
+<li><p>silver</p>
+</li>
+<li><p>richard</p>
+</li>
+<li><p>fucker</p>
+</li>
+<li><p>orange</p>
+</li>
+<li><p>merlin</p>
+</li>
+<li><p>michelle</p>
+</li>
+<li><p>corvette</p>
+</li>
+<li><p>bigdog</p>
+</li>
+<li><p>cheese</p>
+</li>
+<li><p>matthew</p>
+</li>
+<li><p>121212</p>
+</li>
+<li><p>patrick</p>
+</li>
+<li><p>martin</p>
+</li>
+<li><p>freedom</p>
+</li>
+<li><p>ginger</p>
+</li>
+<li><p>blowjob</p>
+</li>
+<li><p>nicole</p>
+</li>
+<li><p>sparky</p>
+</li>
+<li><p>yellow</p>
+</li>
+<li><p>camaro</p>
+</li>
+<li><p>secret</p>
+</li>
+<li><p>dick</p>
+</li>
+<li><p>falcon</p>
+</li>
+<li><p>taylor</p>
+</li>
+<li><p>111111</p>
+</li>
+<li><p>131313</p>
+</li>
+<li><p>123123</p>
+</li>
+<li><p>bitch</p>
+</li>
+<li><p>hello</p>
+</li>
+<li><p>scooter</p>
+</li>
+<li><p>please</p>
+</li>
+<li><p>porsche</p>
+</li>
+<li><p>guitar</p>
+</li>
+<li><p>chelsea</p>
+</li>
+<li><p>black</p>
+</li>
+<li><p>diamond</p>
+</li>
+<li><p>nascar</p>
+</li>
+<li><p>jackson</p>
+</li>
+<li><p>cameron</p>
+</li>
+<li><p>654321</p>
+</li>
+<li><p>computer</p>
+</li>
+<li><p>amanda</p>
+</li>
+<li><p>wizard</p>
+</li>
+<li><p>xxxxxxxx</p>
+</li>
+<li><p>money</p>
+</li>
+<li><p>phoenix</p>
+</li>
+<li><p>mickey</p>
+</li>
+<li><p>bailey</p>
+</li>
+<li><p>knight</p>
+</li>
+<li><p>iceman</p>
+</li>
+<li><p>tigers</p>
+</li>
+<li><p>purple</p>
+</li>
+<li><p>andrea</p>
+</li>
+<li><p>horny</p>
+</li>
+<li><p>dakota</p>
+</li>
+<li><p>aaaaaa</p>
+</li>
+<li><p>player</p>
+</li>
+<li><p>sunshine</p>
+</li>
+<li><p>morgan</p>
+</li>
+<li><p>starwars</p>
+</li>
+<li><p>boomer</p>
+</li>
+<li><p>cowboys</p>
+</li>
+<li><p>edward</p>
+</li>
+<li><p>charles</p>
+</li>
+<li><p>girls</p>
+</li>
+<li><p>booboo</p>
+</li>
+<li><p>coffee</p>
+</li>
+<li><p>xxxxxx</p>
+</li>
+<li><p>bulldog</p>
+</li>
+<li><p>ncc1701</p>
+</li>
+<li><p>rabbit</p>
+</li>
+<li><p>peanut</p>
+</li>
+<li><p>john</p>
+</li>
+<li><p>johnny</p>
+</li>
+<li><p>gandalf</p>
+</li>
+<li><p>spanky</p>
+</li>
+<li><p>winter</p>
+</li>
+<li><p>brandy</p>
+</li>
+<li><p>compaq</p>
+</li>
+<li><p>carlos</p>
+</li>
+<li><p>tennis</p>
+</li>
+<li><p>james</p>
+</li>
+<li><p>mike</p>
+</li>
+<li><p>brandon</p>
+</li>
+<li><p>fender</p>
+</li>
+<li><p>anthony</p>
+</li>
+<li><p>blowme</p>
+</li>
+<li><p>ferrari</p>
+</li>
+<li><p>cookie</p>
+</li>
+<li><p>chicken</p>
+</li>
+<li><p>maverick</p>
+</li>
+<li><p>chicago</p>
+</li>
+<li><p>joseph</p>
+</li>
+<li><p>diablo</p>
+</li>
+<li><p>sexsex</p>
+</li>
+<li><p>hardcore</p>
+</li>
+<li><p>666666</p>
+</li>
+<li><p>willie</p>
+</li>
+<li><p>welcome</p>
+</li>
+<li><p>chris</p>
+</li>
+<li><p>panther</p>
+</li>
+<li><p>yamaha</p>
+</li>
+<li><p>justin</p>
+</li>
+<li><p>banana</p>
+</li>
+<li><p>driver</p>
+</li>
+<li><p>marine</p>
+</li>
+<li><p>angels</p>
+</li>
+<li><p>fishing</p>
+</li>
+<li><p>david</p>
+</li>
+<li><p>maddog</p>
+</li>
+<li><p>hooters</p>
+</li>
+<li><p>wilson</p>
+</li>
+<li><p>butthead</p>
+</li>
+<li><p>dennis</p>
+</li>
+<li><p>fucking</p>
+</li>
+<li><p>captain</p>
+</li>
+<li><p>bigdick</p>
+</li>
+<li><p>chester</p>
+</li>
+<li><p>smokey</p>
+</li>
+<li><p>xavier</p>
+</li>
+<li><p>steven</p>
+</li>
+<li><p>viking</p>
+</li>
+<li><p>snoopy</p>
+</li>
+<li><p>blue</p>
+</li>
+<li><p>eagles</p>
+</li>
+<li><p>winner</p>
+</li>
+<li><p>samantha</p>
+</li>
+<li><p>house</p>
+</li>
+<li><p>miller</p>
+</li>
+<li><p>flower</p>
+</li>
+<li><p>jack</p>
+</li>
+<li><p>firebird</p>
+</li>
+<li><p>butter</p>
+</li>
+<li><p>united</p>
+</li>
+<li><p>turtle</p>
+</li>
+<li><p>steelers</p>
+</li>
+<li><p>tiffany</p>
+</li>
+<li><p>zxcvbn</p>
+</li>
+<li><p>tomcat</p>
+</li>
+<li><p>golf</p>
+</li>
+<li><p>bond007</p>
+</li>
+<li><p>bear</p>
+</li>
+<li><p>tiger</p>
+</li>
+<li><p>doctor</p>
+</li>
+<li><p>gateway</p>
+</li>
+<li><p>gators</p>
+</li>
+<li><p>angel</p>
+</li>
+<li><p>junior</p>
+</li>
+<li><p>thx1138</p>
+</li>
+<li><p>porno</p>
+</li>
+<li><p>badboy</p>
+</li>
+<li><p>debbie</p>
+</li>
+<li><p>spider</p>
+</li>
+<li><p>melissa</p>
+</li>
+<li><p>booger</p>
+</li>
+<li><p>1212</p>
+</li>
+<li><p>flyers</p>
+</li>
+<li><p>fish</p>
+</li>
+<li><p>porn</p>
+</li>
+<li><p>matrix</p>
+</li>
+<li><p>teens</p>
+</li>
+<li><p>scooby</p>
+</li>
+<li><p>jason</p>
+</li>
+<li><p>walter</p>
+</li>
+<li><p>cumshot</p>
+</li>
+<li><p>boston</p>
+</li>
+<li><p>braves</p>
+</li>
+<li><p>yankee</p>
+</li>
+<li><p>lover</p>
+</li>
+<li><p>barney</p>
+</li>
+<li><p>victor</p>
+</li>
+<li><p>tucker</p>
+</li>
+<li><p>princess</p>
+</li>
+<li><p>mercedes</p>
+</li>
+<li><p>5150</p>
+</li>
+<li><p>doggie</p>
+</li>
+<li><p>zzzzzz</p>
+</li>
+<li><p>gunner</p>
+</li>
+<li><p>horney</p>
+</li>
+<li><p>bubba</p>
+</li>
+<li><p>2112</p>
+</li>
+<li><p>fred</p>
+</li>
+<li><p>johnson</p>
+</li>
+<li><p>xxxxx</p>
+</li>
+<li><p>tits</p>
+</li>
+<li><p>member</p>
+</li>
+<li><p>boobs</p>
+</li>
+<li><p>donald</p>
+</li>
+<li><p>bigdaddy</p>
+</li>
+<li><p>bronco</p>
+</li>
+<li><p>penis</p>
+</li>
+<li><p>voyager</p>
+</li>
+<li><p>rangers</p>
+</li>
+<li><p>birdie</p>
+</li>
+<li><p>trouble</p>
+</li>
+<li><p>white</p>
+</li>
+<li><p>topgun</p>
+</li>
+<li><p>bigtits</p>
+</li>
+<li><p>bitches</p>
+</li>
+<li><p>green</p>
+</li>
+<li><p>super</p>
+</li>
+<li><p>qazwsx</p>
+</li>
+<li><p>magic</p>
+</li>
+<li><p>lakers</p>
+</li>
+<li><p>rachel</p>
+</li>
+<li><p>slayer</p>
+</li>
+<li><p>scott</p>
+</li>
+<li><p>2222</p>
+</li>
+<li><p>asdf</p>
+</li>
+<li><p>video</p>
+</li>
+<li><p>london</p>
+</li>
+<li><p>7777</p>
+</li>
+<li><p>marlboro</p>
+</li>
+<li><p>srinivas</p>
+</li>
+<li><p>internet</p>
+</li>
+<li><p>action</p>
+</li>
+<li><p>carter</p>
+</li>
+<li><p>jasper</p>
+</li>
+<li><p>monster</p>
+</li>
+<li><p>teresa</p>
+</li>
+<li><p>jeremy</p>
+</li>
+<li><p>11111111</p>
+</li>
+<li><p>bill</p>
+</li>
+<li><p>crystal</p>
+</li>
+<li><p>peter</p>
+</li>
+<li><p>pussies</p>
+</li>
+<li><p>cock</p>
+</li>
+<li><p>beer</p>
+</li>
+<li><p>rocket</p>
+</li>
+<li><p>theman</p>
+</li>
+<li><p>oliver</p>
+</li>
+<li><p>prince</p>
+</li>
+<li><p>beach</p>
+</li>
+<li><p>amateur</p>
+</li>
+<li><p>7777777</p>
+</li>
+<li><p>muffin</p>
+</li>
+<li><p>redsox</p>
+</li>
+<li><p>star</p>
+</li>
+<li><p>testing</p>
+</li>
+<li><p>shannon</p>
+</li>
+<li><p>murphy</p>
+</li>
+<li><p>frank</p>
+</li>
+<li><p>hannah</p>
+</li>
+<li><p>dave</p>
+</li>
+<li><p>eagle1</p>
+</li>
+<li><p>11111</p>
+</li>
+<li><p>mother</p>
+</li>
+<li><p>nathan</p>
+</li>
+<li><p>raiders</p>
+</li>
+<li><p>steve</p>
+</li>
+<li><p>forever</p>
+</li>
+<li><p>angela</p>
+</li>
+<li><p>viper</p>
+</li>
+<li><p>ou812</p>
+</li>
+<li><p>jake</p>
+</li>
+<li><p>lovers</p>
+</li>
+<li><p>suckit</p>
+</li>
+<li><p>gregory</p>
+</li>
+<li><p>buddy</p>
+</li>
+<li><p>whatever</p>
+</li>
+<li><p>young</p>
+</li>
+<li><p>nicholas</p>
+</li>
+<li><p>lucky</p>
+</li>
+<li><p>helpme</p>
+</li>
+<li><p>jackie</p>
+</li>
+<li><p>monica</p>
+</li>
+<li><p>midnight</p>
+</li>
+<li><p>college</p>
+</li>
+<li><p>baby</p>
+</li>
+<li><p>cunt</p>
+</li>
+<li><p>brian</p>
+</li>
+<li><p>mark</p>
+</li>
+<li><p>startrek</p>
+</li>
+<li><p>sierra</p>
+</li>
+<li><p>leather</p>
+</li>
+<li><p>232323</p>
+</li>
+<li><p>4444</p>
+</li>
+<li><p>beavis</p>
+</li>
+<li><p>bigcock</p>
+</li>
+<li><p>happy</p>
+</li>
+<li><p>sophie</p>
+</li>
+<li><p>ladies</p>
+</li>
+<li><p>naughty</p>
+</li>
+<li><p>giants</p>
+</li>
+<li><p>booty</p>
+</li>
+<li><p>blonde</p>
+</li>
+<li><p>fucked</p>
+</li>
+<li><p>golden</p>
+</li>
+<li><p>0</p>
+</li>
+<li><p>fire</p>
+</li>
+<li><p>sandra</p>
+</li>
+<li><p>pookie</p>
+</li>
+<li><p>packers</p>
+</li>
+<li><p>einstein</p>
+</li>
+<li><p>dolphins</p>
+</li>
+<li><p>0</p>
+</li>
+<li><p>chevy</p>
+</li>
+<li><p>winston</p>
+</li>
+<li><p>warrior</p>
+</li>
+<li><p>sammy</p>
+</li>
+<li><p>slut</p>
+</li>
+<li><p>8675309</p>
+</li>
+<li><p>zxcvbnm</p>
+</li>
+<li><p>nipples</p>
+</li>
+<li><p>power</p>
+</li>
+<li><p>victoria</p>
+</li>
+<li><p>asdfgh</p>
+</li>
+<li><p>vagina</p>
+</li>
+<li><p>toyota</p>
+</li>
+<li><p>travis</p>
+</li>
+<li><p>hotdog</p>
+</li>
+<li><p>paris</p>
+</li>
+<li><p>rock</p>
+</li>
+<li><p>xxxx</p>
+</li>
+<li><p>extreme</p>
+</li>
+<li><p>redskins</p>
+</li>
+<li><p>erotic</p>
+</li>
+<li><p>dirty</p>
+</li>
+<li><p>ford</p>
+</li>
+<li><p>freddy</p>
+</li>
+<li><p>arsenal</p>
+</li>
+<li><p>access14</p>
+</li>
+<li><p>wolf</p>
+</li>
+<li><p>nipple</p>
+</li>
+<li><p>iloveyou</p>
+</li>
+<li><p>alex</p>
+</li>
+<li><p>florida</p>
+</li>
+<li><p>eric</p>
+</li>
+<li><p>legend</p>
+</li>
+<li><p>movie</p>
+</li>
+<li><p>success</p>
+</li>
+<li><p>rosebud</p>
+</li>
+<li><p>jaguar</p>
+</li>
+<li><p>great</p>
+</li>
+<li><p>cool</p>
+</li>
+<li><p>cooper</p>
+</li>
+<li><p>1313</p>
+</li>
+<li><p>scorpio</p>
+</li>
+<li><p>mountain</p>
+</li>
+<li><p>madison</p>
+</li>
+<li><p>987654</p>
+</li>
+<li><p>brazil</p>
+</li>
+<li><p>lauren</p>
+</li>
+<li><p>japan</p>
+</li>
+<li><p>naked</p>
+</li>
+<li><p>squirt</p>
+</li>
+<li><p>stars</p>
+</li>
+<li><p>apple</p>
+</li>
+<li><p>alexis</p>
+</li>
+<li><p>aaaa</p>
+</li>
+<li><p>bonnie</p>
+</li>
+<li><p>peaches</p>
+</li>
+<li><p>jasmine</p>
+</li>
+<li><p>kevin</p>
+</li>
+<li><p>matt</p>
+</li>
+<li><p>qwertyui</p>
+</li>
+<li><p>danielle</p>
+</li>
+<li><p>beaver</p>
+</li>
+<li><p>4321</p>
+</li>
+<li><p>4128</p>
+</li>
+<li><p>runner</p>
+</li>
+<li><p>swimming</p>
+</li>
+<li><p>dolphin</p>
+</li>
+<li><p>gordon</p>
+</li>
+<li><p>casper</p>
+</li>
+<li><p>stupid</p>
+</li>
+<li><p>shit</p>
+</li>
+<li><p>saturn</p>
+</li>
+<li><p>gemini</p>
+</li>
+<li><p>apples</p>
+</li>
+<li><p>august</p>
+</li>
+<li><p>3333</p>
+</li>
+<li><p>canada</p>
+</li>
+<li><p>blazer</p>
+</li>
+<li><p>cumming</p>
+</li>
+<li><p>hunting</p>
+</li>
+<li><p>kitty</p>
+</li>
+<li><p>rainbow</p>
+</li>
+<li><p>112233</p>
+</li>
+<li><p>arthur</p>
+</li>
+<li><p>cream</p>
+</li>
+<li><p>calvin</p>
+</li>
+<li><p>shaved</p>
+</li>
+<li><p>surfer</p>
+</li>
+<li><p>samson</p>
+</li>
+<li><p>kelly</p>
+</li>
+<li><p>paul</p>
+</li>
+<li><p>mine</p>
+</li>
+<li><p>king</p>
+</li>
+<li><p>racing</p>
+</li>
+<li><p>5555</p>
+</li>
+<li><p>eagle</p>
+</li>
+<li><p>hentai</p>
+</li>
+<li><p>newyork</p>
+</li>
+<li><p>little</p>
+</li>
+<li><p>redwings</p>
+</li>
+<li><p>smith</p>
+</li>
+<li><p>sticky</p>
+</li>
+<li><p>cocacola</p>
+</li>
+<li><p>animal</p>
+</li>
+<li><p>broncos</p>
+</li>
+<li><p>private</p>
+</li>
+<li><p>skippy</p>
+</li>
+<li><p>marvin</p>
+</li>
+<li><p>blondes</p>
+</li>
+<li><p>enjoy</p>
+</li>
+<li><p>girl</p>
+</li>
+<li><p>apollo</p>
+</li>
+<li><p>parker</p>
+</li>
+<li><p>qwert</p>
+</li>
+<li><p>time</p>
+</li>
+<li><p>sydney</p>
+</li>
+<li><p>women</p>
+</li>
+<li><p>voodoo</p>
+</li>
+<li><p>magnum</p>
+</li>
+<li><p>juice</p>
+</li>
+<li><p>abgrtyu</p>
+</li>
+<li><p>777777</p>
+</li>
+<li><p>dreams</p>
+</li>
+<li><p>maxwell</p>
+</li>
+<li><p>music</p>
+</li>
+<li><p>rush2112</p>
+</li>
+<li><p>russia</p>
+</li>
+<li><p>scorpion</p>
+</li>
+<li><p>rebecca</p>
+</li>
+<li><p>tester</p>
+</li>
+<li><p>mistress</p>
+</li>
+<li><p>phantom</p>
+</li>
+<li><p>billy</p>
+</li>
+<li><p>6666</p>
+</li>
+<li><p>albert</p>
+<blockquote>
+<p><a href="http://www.whatsmypass.com/the-top-500-worst-passwords-of-all-time">the-top-500-worst-passwords</a></p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>password</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>YABS</title>
     <url>/2025/11/10/yabs/</url>
-    <content><![CDATA[<h1 id="TYO"><a href="#TYO" class="headerlink" title="TYO"></a>TYO</h1><h2 id="Geekbench-6"><a href="#Geekbench-6" class="headerlink" title="Geekbench 6"></a>Geekbench 6</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #</span><br><span class="line">#              Yet-Another-Bench-Script              #</span><br><span class="line">#                     v2025-04-20                    #</span><br><span class="line"># https://github.com/masonr/yet-another-bench-script #</span><br><span class="line"># ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #</span><br><span class="line"></span><br><span class="line">Fri Nov  7 15:42:12 UTC 2025</span><br><span class="line"></span><br><span class="line">Basic System Information:</span><br><span class="line">---------------------------------</span><br><span class="line">Uptime     : 76 days, 5 hours, 47 minutes</span><br><span class="line">Processor  : AMD EPYC 7443P 24-Core Processor</span><br><span class="line">CPU cores  : 1 @ 2844.654 MHz</span><br><span class="line">AES-NI     : ✔ Enabled</span><br><span class="line">VM-x/AMD-V : ❌ Disabled</span><br><span class="line">RAM        : 1.7 GiB</span><br><span class="line">Swap       : 1024.0 MiB</span><br><span class="line">Disk       : 58.9 GiB</span><br><span class="line">Distro     : Debian GNU/Linux 13 (trixie)</span><br><span class="line">Kernel     : 6.12.48+deb13-amd64</span><br><span class="line">VM Type    :</span><br><span class="line">IPv4/IPv6  : ✔ Online / ✔ Online</span><br><span class="line"></span><br><span class="line">IPv6 Network Information:</span><br><span class="line">---------------------------------</span><br><span class="line">ISP        : DMIT Cloud Services</span><br><span class="line">ASN        : AS906 DMIT Cloud Services</span><br><span class="line">Host       : DMIT Inc</span><br><span class="line">Location   : Tokyo, Tokyo (13)</span><br><span class="line">Country    : Japan</span><br><span class="line"></span><br><span class="line">fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/vda1):</span><br><span class="line">---------------------------------</span><br><span class="line">Block Size | 4k            (IOPS) | 64k           (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 37.49 MB/s    (9.3k) | 621.22 MB/s   (9.7k)</span><br><span class="line">Write      | 37.58 MB/s    (9.3k) | 624.48 MB/s   (9.7k)</span><br><span class="line">Total      | 75.07 MB/s   (18.7k) | 1.24 GB/s    (19.4k)</span><br><span class="line">           |                      |</span><br><span class="line">Block Size | 512k          (IOPS) | 1m            (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 1.42 GB/s     (2.7k) | 1.61 GB/s     (1.5k)</span><br><span class="line">Write      | 1.50 GB/s     (2.9k) | 1.72 GB/s     (1.6k)</span><br><span class="line">Total      | 2.93 GB/s     (5.7k) | 3.34 GB/s     (3.2k)</span><br><span class="line"></span><br><span class="line">Geekbench 6 Benchmark Test:</span><br><span class="line">---------------------------------</span><br><span class="line">Test            | Value</span><br><span class="line">                |</span><br><span class="line">Single Core     | 1163</span><br><span class="line">Multi Core      | 1146</span><br><span class="line">Full Test       | https://browser.geekbench.com/v6/cpu/14906422</span><br><span class="line"></span><br><span class="line">YABS completed in 11 min 39 sec</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="TYO"><a href="#TYO" class="headerlink" title="TYO"></a>TYO</h1><h2 id="Geekbench-6"><a href="#Geekbench-6" class="headerlink" title="Geekbench 6"></a>Geekbench 6</h2><span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #</span><br><span class="line">#              Yet-Another-Bench-Script              #</span><br><span class="line">#                     v2025-04-20                    #</span><br><span class="line"># https://github.com/masonr/yet-another-bench-script #</span><br><span class="line"># ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #</span><br><span class="line"></span><br><span class="line">Fri Nov  7 15:42:12 UTC 2025</span><br><span class="line"></span><br><span class="line">Basic System Information:</span><br><span class="line">---------------------------------</span><br><span class="line">Uptime     : 76 days, 5 hours, 47 minutes</span><br><span class="line">Processor  : AMD EPYC 7443P 24-Core Processor</span><br><span class="line">CPU cores  : 1 @ 2844.654 MHz</span><br><span class="line">AES-NI     : ✔ Enabled</span><br><span class="line">VM-x/AMD-V : ❌ Disabled</span><br><span class="line">RAM        : 1.7 GiB</span><br><span class="line">Swap       : 1024.0 MiB</span><br><span class="line">Disk       : 58.9 GiB</span><br><span class="line">Distro     : Debian GNU/Linux 13 (trixie)</span><br><span class="line">Kernel     : 6.12.48+deb13-amd64</span><br><span class="line">VM Type    :</span><br><span class="line">IPv4/IPv6  : ✔ Online / ✔ Online</span><br><span class="line"></span><br><span class="line">IPv6 Network Information:</span><br><span class="line">---------------------------------</span><br><span class="line">ISP        : DMIT Cloud Services</span><br><span class="line">ASN        : AS906 DMIT Cloud Services</span><br><span class="line">Host       : DMIT Inc</span><br><span class="line">Location   : Tokyo, Tokyo (13)</span><br><span class="line">Country    : Japan</span><br><span class="line"></span><br><span class="line">fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/vda1):</span><br><span class="line">---------------------------------</span><br><span class="line">Block Size | 4k            (IOPS) | 64k           (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 37.49 MB/s    (9.3k) | 621.22 MB/s   (9.7k)</span><br><span class="line">Write      | 37.58 MB/s    (9.3k) | 624.48 MB/s   (9.7k)</span><br><span class="line">Total      | 75.07 MB/s   (18.7k) | 1.24 GB/s    (19.4k)</span><br><span class="line">           |                      |</span><br><span class="line">Block Size | 512k          (IOPS) | 1m            (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 1.42 GB/s     (2.7k) | 1.61 GB/s     (1.5k)</span><br><span class="line">Write      | 1.50 GB/s     (2.9k) | 1.72 GB/s     (1.6k)</span><br><span class="line">Total      | 2.93 GB/s     (5.7k) | 3.34 GB/s     (3.2k)</span><br><span class="line"></span><br><span class="line">Geekbench 6 Benchmark Test:</span><br><span class="line">---------------------------------</span><br><span class="line">Test            | Value</span><br><span class="line">                |</span><br><span class="line">Single Core     | 1163</span><br><span class="line">Multi Core      | 1146</span><br><span class="line">Full Test       | https://browser.geekbench.com/v6/cpu/14906422</span><br><span class="line"></span><br><span class="line">YABS completed in 11 min 39 sec</span><br></pre></td></tr></table></figure>
 
 <h1 id="Mailbu"><a href="#Mailbu" class="headerlink" title="Mailbu"></a>Mailbu</h1><h2 id="Geekbench-6-1"><a href="#Geekbench-6-1" class="headerlink" title="Geekbench 6"></a>Geekbench 6</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #</span><br><span class="line">#              Yet-Another-Bench-Script              #</span><br><span class="line">#                     v2025-04-20                    #</span><br><span class="line"># https://github.com/masonr/yet-another-bench-script #</span><br><span class="line"># ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #</span><br><span class="line"></span><br><span class="line">Sat Nov  8 02:33:31 UTC 2025</span><br><span class="line"></span><br><span class="line">Basic System Information:</span><br><span class="line">---------------------------------</span><br><span class="line">Uptime     : 184 days, 21 hours, 44 minutes</span><br><span class="line">Processor  : AMD EPYC 9654 96-Core Processor</span><br><span class="line">CPU cores  : 1 @ 2396.400 MHz</span><br><span class="line">AES-NI     : ✔ Enabled</span><br><span class="line">VM-x/AMD-V : ❌ Disabled</span><br><span class="line">RAM        : 766.1 MiB</span><br><span class="line">Swap       : 1024.0 MiB</span><br><span class="line">Disk       : 19.6 GiB</span><br><span class="line">Distro     : Debian GNU/Linux 13 (trixie)</span><br><span class="line">Kernel     : 6.12.48+deb13-amd64</span><br><span class="line">VM Type    :</span><br><span class="line">IPv4/IPv6  : ✔ Online / ✔ Online</span><br><span class="line"></span><br><span class="line">IPv6 Network Information:</span><br><span class="line">---------------------------------</span><br><span class="line">ISP        : DMIT Cloud Services</span><br><span class="line">ASN        : AS906 DMIT Cloud Services</span><br><span class="line">Host       : DMIT Cloud Services</span><br><span class="line">Location   : Los Angeles, California (CA)</span><br><span class="line">Country    : United States</span><br><span class="line"></span><br><span class="line">fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/vda1):</span><br><span class="line">---------------------------------</span><br><span class="line">Block Size | 4k            (IOPS) | 64k           (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 62.55 MB/s   (15.6k) | 1.06 GB/s    (16.6k)</span><br><span class="line">Write      | 62.66 MB/s   (15.6k) | 1.07 GB/s    (16.7k)</span><br><span class="line">Total      | 125.22 MB/s  (31.3k) | 2.13 GB/s    (33.3k)</span><br><span class="line">           |                      |</span><br><span class="line">Block Size | 512k          (IOPS) | 1m            (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 1.02 GB/s     (1.9k) | 915.04 MB/s    (893)</span><br><span class="line">Write      | 1.07 GB/s     (2.1k) | 975.98 MB/s    (953)</span><br><span class="line">Total      | 2.10 GB/s     (4.1k) | 1.89 GB/s     (1.8k)</span><br><span class="line"></span><br><span class="line">Geekbench 6 Benchmark Test:</span><br><span class="line">---------------------------------</span><br><span class="line">Test            | Value</span><br><span class="line">                |</span><br><span class="line">Single Core     | 1124</span><br><span class="line">Multi Core      | 490</span><br><span class="line">Full Test       | https://browser.geekbench.com/v6/cpu/14915568</span><br><span class="line"></span><br><span class="line">YABS completed in 27 min 42 sec</span><br></pre></td></tr></table></figure>
 
