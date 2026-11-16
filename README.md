@@ -19,7 +19,7 @@ npm run server
 ## Makefile
 
 - `make run`：启动 Node LTS 容器，把当前目录挂载到 `/data`。
-- `make backup`：把工作区完整打包到 `~/hexo.tar`。
+- `make backup`：把源码、配置和 `.git` 历史打包到 `~/hexo.tar`，排除依赖、构建产物和本地缓存。
 
 ## 构建
 
@@ -48,8 +48,25 @@ cp -a /tmp/blog-build/public/. /data/public/
 
 ```bash
 make backup
-# 等价于
-tar -cvf ~/hexo.tar -C /data .
+```
+
+等价命令：
+
+```bash
+tar -cvf ~/hexo.tar \
+  --exclude=node_modules --exclude=.npm --exclude=public \
+  --exclude=db.json --exclude=.bash_history --exclude=.lesshst \
+  --exclude=.viminfo --exclude='*.log' --exclude=.DS_Store \
+  --exclude=Thumbs.db --exclude='.deploy*' --exclude=_multiconfig.yml \
+  -C /data .
+```
+
+`hexo.tar` 包含源码、配置、Makefile、README 和 `.git` 历史；不包含 `public/`、`node_modules/`、`.npm/`、`db.json` 和 shell 历史。`public/` 的部署历史仍在 `public/.git` 的远端。
+
+需要完整快照（含 `public/.git`、依赖和缓存）时：
+
+```bash
+tar -cvf ~/hexo-full.tar -C /data .
 ```
 
 恢复前先停止 Hexo server，恢复会覆盖 `/data` 现有文件：
@@ -58,12 +75,11 @@ tar -cvf ~/hexo.tar -C /data .
 tar -xvf ~/hexo.tar -C /data
 ```
 
-`hexo.tar` 是完整快照，包含 `public/.git`、`node_modules`、`.npm` 等本地产物。只备份源码时：
+恢复后重新安装依赖并生成站点：
 
 ```bash
-tar -cvf ~/hexo-source.tar \
-  --exclude=node_modules --exclude=public --exclude=.npm --exclude=db.json \
-  -C /data .
+npm ci
+npm run build
 ```
 
 ## 部署
